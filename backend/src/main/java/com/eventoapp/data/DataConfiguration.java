@@ -1,4 +1,4 @@
-package com.eventoapp.eventoapp.data;
+package com.eventoapp.data;
 
 import org.springframework.context.annotation.Configuration;
 
