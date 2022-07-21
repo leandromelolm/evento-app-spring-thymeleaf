@@ -1,42 +1,36 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	<head>
-		<!--Import Google Icon Font-->
-    	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-      	<!--Import materialize.css-->
-      	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
-      	<!--Let browser know website is optimized for mobile-->
-      	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-		<title>EventoApp</title>
-	</head>
-	<body>
-				
+<head th:replace="fragments :: html_head" />
+
+<body>
+	<div class="container">
 		<a href="/" class="waves-effect waves-light btn"><i class="material-icons left">home</i>Página Inicial</a>
-		<a href="/cadastrarEvento" class="waves-effect waves-light btn"><i class="material-icons left">add_box</i>Cadastrar Evento</a>
-		
+		<a href="/cadastrarEvento" class="waves-effect waves-light btn"><i
+				class="material-icons left">add_box</i>Cadastrar Evento</a>
+
 		<h3>Lista de Eventos</h3>
-		<table>
+		<table class="container">
 			<thead>
 				<tr>
 					<th>Nome</th>
 					<th>Local</th>
 					<th>Data</th>
 					<th>Horario</th>
-				</tr>			
+				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="evento : ${eventos}">
-				<td><span th:text="${evento.nome}"></span></td>
-				<td><span th:text="${evento.local}"></span></td>
-				<td><span th:text="${evento.data}"></span></td>
-				<td><span th:text="${evento.horario}"></span></td>
+					<td><span th:text="${evento.nome}"></span></td>
+					<td><span th:text="${evento.local}"></span></td>
+					<td><span th:text="${evento.data}"></span></td>
+					<td><span th:text="${evento.horario}"></span></td>
 				</tr>
 			</tbody>
-		</table>		
-		
-		<!--JavaScript at end of body for optimized loading-->
-      	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>		
-	</body>
+		</table>
+	</div>
+	<!--JavaScript at end of body for optimized loading-->
+	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+</body>
+
 </html>
