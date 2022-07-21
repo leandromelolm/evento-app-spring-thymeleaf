@@ -17,7 +17,16 @@
 				<p><span th:text="${evento.horario}"></span></p>
 			</div>			
 		</div>
+		<form method="POST" class="container">
+			Nome: <input type=text value="" name="nomeParticipante"/>
+			Email: <input type=text value="" name="email"/>
+			CPF: <input type=text value="" name="CPF"/>
+			Data Nascimento: <input type="date" value="" name="dataNascimento"/>
+			<button class="waves-effect waves-light btn" type="submit">Adicionar</button>
+		</form>
+		
 	</div>
+	
 
 	<!--JavaScript at end of body for optimized loading-->
 	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
