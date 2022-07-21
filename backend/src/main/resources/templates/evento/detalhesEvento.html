@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="fragments :: html_head"/>
+
+<body>
+	<div class="container">	
+		<a href="/eventos" class="waves-effect waves-light btn"><i class="material-icons left">list</i>Lista de Eventos</a>
+		<a href="/cadastrarEvento" class="waves-effect waves-light btn"> <i class="material-icons left">add_box</i> Cadastrar Evento</a>
+
+		<h3>Detalhes Evento</h3>
+		<div th:each="evento : ${evento}" class="container">
+			<div class="row">
+				<p><span th:text="${evento.nome}"></span></p>
+				<p><span th:text="${evento.local}"></span></p>
+				<p><span th:text="${evento.data}"></span></p>
+				<p><span th:text="${evento.horario}"></span></p>
+			</div>			
+		</div>
+	</div>
+
+	<!--JavaScript at end of body for optimized loading-->
+	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+</body>
+
+</html>
