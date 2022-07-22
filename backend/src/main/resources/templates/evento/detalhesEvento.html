@@ -20,16 +20,22 @@
 		<form method="POST" class="container">
 			Nome: <input type=text value="" name="nomeParticipante"/>
 			Email: <input type=text value="" name="email"/>
-			CPF: <input type=text value="" name="CPF"/>
+			CPF: <input type=text value="" name="CPF" id="cpf" placeholder="000.000.000-00"/>
 			Data Nascimento: <input type="date" value="" name="dataNascimento"/>
 			<button class="waves-effect waves-light btn" type="submit">Adicionar</button>
 		</form>
 		
 	</div>
-	
-
 	<!--JavaScript at end of body for optimized loading-->
 	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+	
+	<script type="text/javascript">
+    	$(document).ready(function(){
+    		$('#telefone').mask('(00) 0000-0000');
+    		$('#cpf').mask('000.000.000-00');
+    	});
+	</script>	
+	
 </body>
 
 </html>
