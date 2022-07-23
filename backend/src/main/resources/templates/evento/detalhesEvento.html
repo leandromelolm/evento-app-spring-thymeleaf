@@ -20,7 +20,8 @@
 		<form method="POST" class="container">
 			Nome: <input type=text value="" name="nomeParticipante"/>
 			Email: <input type=text value="" name="email"/>
-			CPF: <input type=text value="" name="CPF" id="cpf" placeholder="000.000.000-00"/>
+			CPF: <input type=text value="" name="CPF"  onkeypress="$(this).mask('000.000.000-00');" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" placeholder="000.000.000-00"/>
+			Telefone: <input type="tel" value="" name="telefone" id="telefoneCelular" placeholder="(81) 0 0000-0000"/>
 			Data Nascimento: <input type="date" value="" name="dataNascimento"/>
 			<button class="waves-effect waves-light btn" type="submit">Adicionar</button>
 		</form>
@@ -31,7 +32,7 @@
 	
 	<script type="text/javascript">
     	$(document).ready(function(){
-    		$('#telefone').mask('(00) 0000-0000');
+    		$('#telefoneCelular').mask('(00) 0 0000-0000');
     		$('#cpf').mask('000.000.000-00');
     	});
 	</script>	
