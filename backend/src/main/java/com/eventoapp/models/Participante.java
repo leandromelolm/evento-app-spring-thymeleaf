@@ -2,12 +2,15 @@ package com.eventoapp.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -27,6 +30,9 @@ public class Participante implements Serializable{
 	private Date dataNascimento;
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
 	private Date dataCadastro;
+	
+	@OneToMany(mappedBy = "participante", orphanRemoval = true, fetch = FetchType.EAGER)
+	private List<Telefone> telefones;	
 	
 	@ManyToOne
 	private Evento evento;
@@ -72,6 +78,12 @@ public class Participante implements Serializable{
 	}
 	public void setEvento(Evento evento) {
 		this.evento = evento;
+	}
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
 	}
 	
 }
