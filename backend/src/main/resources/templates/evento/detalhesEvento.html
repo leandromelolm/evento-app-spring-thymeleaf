@@ -25,7 +25,41 @@
 			Data Nascimento: <input type="date" value="" name="dataNascimento"/>
 			<button class="waves-effect waves-light btn" type="submit">Adicionar</button>
 		</form>
-		
+		<div>
+			<h5>Lista de Convidados</h5>
+			<div class="container">
+				<div class="row">
+					<div class="input-field col s4">
+						<p><span style="font-weight: bold;" th:text="nomeParticipante"></span></p>
+					</div>
+					<div class="input-field col s3">
+						<p><span style="font-weight: bold;" th:text="email"></span></p>		
+					</div>
+					<div class="input-field col s3">
+						<p><span style="font-weight: bold;" th:text="CPF"></span></p>		
+					</div>
+					<div class="input-field col s2">
+						<p><span style="font-weight: bold;" th:text="dataNascimento"></span></p>		
+					</div>
+				</div>
+			</div>		
+			<div class="container" th:each="participante : ${participantes}">
+				<div class="row">
+					<div class="input-field col s4">
+						<p><span th:text="${participante.nomeParticipante}" ></span></p>
+					</div>
+					<div class="input-field col s3">
+						<p><span th:text="${participante.email}" ></span></p>		
+					</div>
+					<div class="input-field col s3">
+						<p><span th:text="${participante.CPF}" ></span></p>		
+					</div>
+					<div class="input-field col s2">
+						<p><span th:text="${#calendars.format(participante.dataNascimento, 'dd/MM/yyyy')}"></span></p>		
+					</div>			
+				</div>
+			</div>
+		</div>
 	</div>
 	<!--JavaScript at end of body for optimized loading-->
 	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
