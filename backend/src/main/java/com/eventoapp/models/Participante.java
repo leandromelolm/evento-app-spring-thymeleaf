@@ -11,8 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Participante implements Serializable{
@@ -26,9 +28,12 @@ public class Participante implements Serializable{
 	private String nomeParticipante;
 	private String email;
 	private String CPF;
-	@JsonFormat(pattern="dd/MM/yyyy")
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss") 
 	private Date dataCadastro;
 	
 	@OneToMany(mappedBy = "participante", orphanRemoval = true, fetch = FetchType.EAGER)
