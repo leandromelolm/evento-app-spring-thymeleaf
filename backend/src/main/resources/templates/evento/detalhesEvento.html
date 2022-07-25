@@ -76,11 +76,14 @@
 					<div class="input-field col s3">
 						<p><span style="font-weight: bold;">Email</span></p>		
 					</div>
-					<div class="input-field col s3">
+					<div class="input-field col s2">
 						<p><span style="font-weight: bold;">CPF</span></p>		
 					</div>
 					<div class="input-field col s2">
 						<p><span style="font-weight: bold;">Data Nascimento</span></p>		
+					</div>
+					<div class="input-field col s1">
+						<p><span style="font-weight: bold;">Deletar</span></p>		
 					</div>
 				</div>
 			</div>		
@@ -92,11 +95,16 @@
 					<div class="input-field col s3">
 						<p><span th:text="${participante.email}" ></span></p>		
 					</div>
-					<div class="input-field col s3">
+					<div class="input-field col s2">
 						<p><span th:text="${participante.CPF}" ></span></p>		
 					</div>
-					<div class="input-field col s2" style="text-align:end;">
+					<div class="input-field col s2">
 						<p><span th:text="${#calendars.format(participante.dataNascimento, 'dd/MM/yyyy')}"></span></p>		
+					</div>
+					<div class="input-field col s1">
+						<a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('EC#deletarParticipante').arg(0, participante.idParticipante)).build()}"> 
+							<i class="material-icons">delete_forever</i> 
+						</a>	
 					</div>			
 				</div>
 			</div>

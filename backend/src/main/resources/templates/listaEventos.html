@@ -26,7 +26,10 @@
 					<td><span th:text="${evento.local}"></span></td>
 					<td><span th:text="${evento.data}"></span></td>
 					<td><span th:text="${evento.horario}"></span></td>
-					<td> <a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"><i class="material-icons">delete_forever</i></a></td>
+					<td> <a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"> 
+							<i class="material-icons">delete_forever</i> 
+						</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>
