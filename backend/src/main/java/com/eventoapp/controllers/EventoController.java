@@ -42,6 +42,11 @@ public class EventoController {
 		return "evento/formEvento";
 	}
 	
+	@RequestMapping(value="/teste", method=RequestMethod.GET)
+	public String test() {
+		return "/testPage";
+	}
+	
 	@RequestMapping(value="/cadastrarEvento", method=RequestMethod.POST)
 	public String form(Evento evento) {		
 		er.save(evento);		
@@ -68,7 +73,7 @@ public class EventoController {
 	}
 	
 	@RequestMapping(value="/{codigo}", method = RequestMethod.POST)
-	public String detalhesEventoPost(@PathVariable("codigo") long codigo, @Valid Participante participante, BindingResult result, @Valid String telefone, RedirectAttributes attributes){		
+	public String salvarParticipante(@PathVariable("codigo") long codigo, @Valid Participante participante, BindingResult result, @Valid String telefone, RedirectAttributes attributes){		
 		
 		System.out.println("ErroQuant__ "+ result.getErrorCount());
 		System.out.println("ErrorBolean__ "+ result.hasErrors());

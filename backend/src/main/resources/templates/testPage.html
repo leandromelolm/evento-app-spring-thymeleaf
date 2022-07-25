@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments :: html_head"/>
+<body>
+	<div class="container">
+	
+		<a href="/eventos" class="waves-effect waves-light btn"><i class="material-icons left">list</i>Lista de Eventos</a>
+		<a href="/cadastrarEvento" class="waves-effect waves-light btn"> <i class="material-icons left">add_box</i>Cadastrar Evento</a>
+		<a href="/teste" class="waves-effect waves-light btn"> <i class="material-icons left">title</i>Página Teste</a>
+
+		<h5>Página Teste</h5>
+	
+	
+		<div class="input-field">
+            <input type=text name="cdate" id="cdate" class="datepicker">
+            <label for="cdate">Teste Calendario</label>
+        </div>
+        <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+	</div>	
+	
+	<script type="text/javascript">
+	    	
+    	var currYear = (new Date()).getFullYear();
+
+		$(document).ready(function() {
+  			$(".datepicker").datepicker({
+    			defaultDate: new Date(currYear-5,1,31),
+    			// setDefaultDate: new Date(2000,01,31),
+    			maxDate: new Date(currYear-5,12,31),    			
+    			format: "dd/mm/yyyy",
+    			autoClose:true,
+    			showDaysInNextAndPreviousMonths:true    
+  			});
+		});    	 
+	</script>
+	
+</body>
+</html>
