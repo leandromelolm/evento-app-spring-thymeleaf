@@ -9,6 +9,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -58,6 +59,15 @@ public class EventoController {
 		ModelAndView mv = new ModelAndView("listaEventos");
 		Iterable<Evento> eventos = er.findAll(); 
 		mv.addObject("eventos", eventos);
+		return mv;
+	}
+	
+	@RequestMapping(value="/participantes")
+	public ModelAndView listarTodosParticipantes() {
+		ModelAndView mv = new ModelAndView("listaParticipantes");
+//		Iterable<Participante> participantes = pr.findAll(); 
+		List<Participante> participantes = pr.findAllParticipantes(Sort.by("nomeParticipante"));
+		mv.addObject("participantes", participantes);
 		return mv;
 	}
 	

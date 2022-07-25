@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ public class Evento implements Serializable{
 	private String data;
 	private String horario;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "evento", orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Participante> participantes;
 	
 	public long getCodigo() {
