@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Telefone {
@@ -16,7 +17,11 @@ public class Telefone {
 	private Long idTelefone;
 	
 	private String tipo;
+	
+	@NotEmpty
 	private String ddd;
+	
+	@NotEmpty (message = "Campo Número de telefone não pode está vazio")
 	private String numero;
 	
 	@JoinColumn(name= "id_participante")

@@ -13,7 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+//import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -25,10 +30,16 @@ public class Participante implements Serializable{
 	@GeneratedValue(strategy= GenerationType.AUTO)	
 	private long idParticipante;
 	
+	@NotEmpty (message = "O campo Nome não pode ser vazio")	
+	@Size(min=5, max=40, message="O campo nome deve ter entre 5 e 40 caracteres")
 	private String nomeParticipante;
+	
+	@NotBlank (message = "O campo Email não pode estar em branco")
 	private String email;
+	
 	private String CPF;
 	
+	@NotNull (message = "O campo Data de Nascimento não pode ser nulo")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;

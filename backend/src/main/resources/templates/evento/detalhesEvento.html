@@ -17,7 +17,11 @@
 				<p><span th:text="${evento.horario}"></span></p>
 			</div>			
 		</div>
-		<form method="POST" class="container">
+		
+		<form method="post" class="container">
+		
+		<th:block th:include="mensagemValidacao"></th:block>		
+		<br/>			
 			Nome: <input type=text value="" name="nomeParticipante"/>
 			Email: <input type=text value="" name="email"/>
 			CPF: <input type=text value="" name="CPF"  onkeypress="$(this).mask('000.000.000-00');" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" placeholder="000.000.000-00"/>
