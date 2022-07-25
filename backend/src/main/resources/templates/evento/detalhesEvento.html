@@ -9,20 +9,37 @@
 		<a href="/cadastrarEvento" class="waves-effect waves-light btn"> <i class="material-icons left">add_box</i> Cadastrar Evento</a>
 
 		<h5>Detalhes Evento</h5>
-		<div th:each="evento : ${evento}" class="container">
+		<div th:each="evento : ${evento}">
 			<div class="row">
-				<p><span th:text="${evento.nome}"></span></p>
-				<p><span th:text="${evento.local}"></span></p>
-				<p><span th:text="${evento.data}"></span></p>
-				<p><span th:text="${evento.horario}"></span></p>
-			</div>			
+			<div class="row">
+				<div class="input-field col s12 m3">
+					<label>Nome</label>
+					<span th:text="${evento.nome}"></span>
+				</div>				
+				<div class="input-field col s12 m2" >
+					<label>Local</label>
+					<span th:text="${evento.local}"></span>					
+				</div>
+				<div class="input-field col s12 m2">
+					<label>Data do Evento</label>
+					<span th:text="${evento.data}"></span>
+				</div>
+				<div class="input-field col s12 m2">
+				<label>Horário do Evento</label>
+				<span th:text="${evento.horario}"></span>
+				</div>
+				
+				<div class="input-field col s12 m3" style="text-align:end;">							
+				</div>
+				
+			</div>
 		</div>
 		
-		<form method="post">
+		<h5>Fomulário de Cadastro</h5>
 		
-		<th:block th:include="mensagemValidacao"></th:block>		
-		<br/>
-				
+		<form method="post">		
+			<th:block th:include="mensagemValidacao"></th:block>		
+			<br/>				
 			<div class="row">	
 				<div class="input-field col s12 m6">		
 					Nome: <input type=text value="" name="nomeParticipante" placeholder="Nome Completo"/>
