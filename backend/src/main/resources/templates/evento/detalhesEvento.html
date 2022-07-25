@@ -8,7 +8,7 @@
 		<a href="/eventos" class="waves-effect waves-light btn"><i class="material-icons left">list</i>Lista de Eventos</a>
 		<a href="/cadastrarEvento" class="waves-effect waves-light btn"> <i class="material-icons left">add_box</i> Cadastrar Evento</a>
 
-		<h3>Detalhes Evento</h3>
+		<h5>Detalhes Evento</h5>
 		<div th:each="evento : ${evento}" class="container">
 			<div class="row">
 				<p><span th:text="${evento.nome}"></span></p>
@@ -18,36 +18,56 @@
 			</div>			
 		</div>
 		
-		<form method="post" class="container">
+		<form method="post">
 		
 		<th:block th:include="mensagemValidacao"></th:block>		
-		<br/>			
-			Nome: <input type=text value="" name="nomeParticipante"/>
-			Email: <input type=text value="" name="email"/>
-			CPF: <input type=text value="" name="CPF"  onkeypress="$(this).mask('000.000.000-00');" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" placeholder="000.000.000-00"/>
-			Telefone: <input type="tel" value="" name="telefone" id="telefoneCelular" placeholder="(81) 0 0000-0000"/>
-			Data Nascimento: <input type="date" value="" name="dataNascimento"/>
-			<button class="waves-effect waves-light btn" type="submit">Adicionar</button>
+		<br/>
+				
+			<div class="row">	
+				<div class="input-field col s12 m6">		
+					Nome: <input type=text value="" name="nomeParticipante" placeholder="Nome Completo"/>
+				</div>
+				<div class="input-field col s12 m6">
+					Email: <input type=text value="" name="email" placeholder="Email"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12 m4">
+					CPF: <input type=text value="" name="CPF"  onkeypress="$(this).mask('000.000.000-00');" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" placeholder="000.000.000-00"/>
+				</div>
+				<div class="input-field col s12 m4">
+					Telefone: <input type="tel" value="" name="telefone" id="telefoneCelular" placeholder="(00) 0 0000-0000"/>
+				</div>
+				<div class="input-field col s12 m4">
+					Data Nascimento: <input type="date" value="" name="dataNascimento"/>
+				</div>
+			</div>
+			<div class="row">
+				<button class="waves-effect waves-light btn" type="submit">Adicionar</button>
+			</div>			
 		</form>
-		<div>
+		
+		<br/>
+		
+		<div>			
+			<div>
 			<h5>Lista de Convidados</h5>
-			<div class="container">
 				<div class="row">
 					<div class="input-field col s4">
-						<p><span style="font-weight: bold;" th:text="nomeParticipante"></span></p>
+						<p><span style="font-weight: bold;"> Nome Participante</span></p>
 					</div>
 					<div class="input-field col s3">
-						<p><span style="font-weight: bold;" th:text="email"></span></p>		
+						<p><span style="font-weight: bold;">Email</span></p>		
 					</div>
 					<div class="input-field col s3">
-						<p><span style="font-weight: bold;" th:text="CPF"></span></p>		
+						<p><span style="font-weight: bold;">CPF</span></p>		
 					</div>
 					<div class="input-field col s2">
-						<p><span style="font-weight: bold;" th:text="dataNascimento"></span></p>		
+						<p><span style="font-weight: bold;">Data Nascimento</span></p>		
 					</div>
 				</div>
 			</div>		
-			<div class="container" th:each="participante : ${participantes}">
+			<div th:each="participante : ${participantes}">
 				<div class="row">
 					<div class="input-field col s4">
 						<p><span th:text="${participante.nomeParticipante}" ></span></p>
@@ -58,7 +78,7 @@
 					<div class="input-field col s3">
 						<p><span th:text="${participante.CPF}" ></span></p>		
 					</div>
-					<div class="input-field col s2">
+					<div class="input-field col s2" style="text-align:end;">
 						<p><span th:text="${#calendars.format(participante.dataNascimento, 'dd/MM/yyyy')}"></span></p>		
 					</div>			
 				</div>
