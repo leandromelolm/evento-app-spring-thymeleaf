@@ -72,6 +72,13 @@ public class EventoController {
 		return mv;
 	}
 	
+	@RequestMapping("/deletar")
+	public String deletarEvento(long codigo) {
+		Evento evento = er.findByCodigo(codigo);
+		er.delete(evento);
+		return "redirect:/eventos";
+	}
+	
 	@RequestMapping(value="/{codigo}", method = RequestMethod.POST)
 	public String salvarParticipante(@PathVariable("codigo") long codigo, @Valid Participante participante, BindingResult result, @Valid String telefone, RedirectAttributes attributes){		
 		
