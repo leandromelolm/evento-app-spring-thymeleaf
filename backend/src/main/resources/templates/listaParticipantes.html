@@ -10,7 +10,7 @@
 		<a href="/teste" class="waves-effect waves-light btn"><i class="material-icons left">title</i>Página Teste</a>
 
 		<h5>Lista de Participantes</h5>
-		<table>
+		<table class="responsive-table">
 			<thead>
 				<tr>
 					<th>Nome</th>
@@ -19,6 +19,7 @@
 					<th>ID</th>
 					<th>DataCadastro</th>
 					<th>Cod Evento</th>
+					<th>Nome Evento</th>
 					<th>Deletar</th>
 				</tr>
 			</thead>
@@ -29,7 +30,8 @@
 					<td><span th:text="${participante.CPF}"></span></td>
 					<td><span th:text="${participante.idParticipante}"></span></td>
 					<td><span th:text="${participante.dataCadastro}"></span></td>
-					<td><span th:text="${participante.evento.codigo}"></span></td>
+					<td> <a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, participante.evento.codigo)).build()}"> <span th:text="${participante.evento.codigo}"></span></a></td>
+					<td> <a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, participante.evento.codigo)).build()}"><span th:text="${participante.evento.nome}"></span></a></td>
 					<td> <a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('EC#deletarParticipante').arg(0, participante.idParticipante)).build()}"> 
 							<i class="material-icons">delete_forever</i> 
 						</a>
