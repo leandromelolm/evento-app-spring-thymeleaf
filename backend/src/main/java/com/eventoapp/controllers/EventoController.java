@@ -131,4 +131,11 @@ public class EventoController {
 		return "redirect:/"+ Long.toString(evento.getCodigo());
 	}
 	
+	@RequestMapping("/deletarParticipantePageParticipantes")
+	public String deletarParticipantePageParticipantes(long codigo) {
+		Participante participante = pr.findByIdParticipante(codigo);
+		pr.delete(participante);
+		return "redirect:/participantes";
+	}
+	
 }
