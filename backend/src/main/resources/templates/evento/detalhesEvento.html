@@ -7,20 +7,13 @@
 	<div class="container">
 		<a href="/eventos" class="waves-effect waves-light btn"><i class="material-icons left">list</i>Lista de	Eventos</a>
 		<a href="/cadastrarEvento" class="waves-effect waves-light btn"> <i class="material-icons left">add_box</i>	Cadastrar Evento</a>
-
-		<div class="card">
-			<div class="card-tabs">
-				<ul class="tabs tabs-fixed-width">
-					<li class="tab"><a href="#DetalhesEvento">Detalhes</a></li>
-					<li class="tab"><a class="active" href="#FormularioCadastro">Formulario</a></li>
-					<li class="tab"><a href="#listaParticipantes">Lista de Participantes</a></li>
-				</ul>
-			</div>
-			<div class="card-content grey lighten-4">	
 		
-				<div id="DetalhesEvento">
-					<h5>Detalhes Evento</h5>
-					
+		<div class="card">
+			<div class="card-tabs">				
+				<span>DETALHES EVENTO</span>
+			</div>
+			<div class="card-content grey lighten-4">		
+				<div id="DetalhesEvento">		
 					<div th:each="evento : ${evento}">
 						<table class="responsive-table">
 							<thead>
@@ -41,86 +34,91 @@
 							</tbody>
 						</table>
 					</div>
-		
-					<br />
-		
-					<div id="FormularioCadastro">
-						<h5>Fomulário de Cadastro</h5>
-		
-						<form method="post">
-							<th:block th:include="mensagemValidacao"></th:block>
-							<br />
-							<div class="row">
-								<div class="input-field col s12 m6">
-									<input type=text value="" name="nomeParticipante" required="true" />
-									<label for="nomeParticipante">Nome</label>
-								</div>
-								<div class="input-field col s12 m6">
-									<input type=text value="" name="email" required="true" />
-									<label for="email">Email</label>
-								</div>
-							</div>
-							<div class="row">
-								<div class="input-field col s12 m4">
-									<input type=text value="" name="CPF" onkeypress="$(this).mask('000.000.000-00');"
-										pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" required="true" />
-									<label>CPF</label>
-								</div>
-								<div class="input-field col s12 m4">
-									<input type="tel" value="" name="telefone" id="telefoneCelular" />
-									<label>Telefone Celular</label>
-								</div>
-								<div class="input-field col s12 m4">
-									<input type="date" value="" name="dataNascimento" />
-									<label>Data de Nascimento</label>
-								</div>
-							</div>
-							<div class="row">
-								<button class="waves-effect waves-light btn" type="submit">Adicionar</button>
-							</div>
-						</form>
-					</div>
-					
-					<br />
-					
-					<div id="listaParticipantes">
-						<h5>Lista de Participantes</h5>
-		
-						<table class="responsive-table">
-							<thead>
-								<tr>
-									<th>Nome Participante</th>
-									<th>Email</th>
-									<th>CPF</th>
-									<th>ID</th>
-									<th>Data Nascimento</th>
-									<th>DataCadastro</th>
-									<th>Deletar</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="participante : ${participantes}">
-									<td><span th:text="${participante.nomeParticipante}"></span></td>
-									<td><span th:text="${participante.email}"></span></td>
-									<td><span th:text="${participante.CPF}"></span></td>
-									<td><span th:text="${participante.idParticipante}"></span></td>
-									<td><span th:text="${#calendars.format(participante.dataNascimento, 'dd/MM/yyyy')}"></span>
-									</td>
-									<td><span th:text="${#calendars.format(participante.dataCadastro, 'dd/MM/yyyy')}"></span>
-									</td>
-									<td>
-										<a class="waves-effect waves-light btn-small"
-											th:href="${(#mvc.url('EC#deletarParticipante').arg(0, participante.idParticipante)).build()}">
-											<i class="material-icons">delete_forever</i>
-										</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
 				</div>
 			</div>
+		</div>
+
+		<div class="card">
+			<div class="card-tabs">
+				<span>LISTA DE PARTICIPANTES</span>
+			</div>
+			<div class="card-content grey lighten-4">		
+				<div id="FormularioCadastro">
+					<form method="post">
+						<th:block th:include="mensagemValidacao"></th:block>
+						<br />
+						<div class="row">
+							<div class="input-field col s12 m6">
+								<input type=text value="" name="nomeParticipante" required="true" />
+								<label for="nomeParticipante">Nome</label>
+							</div>
+							<div class="input-field col s12 m6">
+								<input type=text value="" name="email" required="true" />
+								<label for="email">Email</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12 m4">
+								<input type=text value="" name="CPF" onkeypress="$(this).mask('000.000.000-00');"
+									pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" required="true" />
+								<label>CPF</label>
+							</div>
+							<div class="input-field col s12 m4">
+								<input type="tel" value="" name="telefone" id="telefoneCelular" />
+								<label>Telefone Celular</label>
+							</div>
+							<div class="input-field col s12 m4">
+								<input type="date" value="" name="dataNascimento" />
+								<label>Data de Nascimento</label>
+							</div>
+						</div>
+						<div class="row">
+							<button class="waves-effect waves-light btn" type="submit">Adicionar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 		
+		<div class="card">
+			<div class="card-tabs">
+				<span>FORMULÁRIO CADASTRO DE PARTICIPANTE</span>
+			</div>
+			<div class="card-content grey lighten-4">
+				<div id="listaParticipantes">
+					<table class="responsive-table">
+						<thead>
+							<tr>
+								<th>Nome Participante</th>
+								<th>Email</th>
+								<th>CPF</th>
+								<th>ID</th>
+								<th>Data Nascimento</th>
+								<th>DataCadastro</th>
+								<th>Deletar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="participante : ${participantes}">
+								<td><span th:text="${participante.nomeParticipante}"></span></td>
+								<td><span th:text="${participante.email}"></span></td>
+								<td><span th:text="${participante.CPF}"></span></td>
+								<td><span th:text="${participante.idParticipante}"></span></td>
+								<td><span th:text="${#calendars.format(participante.dataNascimento, 'dd/MM/yyyy')}"></span>
+								</td>
+								<td><span th:text="${#calendars.format(participante.dataCadastro, 'dd/MM/yyyy')}"></span>
+								</td>
+								<td>
+									<a class="waves-effect waves-light btn-small"
+										th:href="${(#mvc.url('EC#deletarParticipante').arg(0, participante.idParticipante)).build()}">
+										<i class="material-icons">delete_forever</i>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	
 	<!--JavaScript at end of body for optimized loading-->
