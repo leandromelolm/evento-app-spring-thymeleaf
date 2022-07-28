@@ -2,20 +2,38 @@
 <html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="fragments :: html_head"/>
 <body>
-	<div class="container">
-	
+
+	<div th:replace="fragments :: menu"/>
+	<div class="container">	
 		<a href="/eventos" class="waves-effect waves-light btn"><i class="material-icons left">list</i>Lista de Eventos</a>
 		<a href="/cadastrarEvento" class="waves-effect waves-light btn"> <i class="material-icons left">add_box</i>Cadastrar Evento</a>
 		<a href="/teste" class="waves-effect waves-light btn"> <i class="material-icons left">title</i>Página Teste</a>
-
+		<!--Deslogar-->
+		<a sec:authorize="isAuthenticated()" href="/logout" class="waves-effect waves-light btn">Sair</a>
+				
 		<h5>Página Teste</h5>
-	
-	
+		
+		<li sec:authorize="isAuthenticated()"><a href="/logout">Sair</a></li>
+		
+		
 		<div class="input-field">
             <input type=text name="cdate" id="cdate" class="datepicker">
             <label for="cdate">Teste Calendario</label>
         </div>
         <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+	</div>
+	<div class="container">
+		<h2>Welcome</h2>
+        <p>Spring Security Thymeleaf tutorial</p>
+        <div sec:authorize="hasRole('USER')">Text visible to user.</div>
+        <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+        <div sec:authorize="isAuthenticated()">
+            Text visible only to authenticated users.
+        </div>
+        Authenticated username:
+        <div sec:authentication="name"></div>
+        Authenticated user roles:
+        <div sec:authentication="principal.authorities"></div>
 	</div>	
 	
 	<script type="text/javascript">
