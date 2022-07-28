@@ -14,27 +14,7 @@
 </head>
 <body>
 		
-	<header>		
-		<nav class="indigo darken-4">
-		<div class="nav-wrapper">
-				<a href="#!" class="brand-logo">Eventos App</a>
-				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-				<ul class="right hide-on-med-and-down">
-					<li><a href="/cadastrarEvento">Cadastrar Evento</a></li>
-					<li><a href="/eventos">Lista de Eventos</a></li>					
-					<li><a href="/participantes">Todos Participantes</a></li>
-					<li><a href="/teste">Página de Teste</a></li>
-				</ul>
-			</div>
-		</nav>
-		
-		<ul class="sidenav" id="mobile-demo">
-			<li><a href="/cadastrarEvento">Cadastrar Evento</a></li>			
-			<li><a href="/eventos">Lista de Eventos</a></li>
-			<li><a href="/participantes">Todos Participantes</a></li>
-			<li><a href="/teste">Página de Teste</a></li>
-		</ul>
-	</header>
+	<div th:replace="fragments :: menu"/>
 	
 	<br/>
 	<h5>Faça seu Login e cadastre seus eventos e listas de convidados!</h5>

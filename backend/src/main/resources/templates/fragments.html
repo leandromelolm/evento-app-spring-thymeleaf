@@ -20,5 +20,34 @@
 
 <body>
 
+	<div th:fragment="menu">
+		<header>		
+		<nav class="indigo darken-4">
+		<div class="nav-wrapper">
+				<a href="/home" class="brand-logo">Eventos App</a>
+				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+				<ul class="right hide-on-med-and-down">
+					<li><a href="/"><i class="material-icons left">home</i>Principal</a></li>
+					<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
+					<li><a href="/eventos"><i class="material-icons left">list</i>Lista de Eventos</a></li>					
+					<li><a href="/participantes">Todos Participantes</a></li>
+					<li><a href="/teste">Página de Teste</a></li>					
+				</ul>
+			</div>
+		</nav>
+		
+		<ul class="sidenav" id="mobile-demo">
+			<li><a href="/">Principal</a></li>
+			<li><a href="/cadastrarEvento">Cadastrar Evento</a></li>			
+			<li><a href="/eventos">Lista de Eventos</a></li>
+			<li><a href="/participantes">Todos Participantes</a></li>
+			<li><a href="/teste">Página de Teste</a></li>
+		</ul>
+	</header>
+		
+	</div>	
+	
+
+
 </body>
 </html>
