@@ -14,10 +14,17 @@
 </head>
 <body>
 		
-	<div th:replace="fragments :: menu"/>
+	<div th:replace="fragments :: menu"/>	
+
+	<div sec:authorize="!isAuthenticated()">
+		<h5>Faça seu Login e cadastre seus eventos e listas de convidados!</h5>
+	</div>
 	
-	<br/>
-	<h5>Faça seu Login e cadastre seus eventos e listas de convidados!</h5>
+	<div sec:authorize="isAuthenticated()">
+		<h5>Usuario Logado!</h5>
+		<div> Authenticated username: <span sec:authentication="name"></span> </div>
+	</div>
+	
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="materialize/js/materialize.min.js"></script>    
