@@ -31,7 +31,9 @@
 					<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
 					<li><a href="/eventos"><i class="material-icons left">list</i>Lista de Eventos</a></li>					
 					<li><a href="/participantes">Todos Participantes</a></li>
-					<li><a href="/teste">Página de Teste</a></li>					
+					<li><a href="/teste">Página de Teste</a></li>
+					<li sec:authorize="!isAuthenticated()"><a class="sair" href="/login.html">Log in</a></li>
+					<li sec:authorize="isAuthenticated()"><a class="sair" href="/logout">Sair</a></li>					
 				</ul>
 			</div>
 		</nav>
