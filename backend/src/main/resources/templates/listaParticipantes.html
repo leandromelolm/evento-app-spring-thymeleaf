@@ -4,10 +4,9 @@
 <head th:replace="fragments :: html_head" />
 
 <body>
-	<div class="container">
-		<a href="/" class="waves-effect waves-light btn"><i class="material-icons left">home</i>Página Inicial</a>
-		<a href="/cadastrarEvento" class="waves-effect waves-light btn"><i class="material-icons left">add_box</i>Cadastrar Evento</a>
-		<a href="/teste" class="waves-effect waves-light btn"><i class="material-icons left">title</i>Página Teste</a>
+	<div>
+	
+		<div th:replace="fragments :: menu"/>
 
 		<h5>Lista de Participantes</h5>
 		<table class="responsive-table">

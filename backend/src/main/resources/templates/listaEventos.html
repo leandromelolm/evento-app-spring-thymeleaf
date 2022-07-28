@@ -4,13 +4,13 @@
 <head th:replace="fragments :: html_head" />
 
 <body>
+	
+	<div th:replace="fragments :: menu"/>
+	
 	<div class="container">
-		<a href="/" class="waves-effect waves-light btn"><i class="material-icons left">home</i>Página Inicial</a>
-		<a href="/cadastrarEvento" class="waves-effect waves-light btn"><i class="material-icons left">add_box</i>Cadastrar Evento</a>
-		<a href="/teste" class="waves-effect waves-light btn"><i class="material-icons left">title</i>Página Teste</a>
 
 		<h5>Lista de Eventos</h5>
-		<table class="container">
+		<table class="responsive-table">
 			<thead>
 				<tr>
 					<th>Código</th>
