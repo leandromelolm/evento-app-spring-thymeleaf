@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Override
 	public void configure(WebSecurity web) throws java.lang.Exception{
-		web.ignoring().antMatchers("/materialize/**", "/style/**", "/js/**");
+		web.ignoring().antMatchers("/materialize/**", "/style/**", "/js/**","/h2-console/**");
 	}
 	
 	@Bean
