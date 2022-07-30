@@ -11,7 +11,7 @@
 		<div class="row" >
 			<div class="col s4 offset-s4 card" style="margin-top: 50px">
 				<h5>Sign In</h5>
-				<p th:if="${loginError}" class="error">Wrong user or password</p>
+				<p th:if="${loginError}" class="error" style="color: red;">Wrong user or password (usuário ou senha incorretos)</p>
 		
 				<form th:action="@{/login.html}" method="post">
 		
