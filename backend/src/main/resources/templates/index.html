@@ -6,8 +6,15 @@
 <body>
 	<div>
 		<div th:replace="fragments :: menu"/>
-		<div>
-			<h3>Index</h3>	
+		<div class="container">
+			<h2>Bem vindo!</h2>
+			<div sec:authorize="!isAuthenticated()">
+				<h5>Faça seu Login e cadastre seus eventos e listas de convidados!</h5>
+			</div>
+			<div sec:authorize="isAuthenticated()">
+				<h5>Cadastre seus eventos e listas de convidados!</h5>
+				<a href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>
+			</div>	
 		</div>
 	</div>
 

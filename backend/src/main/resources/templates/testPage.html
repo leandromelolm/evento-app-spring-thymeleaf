@@ -12,15 +12,16 @@
 		<a onclick="alertaSair();" sec:authorize="isAuthenticated()" href="/logout" class="waves-effect waves-light btn">Sair</a>
 
 		<h5>Página Teste</h5>
-
-		<div class="input-field">
-			<input type=text name="cdate" id="cdate" class="datepicker">
-			<label for="cdate">Teste Calendario</label>
+		<div class="row">
+			<div class="input-field col l2 m6 s12">
+				<input type=text name="cdate" id="cdate" class="datepicker">
+				<label for="cdate">Teste Calendario</label>
+			</div>
 		</div>
+		
 	</div>
 	
-	<div class="container">
-		<h2>Welcome</h2>
+	<div class="container">		
 		<p>Spring Security Thymeleaf tutorial</p>
 		<div sec:authorize="hasRole('USER')">Text visible to user.</div>
 		<div sec:authorize="hasRole('ADMIN')">Text visible to admin (usuario administrador).</div>

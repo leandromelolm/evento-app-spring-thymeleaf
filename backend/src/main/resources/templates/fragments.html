@@ -48,7 +48,7 @@
 	<div th:fragment="menu">
 		<header>
 		<ul id="dropdown1" class="dropdown-content">			
-			<li><a href="/teste">Página de Teste</a></li>
+			<li><a href="/teste">TestPage</a></li>
 			<li class="divider"></li>			
 			<li sec:authorize="isAuthenticated()"><a class="logout" href="/logout">Sair</a></li>
 		</ul>
@@ -78,7 +78,7 @@
 			<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
 			<li><a href="/eventos"><i class="material-icons left">view_list</i>Lista de Eventos</a></li>					
 			<li><a href="/participantes"><i class="material-icons left">view_comfy</i>Todos Participantes</a></li>
-			<li><a href="/teste"><i class="material-icons left">event_note</i>Página de Teste</a></li>			
+			<li><a href="/teste"><i class="material-icons left">event_note</i>TestPage</a></li>			
 			<li sec:authorize="isAuthenticated()"><a class="logout" href="/logout"><i class="material-icons left">exit_to_app</i>Sair</a></li>	
 		</ul>
 	</header>
