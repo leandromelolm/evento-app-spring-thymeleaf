@@ -71,7 +71,7 @@ public class EventoController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/{codigo}", method = RequestMethod.GET)
+	@RequestMapping(value="/evento/{codigo}", method = RequestMethod.GET)
 	public ModelAndView detalhesEvento(@PathVariable("codigo") long codigo) {
 		ModelAndView mv = new ModelAndView("evento/detalhesEvento");
 		Evento evento = er.findByCodigo(codigo);
@@ -89,12 +89,12 @@ public class EventoController {
 		return "redirect:/eventos";
 	}
 	
-	@RequestMapping(value="/{codigo}", method = RequestMethod.POST)
+	@RequestMapping(value="/evento/{codigo}", method = RequestMethod.POST)
 	public String salvarParticipante(@PathVariable("codigo") long codigo, @Valid Participante participante, BindingResult result, @Valid String telefone, RedirectAttributes attributes){		
 		
-		System.out.println("ErroQuant__ "+ result.getErrorCount());
-		System.out.println("ErrorBolean__ "+ result.hasErrors());
-		System.out.println("Erro__ "+ result.getAllErrors());
+//		System.out.println("ErroQuant__ "+ result.getErrorCount());
+//		System.out.println("ErrorBolean__ "+ result.hasErrors());
+//		System.out.println("Erro__ "+ result.getAllErrors());
 		
 		List<String> msg = new ArrayList<String>();			
 		
@@ -104,7 +104,7 @@ public class EventoController {
 				System.out.println("ErrorMessage__ "+ objectError.getDefaultMessage());
 			}		
 			attributes.addFlashAttribute("mensagem", "Verifique os campos!  "+ msg.toString().substring(1, msg.toString().length()-1));			
-			return "redirect:/{codigo}";
+			return "redirect:/evento/{codigo}";
 		}
 		
 		Evento evento = er.findByCodigo(codigo);
@@ -120,7 +120,7 @@ public class EventoController {
 		tel.setParticipante(participante);
 		tRepository.save(tel);		
 		attributes.addFlashAttribute("mensagem", "Participante adicionado!");	
-		return "redirect:/{codigo}";
+		return "redirect:/evento/{codigo}";
 	}
 	
 	@RequestMapping("/deletarParticipante")
@@ -128,7 +128,7 @@ public class EventoController {
 		Participante participante = pr.findByIdParticipante(codigo);
 		pr.delete(participante);
 		Evento evento = participante.getEvento();		
-		return "redirect:/"+ Long.toString(evento.getCodigo());
+		return "redirect:/evento/"+ Long.toString(evento.getCodigo());
 	}
 	
 	@RequestMapping("/deletarParticipantePageParticipantes")
