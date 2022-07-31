@@ -8,15 +8,16 @@
 		<div th:replace="fragments :: menu"/>
 	
 		<div class="container">
-			<a href="/" class="waves-effect waves-light btn"><i class="material-icons left">home</i>Página Inicial</a>
+			
 			<h3>Cadastrar Evento</h3>
 			<form method="post">
 				Nome: <input type="text" value="" name="nome" />
 				Local: <input type="text" value="" name="local" />
 				Data: <input type="date" value="" name="data" />
 				Horario: <input type="text" value="" name="horario" />
-				<button type="submit">Salvar</button>
+				<button class="waves-effect waves-light btn input-field" type="submit">Salvar</button>
 			</form>
+			<a href="/home" class="waves-effect waves-light btn"><i class="material-icons left">home</i>Voltar Página Inicial</a>
 		<div>
 		
 		<!--JavaScript at end of body for optimized loading-->
