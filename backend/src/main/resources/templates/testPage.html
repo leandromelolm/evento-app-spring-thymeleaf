@@ -22,7 +22,6 @@
 	</div>
 	
 	<div class="container">		
-		<p>Spring Security Thymeleaf tutorial</p>
 		<div sec:authorize="hasRole('USER')">Text visible to user.</div>
 		<div sec:authorize="hasRole('ADMIN')">Text visible to admin (usuario administrador).</div>
 		<div sec:authorize="isAuthenticated()">	Text visible only to authenticated users.</div>

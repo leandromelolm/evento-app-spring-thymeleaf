@@ -4,10 +4,17 @@
         <title>Error page</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="css/main.css" th:href="@{/css/main.css}" />
+        <head th:replace="fragments :: html_head" />
     </head>
     <body th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf((#response != null)? #response.status : 500)}">
-        <h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>
+        <h3 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h3>
         <p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
-        <a href="/home.html" th:href="@{/home}">Back to Home Page (Voltar para Página Inicial)</a>
+        <div class="collection container">
+<!--        	<a style="display: block;" href="javascript:history.back()"  class="waves-effect waves-light btn input-field">Go Back</a>-->
+        	<div class="col">        		
+        		<a href="javascript:history.back()"  class="waves-effect waves-light btn collection-item"><i class="material-icons left">arrow_back</i>Go Back(Voltar)</a>        	
+        		<a href="/home" th:href="@{/home}" class="waves-effect waves-light btn collection-item"><i class="material-icons left">home</i>Voltar Página Inicial</a>
+        	</div>        	
+        </div>
     </body>
 </html>
