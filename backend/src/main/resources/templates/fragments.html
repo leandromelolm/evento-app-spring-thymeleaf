@@ -14,42 +14,57 @@
 	
 	<!--Mascara no formulario-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-
+	
 	<title>EventoApp</title>
+	
+	<script>
+		$( document ).ready(function(){
+			$(".dropdown-trigger").dropdown();
+		});
+	</script>
 </head>
 
 <body>
 
 	<div th:fragment="menu">
-		<header>		
+		<header>
+		<ul id="dropdown1" class="dropdown-content">			
+			<li><a href="/teste">Página de Teste</a></li>
+			<li class="divider"></li>			
+			<li sec:authorize="isAuthenticated()"><a class="logout" href="/logout">Sair</a></li>
+		</ul>
 		<nav class="indigo darken-4">
-		<div class="nav-wrapper">
-				<a href="/" class="brand-logo">Eventos App</a>
-				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-				<ul class="right hide-on-med-and-down">
-					<li><a href="/home"><i class="material-icons left">home</i>Página Inicial</a></li>
-					<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
-					<li><a href="/eventos"><i class="material-icons left">list</i>Lista de Eventos</a></li>					
-					<li><a href="/participantes">Todos Participantes</a></li>
-					<li><a href="/teste">Página de Teste</a></li>
-					<li sec:authorize="!isAuthenticated()"><a class="sair" href="/login.html">Log in</a></li>
-					<li sec:authorize="isAuthenticated()"><a class="sair" href="/logout">Sair</a></li>					
-				</ul>
-			</div>
+			<div>
+				<div class="nav-wrapper">
+					<a href="/" class="brand-logo">Eventos App</a>
+					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+					<ul class="right hide-on-med-and-down">
+						<li><a href="/home"><i class="material-icons left">home</i>Página Inicial</a></li>
+						<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
+						<li><a href="/eventos"><i class="material-icons left">list</i>Lista de Eventos</a></li>
+						<li><a href="/participantes"><i class="material-icons left">view_comfy</i>Participantes</a></li>
+						<li sec:authorize="!isAuthenticated()"><a href="/teste">Página de Teste</a></li>						
+						<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html">Log in</a></li>
+						<li sec:authorize="isAuthenticated()"><a class="dropdown-trigger" data-target="dropdown1"><span sec:authentication="name"></span><i
+									class="material-icons right">arrow_drop_down</i></a></li>
+					</ul>
+				</div>
+			</div>		
 		</nav>
 		
 		<ul class="sidenav" id="mobile-demo">
-			<li><a href="/">Principal</a></li>
-			<li><a href="/cadastrarEvento">Cadastrar Evento</a></li>			
-			<li><a href="/eventos">Lista de Eventos</a></li>
-			<li><a href="/participantes">Todos Participantes</a></li>
-			<li><a href="/teste">Página de Teste</a></li>
+			<li sec:authorize="isAuthenticated()"><a href="/home"><i class="material-icons left">person_outline</i><span sec:authentication="name"></span></a></li>			
+			<li><a href="/home"><i class="material-icons left">home</i>Página Inicial</a></li>
+			<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
+			<li><a href="/eventos"><i class="material-icons left">view_list</i>Lista de Eventos</a></li>					
+			<li><a href="/participantes"><i class="material-icons left">view_comfy</i>Todos Participantes</a></li>
+			<li><a href="/teste"><i class="material-icons left">event_note</i>Página de Teste</a></li>
+			<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html">Log in</a></li>
+			<li sec:authorize="isAuthenticated()"><a class="logout" href="/logout"><i class="material-icons left">exit_to_app</i>Sair</a></li>	
 		</ul>
 	</header>
 		
-	</div>	
-	
-
+	</div>
 
 </body>
 </html>
