@@ -53,13 +53,13 @@
 		</nav>
 		
 		<ul class="sidenav" id="mobile-demo">
+			<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html">Log in</a></li>
 			<li sec:authorize="isAuthenticated()"><a href="/home"><i class="material-icons left">person_outline</i><span sec:authentication="name"></span></a></li>			
 			<li><a href="/home"><i class="material-icons left">home</i>Página Inicial</a></li>
 			<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
 			<li><a href="/eventos"><i class="material-icons left">view_list</i>Lista de Eventos</a></li>					
 			<li><a href="/participantes"><i class="material-icons left">view_comfy</i>Todos Participantes</a></li>
-			<li><a href="/teste"><i class="material-icons left">event_note</i>Página de Teste</a></li>
-			<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html">Log in</a></li>
+			<li><a href="/teste"><i class="material-icons left">event_note</i>Página de Teste</a></li>			
 			<li sec:authorize="isAuthenticated()"><a class="logout" href="/logout"><i class="material-icons left">exit_to_app</i>Sair</a></li>	
 		</ul>
 	</header>
