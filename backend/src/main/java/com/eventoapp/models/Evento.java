@@ -9,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Evento implements Serializable{
@@ -19,9 +22,16 @@ public class Evento implements Serializable{
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private long codigo;
 	
+	@NotEmpty (message = "O campo NOME não pode ser vazio")	
+	@Size(min=5, max=50, message="O campo NOME deve ter entre 5 e 50 caracteres")
 	private String nome;
+	
+	@NotEmpty (message = "O campo LOCAL não pode ser vazio")	
+	@Size(min=5, max=50, message="O campo LOCAL deve ter entre 5 e 50 caracteres")
 	private String local;
+	@Pattern(regexp="[0-9]{4}-[00-12]{2}-[01-31]{2}",message="campo DATA com formato inválido")
 	private String data;
+	@Pattern(regexp="[00-23]{2}:[0-5]{1}[0-9]{1}",message="campo HORÁRIO com formato inválido")
 	private String horario;
 	
 	@OneToMany(mappedBy = "evento", orphanRemoval = true, fetch = FetchType.EAGER)

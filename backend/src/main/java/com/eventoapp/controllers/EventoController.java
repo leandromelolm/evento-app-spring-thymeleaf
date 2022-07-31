@@ -49,8 +49,18 @@ public class EventoController {
 	}
 	
 	@RequestMapping(value="/cadastrarEvento", method=RequestMethod.POST)
-	public String form(Evento evento) {		
-		er.save(evento);		
+	public String form(@Valid Evento evento, BindingResult result, RedirectAttributes attributes) {	
+		List<String> msg = new ArrayList<String>();			
+		if(result.hasErrors()){
+			for (ObjectError objectError : result.getAllErrors()) {
+				msg.add(objectError.getDefaultMessage());
+				System.out.println("ErrorMessage__ "+ objectError.getDefaultMessage());
+			}		
+			attributes.addFlashAttribute("mensagem", "Verifique os campos!  "+ msg.toString().substring(1, msg.toString().length()-1));			
+			return "redirect:/cadastrarEvento";
+		}
+		er.save(evento);
+		attributes.addFlashAttribute("mensagem", "Evento cadastrado!"+ " Codigo do Evento: " +evento.getCodigo());
 		return "redirect:/cadastrarEvento";
 	}
 	
