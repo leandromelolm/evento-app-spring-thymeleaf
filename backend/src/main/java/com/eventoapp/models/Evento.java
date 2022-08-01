@@ -1,6 +1,7 @@
 package com.eventoapp.models;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Evento implements Serializable{
 	
@@ -23,7 +26,7 @@ public class Evento implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	private long codigo;
+	private Long codigo;
 	
 	@NotEmpty (message = "O campo NOME não pode ser vazio")	
 	@Size(min=5, max=50, message="O campo NOME deve ter entre 5 e 50 caracteres")
@@ -31,10 +34,10 @@ public class Evento implements Serializable{
 	
 	@NotEmpty (message = "O campo LOCAL não pode ser vazio")	
 	@Size(min=3, max=50, message="O campo LOCAL deve ter entre 3 e 50 caracteres")
-	private String local;
-	
-//	@Pattern(regexp="[0-9]{4}-[00-12]{2}-[01-31]{2}",message="campo DATA com formato inválido")
-	private String data;
+	private String local;	
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date data;
 	
 	@Pattern(regexp="[0-2]{1}[0-9]{1}:[0-5]{1}[0-9]{1}",message="campo HORÁRIO com formato inválido")
 	private String horario;
@@ -53,10 +56,10 @@ public class Evento implements Serializable{
 	
 	private String emailResponsavelEvento;
 	
-	public long getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(long codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 	public String getNome() {
@@ -71,10 +74,10 @@ public class Evento implements Serializable{
 	public void setLocal(String local) {
 		this.local = local;
 	}
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
-	public void setData(String data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 	public String getHorario() {

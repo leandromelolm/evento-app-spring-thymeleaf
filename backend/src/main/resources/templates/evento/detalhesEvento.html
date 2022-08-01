@@ -29,7 +29,8 @@
 								<tr>
 									<td><span th:text="${evento.nome}"></span></td>
 									<td><span th:text="${evento.local}"></span> </td>
-									<td><span th:text="${evento.data}"></span></td>
+<!--									<td><span th:text="${evento.data}"></span></td>-->
+									<td><span th:text="${#dates.format(evento.data, 'dd-MM-yyyy')}"></span></td>
 									<td><span th:text="${evento.horario}"></span></td>
 								</tr>
 							</tbody>
