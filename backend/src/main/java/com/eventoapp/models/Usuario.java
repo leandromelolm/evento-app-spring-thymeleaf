@@ -1,6 +1,7 @@
 package com.eventoapp.models;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,6 +35,9 @@ public class Usuario implements UserDetails {
 	        inverseJoinColumns = @JoinColumn(
 	          name = "role_id", referencedColumnName = "nameRole")) 
 	private List<Role> roles;
+	
+	@OneToMany(mappedBy = "usuario")	
+	private List<Evento> eventos = new ArrayList<>();
 	
 	public String getEmail() {
 		return email;
@@ -69,6 +74,12 @@ public class Usuario implements UserDetails {
 	}
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+	public List<Evento> getEventos() {
+		return eventos;
+	}
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
 	}
 	
 	@Override

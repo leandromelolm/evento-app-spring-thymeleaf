@@ -12,11 +12,14 @@
 			<h3>Cadastrar Evento</h3>
 			<form method="post">
 			<th:block th:include="mensagemValidacao"></th:block>
-				Nome: <input type="text" value="" name="nome" required="true" />
+				<div class="hide">
+					Cadastrado Por:<input  name="emailResponsavelEvento" th:value="${#authentication.name}" readonly=true/>
+				</div >
+				Nome do evento: <input type="text" value="" name="nome" required="true" />
 				Local: <input type="text" value="" name="local" required="true" />
 				Data: <input type="date" value="" name="data" required="true" />
 				Horario: <input type="time" value="" name="horario" id="hora" onkeypress="$(this).mask('00:00');"
-					pattern="[0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1}" required="true" title="00:00 até 23:59"/>
+					pattern="[0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1}" required="true" title="00:00 até 23:59"/>				
 				<button class="waves-effect waves-light btn input-field" type="submit">Salvar</button>
 			</form>
 			<a href="/home" class="waves-effect waves-light btn"><i class="material-icons left">home</i>Voltar Página Inicial</a>

@@ -22,9 +22,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.eventoapp.models.Evento;
 import com.eventoapp.models.Participante;
 import com.eventoapp.models.Telefone;
+import com.eventoapp.models.Usuario;
 import com.eventoapp.repository.EventoRepository;
 import com.eventoapp.repository.ParticipanteRepository;
 import com.eventoapp.repository.TelefoneRepository;
+import com.eventoapp.repository.UsuarioRepository;
 
 @Controller
 public class EventoController {
@@ -38,6 +40,9 @@ public class EventoController {
 	@Autowired
 	private TelefoneRepository tRepository;
 	
+	@Autowired
+	private UsuarioRepository ur;
+	
 	@RequestMapping(value="/cadastrarEvento", method=RequestMethod.GET)
 	public String form() {
 		return "evento/formEvento";
@@ -50,7 +55,7 @@ public class EventoController {
 	
 	@RequestMapping(value="/cadastrarEvento", method=RequestMethod.POST)
 	public String form(@Valid Evento evento, BindingResult result, RedirectAttributes attributes) {	
-		List<String> msg = new ArrayList<String>();			
+		List<String> msg = new ArrayList<String>();		
 		if(result.hasErrors()){
 			for (ObjectError objectError : result.getAllErrors()) {
 				msg.add(objectError.getDefaultMessage());
@@ -58,7 +63,9 @@ public class EventoController {
 			}		
 			attributes.addFlashAttribute("mensagem", "Verifique os campos!  "+ msg.toString().substring(1, msg.toString().length()-1));			
 			return "redirect:/cadastrarEvento";
-		}
+		}		
+		Usuario usuario = ur.findByEmail(evento.getEmailResponsavelEvento());
+		evento.setUsuario(usuario);
 		er.save(evento);
 		attributes.addFlashAttribute("mensagem", "Evento cadastrado!"+ " Codigo do Evento: " +evento.getCodigo());
 		return "redirect:/cadastrarEvento";

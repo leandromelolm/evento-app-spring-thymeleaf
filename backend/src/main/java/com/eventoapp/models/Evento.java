@@ -8,6 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -27,17 +30,28 @@ public class Evento implements Serializable{
 	private String nome;
 	
 	@NotEmpty (message = "O campo LOCAL não pode ser vazio")	
-	@Size(min=5, max=50, message="O campo LOCAL deve ter entre 5 e 50 caracteres")
+	@Size(min=3, max=50, message="O campo LOCAL deve ter entre 3 e 50 caracteres")
 	private String local;
 	
-	@Pattern(regexp="[0-9]{4}-[00-12]{2}-[01-31]{2}",message="campo DATA com formato inválido")
+//	@Pattern(regexp="[0-9]{4}-[00-12]{2}-[01-31]{2}",message="campo DATA com formato inválido")
 	private String data;
 	
-	@Pattern(regexp="[00-23]{2}:[0-5]{1}[0-9]{1}",message="campo HORÁRIO com formato inválido")
+	@Pattern(regexp="[0-2]{1}[0-9]{1}:[0-5]{1}[0-9]{1}",message="campo HORÁRIO com formato inválido")
 	private String horario;
 	
 	@OneToMany(mappedBy = "evento", orphanRemoval = true, fetch = FetchType.EAGER)
-	private List<Participante> participantes;
+	private List<Participante> participantes;	
+	
+	@ManyToOne
+	@JoinTable( 
+	        name = "usuarios_eventos", 
+	        joinColumns = @JoinColumn(
+	          name = "evento_id", referencedColumnName = "codigo"), 
+	        inverseJoinColumns = @JoinColumn(
+	          name = "usuario_id", referencedColumnName = "email")) 
+	private Usuario usuario;
+	
+	private String emailResponsavelEvento;
 	
 	public long getCodigo() {
 		return codigo;
@@ -68,6 +82,18 @@ public class Evento implements Serializable{
 	}
 	public void setHorario(String horario) {
 		this.horario = horario;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	public String getEmailResponsavelEvento() {
+		return emailResponsavelEvento;
+	}
+	public void setEmailResponsavelEvento(String emailResponsavelEvento) {
+		this.emailResponsavelEvento = emailResponsavelEvento;
 	}
 	
 }
