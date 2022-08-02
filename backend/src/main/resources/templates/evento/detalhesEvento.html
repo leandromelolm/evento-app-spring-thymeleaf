@@ -7,44 +7,30 @@
 	
 	<div th:replace="fragments :: menu"/>
 	
-	<div class="container">	
-			
-		<div class="card">
-			<div class="card-tabs">				
-				<span>DETALHES EVENTO</span>
-			</div>
-			<div class="card-content grey lighten-4">		
-				<div id="DetalhesEvento">		
-					<div th:each="evento : ${evento}">
-						<table class="responsive-table">
-							<thead>
-								<tr>
-									<th><label>Nome</label></th>
-									<th><label>Local</label></th>
-									<th><label>Data do Evento</label></th>
-									<th><label>Horário do Evento</label></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><span th:text="${evento.nome}"></span></td>
-									<td><span th:text="${evento.local}"></span> </td>
-<!--									<td><span th:text="${evento.data}"></span></td>-->
-									<td><span th:text="${#dates.format(evento.data, 'dd-MM-yyyy')}"></span></td>
-									<td><span th:text="${evento.horario}"></span></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="container">				
 
 		<div class="card">
-			<div class="card-tabs">
-				<span>LISTA DE PARTICIPANTES</span>
-			</div>
-			<div class="card-content grey lighten-4">		
+
+			<div class="card-content grey lighten-4">
+			
+				<div class="card" th:each="evento : ${evento}">
+					<div class="card">
+						<span class="card-title activator grey-text text-darken-4">Evento</span>
+						<div class="row">
+							<div class="col s3"><span th:text="${evento.nome}"></span></div>
+							<div class="col s3"><span th:text="${evento.local}"></span></div>
+							<div class="col s3"><span th:text="${#dates.format(evento.data, 'dd-MM-yyyy')}"></span></div>
+							<div class="col s3"><span th:text="${evento.horario}"></span></div>
+						</div>						
+					</div>
+					<div class="card-reveal">
+						<span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+						<p>Local: <span th:text="${evento.local}"></span></p>
+						Data: <span th:text="${#dates.format(evento.data, 'dd-MM-yyyy')}"></span>
+						Hora: <span th:text="${evento.horario}"></span>
+					</div>
+				</div>
+					
 				<div id="FormularioCadastro">
 					<form method="post">
 						<th:block th:include="mensagemValidacao"></th:block>
@@ -84,7 +70,7 @@
 		
 		<div class="card">
 			<div class="card-tabs">
-				<span>FORMULÁRIO CADASTRO DE PARTICIPANTE</span>
+				<span>LISTA DE PARTICIPANTES</span>
 			</div>
 			<div class="card-content grey lighten-4">
 				<div id="listaParticipantes">

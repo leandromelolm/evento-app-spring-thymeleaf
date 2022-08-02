@@ -15,12 +15,10 @@ public class EventoappApplication {
 
 }
 
+
+
 /*
 
-SELECT u.email, e.nome, e.codigo
-FROM evento e
-INNER JOIN usuario u 
-ON e.email_responsavel_evento  = u.email 
 
 ### COMANDOS SQL
 	
