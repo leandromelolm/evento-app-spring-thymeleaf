@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,8 +31,12 @@ public class Usuario implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@Column(unique=true)
 	private String email;
+	
 	private String senha;
+	
+	@Column(unique=true)
 	private String nome;	
 	private String cpf;
 	private Instant dataCadastro;
@@ -54,6 +60,9 @@ public class Usuario implements UserDetails {
 	
 	@OneToMany(mappedBy = "usuario")	
 	private List<Evento> eventos = new ArrayList<>();
+	
+	@Transient
+	private String senhaRepetida;
 	
 	public Long getId() {
 		return id;
@@ -157,5 +166,11 @@ public class Usuario implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+	public String getSenhaRepetida() {
+		return senhaRepetida;
+	}
+	public void setSenhaRepetida(String senhaRepetida) {
+		this.senhaRepetida = senhaRepetida;
 	}		
 }
