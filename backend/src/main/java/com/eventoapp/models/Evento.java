@@ -51,7 +51,7 @@ public class Evento implements Serializable{
 	        joinColumns = @JoinColumn(
 	          name = "evento_id", referencedColumnName = "codigo"), 
 	        inverseJoinColumns = @JoinColumn(
-	          name = "usuario_id", referencedColumnName = "email")) 
+	          name = "usuario_email", referencedColumnName = "email")) 
 	private Usuario usuario;
 	
 	private String emailResponsavelEvento;

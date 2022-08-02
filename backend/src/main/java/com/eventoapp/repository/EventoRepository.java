@@ -13,3 +13,12 @@ public interface EventoRepository extends CrudRepository<Evento, String> {
 	@Query(value = "SELECT p FROM Evento p ORDER BY codigo DESC")		
 	List<Evento> findAllEventos(String evento);
 }
+
+/*
+
+SELECT u.email, e.nome, e.codigo
+FROM evento e
+INNER JOIN usuario u 
+ON e.email_responsavel_evento  = u.email 
+
+*/

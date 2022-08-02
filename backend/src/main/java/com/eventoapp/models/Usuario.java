@@ -3,14 +3,19 @@ package com.eventoapp.models;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,26 +24,43 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class Usuario implements UserDetails {	
 	
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
 	private String email;
 	private String senha;
 	private String nome;	
 	private String cpf;
 	private Instant dataCadastro;
 	
+	private boolean enabledUser;	
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date ultimoAcesso;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date atualAcesso;
+	
 	@ManyToMany
 	@JoinTable( 
 	        name = "usuarios_roles", 
 	        joinColumns = @JoinColumn(
-	          name = "usuario_id", referencedColumnName = "email"), 
+	          name = "usuario_id", referencedColumnName = "id"), 
 	        inverseJoinColumns = @JoinColumn(
-	          name = "role_id", referencedColumnName = "nameRole")) 
+	          name = "role_id", referencedColumnName = "id")) 
 	private List<Role> roles;
 	
 	@OneToMany(mappedBy = "usuario")	
 	private List<Evento> eventos = new ArrayList<>();
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}	
 	public String getEmail() {
 		return email;
 	}
@@ -80,7 +102,26 @@ public class Usuario implements UserDetails {
 	}
 	public void setEventos(List<Evento> eventos) {
 		this.eventos = eventos;
+	}	
+	public Date getUltimoAcesso() {
+		return ultimoAcesso;
 	}
+	public void setUltimoAcesso(Date ultimoAcesso) {
+		this.ultimoAcesso = ultimoAcesso;
+	}
+	public Date getAtualAcesso() {
+		return atualAcesso;
+	}
+	public void setAtualAcesso(Date atualAcesso) {
+		this.atualAcesso = atualAcesso;
+	}	
+	public boolean isEnabledUser() {
+		return enabledUser;
+	}
+	public void setEnabledUser(boolean enabledUser) {
+		this.enabledUser = enabledUser;
+	}
+	
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -116,6 +157,5 @@ public class Usuario implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
-	}	
-	
+	}		
 }
