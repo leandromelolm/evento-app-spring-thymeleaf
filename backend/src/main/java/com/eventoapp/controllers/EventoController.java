@@ -95,7 +95,8 @@ public class EventoController {
 		Evento evento = er.findByCodigo(codigo);
 		mv.addObject("evento", evento);
 		
-		Iterable<Participante> participantes = pr.findByEvento(evento);
+//		Iterable<Participante> participantes = pr.findByEvento(evento);
+		List<Participante> participantes = pr.findByEventoParticipantes2(codigo);
 		mv.addObject("participantes", participantes); // enviado lista de participantes para view
 		return mv;
 	}

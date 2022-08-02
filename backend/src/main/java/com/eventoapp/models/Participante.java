@@ -51,6 +51,7 @@ public class Participante implements Serializable{
 	private List<Telefone> telefones;	
 	
 	@ManyToOne
+	@NotNull(message = "Evento não pode ser nulo. Talvez o evento dessa página não exista.")
 	private Evento evento;
 	
 	public long getIdParticipante() {
