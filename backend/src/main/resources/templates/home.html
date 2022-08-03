@@ -10,12 +10,16 @@
 	<div th:replace="fragments :: menu"/>	
 	<div class="container">
 		<div sec:authorize="!isAuthenticated()">
-			<h5>Faça seu Login e cadastre seus eventos e listas de convidados!</h5>
+			<h5>Faça seu Login e cadastre seus eventos!</h5>
 		</div>
 	
 		<div sec:authorize="isAuthenticated()">
-			<h5>Usuario Logado!</h5>
-			<div> Authenticated username: <span sec:authentication="name"></span> </div>
+			<h5>Você está Logado!</h5>			
+		</div>
+		<div sec:authorize="isAuthenticated()">
+				<h5>Cadastre seus eventos e listas de convidados!</h5>
+				<a href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>
+			</div>	
 		</div>
 	</div>
 

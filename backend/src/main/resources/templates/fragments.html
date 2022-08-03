@@ -31,14 +31,17 @@
 			display:block
 		}
 	
-		@media screen and (max-width: 1110px) { /* Largura máxima. valor acima do max-width exibe elemento, abaixo remove */
+		@media screen and (max-width: 1110px) { /* Largura máxima. valor acima do max-width exibe elemento, abaixo remove (aplica o display:none) */
 			.participante {
 				display: none; /* Retira o elemento do layout da página. */				
-			}
+			}			
 		}
 		@media screen and (max-width: 1290px) {
 			.testpage{
 				display:none;
+			}
+			.cadastrarevento {
+				display: none; /* Retira o elemento do layout da página. */				
 			}
 		}
 	</style>
@@ -50,6 +53,7 @@
 		<header>
 		<ul id="dropdown1" class="dropdown-content">			
 			<li><a href="/teste">TestPage</a></li>
+			<li class="cadastrarevento"><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
 			<li class="divider"></li>			
 			<li sec:authorize="isAuthenticated()"><a class="logout" href="/logout">Sair</a></li>
 		</ul>
@@ -60,7 +64,7 @@
 					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down">
 						<li><a href="/home"><i class="material-icons left">home</i>Página Inicial</a></li>
-						<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
+						
 						<li><a href="/eventos"><i class="material-icons left">list</i>Eventos</a></li>
 						<li class="participante"><a href="/participantes"><i class="material-icons left">view_comfy</i>Participantes</a></li>
 						<li class="testpage" sec:authorize="!isAuthenticated()"><a href="/teste">TestPage</a></li>						

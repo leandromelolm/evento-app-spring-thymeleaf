@@ -7,9 +7,7 @@
 
 	<div th:replace="fragments :: menu" />
 	
-	<div class="container">
-		<!--Deslogar-->
-		<a onclick="alertaSair();" sec:authorize="isAuthenticated()" href="/logout" class="waves-effect waves-light btn">Sair</a>
+	<div class="container">		
 
 		<h5>Página Teste</h5>
 		<div class="row">
@@ -25,20 +23,32 @@
 		<div sec:authorize="hasRole('USER')">Text visible to user.</div>
 		<div sec:authorize="hasRole('ADMIN')">Text visible to admin (usuario administrador).</div>
 		<div sec:authorize="isAuthenticated()">	Text visible only to authenticated users.</div>
+		<div> Authenticated username: <span sec:authentication="name"></span> </div>
 
 		<div sec:authorize="hasRole('ROLE_ADMIN')">
   			USER ADMINISTRADOR -This content is only shown to administrators.
 		</div>
-		<div sec:authorize="hasRole('ROLE_USER')">
+		<div sec:authorize="hasRole('ROLE_STANDARD_USER')">
   			USER NORMAL -This content is only shown to users.
 		</div>
 		
-		<div> Usuario logado: <span sec:authentication="name"></span> </div>
+		
 		<!--		Authenticated user roles:<div sec:authentication="principal.authorities"></div>-->
 <!--		Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>-->
 		
 		<input type="button" href="/logout" onclick="clickEvent();" value="Test" />
-		<button onclick="window.location.href = '/logout'">Sair</button>
+		
+		</p>		
+		<div>
+			<button onclick="window.location.href = '/logout'">Sair</button>
+		</div>		
+		</p>		
+		<div>
+			<!--Deslogar-->
+			<a onclick="alertaSair();" sec:authorize="isAuthenticated()" href="/logout" class="waves-effect waves-light btn">Sair</a>
+		</div>
+		
+		
 	</div>
 	
 	<script type="text/javascript" src="js/main.js"></script>
