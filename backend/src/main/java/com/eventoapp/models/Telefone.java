@@ -1,5 +1,8 @@
 package com.eventoapp.models;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,7 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-public class Telefone {
+public class Telefone implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -66,6 +71,25 @@ public class Telefone {
 
 	public void setParticipante(Participante participante) {
 		this.participante = participante;
-	}	
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(ddd, idTelefone, numero, participante, tipo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Telefone other = (Telefone) obj;
+		return Objects.equals(ddd, other.ddd) && Objects.equals(idTelefone, other.idTelefone)
+				&& Objects.equals(numero, other.numero) && Objects.equals(participante, other.participante)
+				&& Objects.equals(tipo, other.tipo);
+	}
 	
 }

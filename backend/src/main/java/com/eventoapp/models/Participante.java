@@ -3,6 +3,7 @@ package com.eventoapp.models;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +28,7 @@ public class Participante implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)	
+	@GeneratedValue(strategy= GenerationType.SEQUENCE)	
 	private long idParticipante;
 	
 	@NotEmpty (message = "O campo Nome não pode ser vazio")	
@@ -100,6 +101,26 @@ public class Participante implements Serializable{
 	}
 	public void setTelefones(List<Telefone> telefones) {
 		this.telefones = telefones;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(CPF, dataCadastro, dataNascimento, email, evento, idParticipante, nomeParticipante,
+				telefones);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Participante other = (Participante) obj;
+		return Objects.equals(CPF, other.CPF) && Objects.equals(dataCadastro, other.dataCadastro)
+				&& Objects.equals(dataNascimento, other.dataNascimento) && Objects.equals(email, other.email)
+				&& Objects.equals(evento, other.evento) && idParticipante == other.idParticipante
+				&& Objects.equals(nomeParticipante, other.nomeParticipante)
+				&& Objects.equals(telefones, other.telefones);
 	}
 	
 }
