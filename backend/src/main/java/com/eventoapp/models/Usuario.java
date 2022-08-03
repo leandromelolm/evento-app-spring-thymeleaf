@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Email;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +32,7 @@ public class Usuario implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@Email(message ="Email não está na formato correto")
 	@Column(unique=true)
 	private String email;
 	
@@ -74,7 +76,7 @@ public class Usuario implements UserDetails {
 		return email;
 	}
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = email.toLowerCase().strip();
 	}
 	public String getSenha() {
 		return senha;
@@ -86,7 +88,7 @@ public class Usuario implements UserDetails {
 		return nome;
 	}
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = nome.toLowerCase().strip();
 	}
 	public String getCpf() {
 		return cpf;
