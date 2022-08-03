@@ -50,8 +50,7 @@ public class Participante implements Serializable{
 	@OneToMany(mappedBy = "participante", orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Telefone> telefones;	
 	
-	@ManyToOne
-	@NotNull(message = "Evento não pode ser nulo. Talvez o evento dessa página não exista.")
+	@ManyToOne	
 	private Evento evento;
 	
 	public long getIdParticipante() {

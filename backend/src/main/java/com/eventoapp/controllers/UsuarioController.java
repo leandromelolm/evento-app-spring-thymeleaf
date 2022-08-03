@@ -56,7 +56,7 @@ public class UsuarioController {
 		u.setEnabledUser(true);
 		u.setSenha(new BCryptPasswordEncoder().encode(u.getSenha()));
 		ur.save(u);
-		ur.InsertRole(u.getId(), 3); // 3 é o perfil ROLE_USER. previamente cadastrado no banco
+		ur.InsertRole(u.getId(), 3); // 3 É UM PERFIL PREVIAMENTE INSERIDO NO BANCO DE DADOS
 		attributes.addFlashAttribute("mensagem", "Usuario cadastrado com sucesso!"+ " Nome: " +u.getNome());
 		return "redirect:/register";
 	}
