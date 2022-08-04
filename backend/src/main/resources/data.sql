@@ -17,12 +17,18 @@ INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (10101,1);
 INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (10102,3);
 
 -- INSERIR EVENTO
-INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome) VALUES (20101,'2023-05-05 00:00:00','melo@email.com','06:30','Salão de festas do condomínio	','Reunião de condominio - Reajustes');
-INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome) VALUES (20102,'2023-12-31 00:00:00','melo@email.com','23:58','Salão de festas do condomínio	','Festa de fim de ano');
-INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome) VALUES (20103,'2023-08-15 00:00:00','usuario-padrao@email.com','23:58','Campo da Varzea','Jogo amistoso');
-INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome) VALUES (20104,'2023-04-19 00:00:00','usuario-padrao@email.com','23:58','Clube Spring',' Aulão sobre Spring');
-INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome) VALUES (20105,'2023-12-31 00:00:00','usuario-padrao@email.com','23:58','Salão de festas do condomínio	','Outra Festa de Fim de Ano');
-INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome) VALUES (20106,'2023-04-19 00:00:00','usuario-padrao@email.com','23:58','Praça publica',' Campanha de Vacinação');
+INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_particip, quant_max_particip) 
+    VALUES (20101,'2023-05-05 00:00:00','melo@email.com','06:30','Salão de festas do condomínio	','Reunião de condominio - Reajustes',0,0);
+INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_particip, quant_max_particip) 
+    VALUES (20102,'2023-12-31 00:00:00','melo@email.com','23:58','Salão de festas do condomínio	','Festa de fim de ano',0,0);
+INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_particip, quant_max_particip) 
+    VALUES (20103,'2023-08-15 00:00:00','usuario-padrao@email.com','23:58','Campo da Varzea','Jogo amistoso',0,0);
+INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_particip, quant_max_particip) 
+    VALUES (20104,'2023-04-19 00:00:00','usuario-padrao@email.com','23:58','Clube Spring',' Aulão sobre Spring',1,0);
+INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_particip, quant_max_particip) 
+    VALUES (20105,'2023-12-31 00:00:00','usuario-padrao@email.com','23:58','Salão de festas do condomínio','Outra Festa de Fim de Ano',0,0);
+INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_particip, quant_max_particip) 
+    VALUES (20106,'2023-04-19 00:00:00','usuario-padrao@email.com','23:58','Praça publica',' Campanha de Vacinação',0,0);
 
 -- INSERIR RELAÇÃO USUARIO COM EVENTO
 INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('melo@email.com', 20101);
@@ -33,6 +39,7 @@ INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('usuario-padrao@
 INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('usuario-padrao@email.com', 20106);
 
 -- INSERIR PARTICIPANTE EM EVENTOS
-INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) VALUES (22101,'222.222.222-22','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser silva santos',20104);
+INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
+    VALUES (22101,'222.222.222-22','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser silva santos',20104);
 
 INSERT INTO telefone(id_telefone, ddd, numero, tipo, id_participante) VALUES (721001,'11','9 1111-1111',NULL,22101);

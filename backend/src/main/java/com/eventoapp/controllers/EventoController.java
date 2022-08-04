@@ -107,14 +107,9 @@ public class EventoController {
 		er.delete(evento);
 		return "redirect:/eventos";
 	}
-	
+	/* SALVAR PARTICIPANTE  */
 	@RequestMapping(value="/evento/{codigo}", method = RequestMethod.POST)
 	public String salvarParticipante(@PathVariable("codigo") long codigo, @Valid Participante participante, BindingResult result, @Valid String telefone, RedirectAttributes attributes){		
-		
-//		System.out.println("ErroQuant__ "+ result.getErrorCount());
-//		System.out.println("ErrorBolean__ "+ result.hasErrors());
-//		System.out.println("Erro__ "+ result.getAllErrors());
-		
 		List<String> msg = new ArrayList<String>();			
 		
 		if(result.hasErrors()){
@@ -131,7 +126,10 @@ public class EventoController {
 		participante.setEvento(evento);		
 		LocalDateTime localDateTime = LocalDateTime.now();          
         participante.setDataCadastro(Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant())); // Conversão LocalDateTime para Date
-		pr.save(participante);	
+		pr.save(participante);
+		
+		evento.setQuantParticip(evento.getQuantParticip()+1);
+		er.save(evento);
 		
 		Telefone tel = new Telefone();;
 		tel.setDdd(telefone.substring(1, 3));
@@ -143,10 +141,15 @@ public class EventoController {
 	}
 	
 	@RequestMapping("/deletarParticipante")
-	public String deletarParticipante(long codigo) {
+	public String deletarParticipante(long codigo) {		
 		Participante participante = pr.findByIdParticipante(codigo);
+		
+		Evento evento = participante.getEvento();
+		evento.setQuantParticip(evento.getQuantParticip()-1);
+		er.save(evento);
+		
 		pr.delete(participante);
-		Evento evento = participante.getEvento();		
+
 		return "redirect:/evento/"+ Long.toString(evento.getCodigo());
 	}
 	

@@ -1,6 +1,7 @@
 package com.eventoapp.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,7 +44,11 @@ public class Evento implements Serializable{
 	private String horario;
 	
 	@OneToMany(mappedBy = "evento", orphanRemoval = true, fetch = FetchType.EAGER)
-	private List<Participante> participantes;	
+	private List<Participante> participantes = new ArrayList<>();
+	
+	private Integer quantParticip;
+	
+	private int quantMaxParticip;
 	
 	@ManyToOne
 	@JoinTable( 
@@ -97,6 +102,24 @@ public class Evento implements Serializable{
 	}
 	public void setEmailResponsavelEvento(String emailResponsavelEvento) {
 		this.emailResponsavelEvento = emailResponsavelEvento;
+	}	
+	public List<Participante> getParticipantes() {
+		return participantes;
+	}
+	public void setParticipantes(List<Participante> participantes) {
+		this.participantes = participantes;
+	}
+	public int getQuantParticip() {
+		return quantParticip;
+	}
+	public void setQuantParticip(Integer quantParticip) {		
+		this.quantParticip = quantParticip;
+	}	
+	public int getQuantMaxParticip() {
+		return quantMaxParticip;
+	}
+	public void setQuantMaxParticip(int quantMaxParticip) {
+		this.quantMaxParticip = quantMaxParticip;
 	}
 	
 }
