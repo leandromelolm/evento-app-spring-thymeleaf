@@ -48,6 +48,15 @@
 			<a onclick="alertaSair();" sec:authorize="isAuthenticated()" href="/logout" class="waves-effect waves-light btn">Sair</a>
 		</div>
 		
+		<form method="get">
+			<div class="show">
+					Cadastrado Por:<input  name="emailResponsavelEvento" th:value="${#authentication.name}" readonly=true/>
+			</div>
+			<button class="waves-effect waves-light btn input-field" type="submit">Salvar</button>
+		</form>
+		
+<!--		 <h1 th:value="${#usuario.nome}"></h1>-->
+		
 		
 	</div>
 	

@@ -7,17 +7,20 @@ import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.spring5.expression.Mvc;
 
 import com.eventoapp.models.Evento;
 import com.eventoapp.models.Participante;
@@ -80,6 +83,14 @@ public class EventoController {
 		return mv;
 	}
 	
+	@GetMapping("/user/meus-eventos")
+	public ModelAndView meusEventos() {	
+		ModelAndView mv = new ModelAndView("/user/meus-eventos");
+		List<Evento> eventos = er.findAllEventos("listaEventos");
+		mv.addObject("eventos", eventos);
+		return mv;
+	}
+	
 	@RequestMapping(value="/participantes")
 	public ModelAndView listarTodosParticipantes() {
 		ModelAndView mv = new ModelAndView("listaParticipantes");
@@ -107,6 +118,14 @@ public class EventoController {
 		er.delete(evento);
 		return "redirect:/eventos";
 	}
+	
+	@RequestMapping("/user/meus-eventos/deletar")
+	public String deletarMeuEvento(long codigo) {
+		Evento evento = er.findByCodigo(codigo);		
+		er.delete(evento);
+		return "redirect:/user/meus-eventos";
+	}	
+	
 	/* SALVAR PARTICIPANTE  */
 	@RequestMapping(value="/evento/{codigo}", method = RequestMethod.POST)
 	public String salvarParticipante(@PathVariable("codigo") long codigo, @Valid Participante participante, BindingResult result, @Valid String telefone, RedirectAttributes attributes){		
