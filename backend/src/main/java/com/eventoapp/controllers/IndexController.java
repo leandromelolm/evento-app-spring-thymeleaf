@@ -1,11 +1,21 @@
 package com.eventoapp.controllers;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.eventoapp.models.Evento;
+import com.eventoapp.repository.EventoRepository;
 
 @Controller
 public class IndexController {
+	
+	@Autowired
+	private EventoRepository er;
 	
 	@RequestMapping("/")
 	public String index() {
@@ -13,8 +23,11 @@ public class IndexController {
 	}
 	
 	@RequestMapping("/home")
-	public String home() {
-		return "home";
+	public ModelAndView home() {
+		ModelAndView mv = new ModelAndView("home");
+		List<Evento> eventos = er.findAllEventos("listaEventos");
+		mv.addObject("eventos", eventos);
+		return mv;
 	}
 	
 	// SignIn form
