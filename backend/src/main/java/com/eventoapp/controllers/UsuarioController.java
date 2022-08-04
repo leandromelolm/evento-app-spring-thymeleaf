@@ -14,8 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eventoapp.models.Usuario;
@@ -32,8 +32,8 @@ public class UsuarioController {
 		return "user/register";
 	}
 	
-//	@PostMapping("registser")
-	@RequestMapping(value="/register", method=RequestMethod.POST)
+	@PostMapping("/registser")
+//	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String form(@Valid Usuario u, BindingResult result, RedirectAttributes attributes) {	
 		List<String> msg = new ArrayList<String>();		
 		if(result.hasErrors()){
