@@ -7,20 +7,21 @@ import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.thymeleaf.spring5.expression.Mvc;
 
 import com.eventoapp.models.Evento;
 import com.eventoapp.models.Participante;
@@ -119,17 +120,35 @@ public class EventoController {
 		return "redirect:/eventos";
 	}
 	
-	@RequestMapping("/user/meus-eventos/deletar")
+	@RequestMapping("/user/meus-eventos/delete2")
 	public String deletarMeuEvento(long codigo) {
 		Evento evento = er.findByCodigo(codigo);		
 		er.delete(evento);
 		return "redirect:/user/meus-eventos";
-	}	
+	}
+	
+	@PostMapping("/user/meus-eventos/delete")
+	public String alterarPapelUsuario(@ModelAttribute("evento")Evento evento, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			System.out.println("ErrorMessage__ "+ bindingResult.hasErrors());
+			return "redirect:/user/meus-eventos";
+		}		
+		System.out.println(evento.getEmailResponsavelEvento());
+		String emailCapturadoDoForm = evento.getEmailResponsavelEvento();
+		Evento e = er.findByCodigo(evento.getCodigo());
+
+		if(!e.getEmailResponsavelEvento().equals(emailCapturadoDoForm)) {
+			return "error";
+		}
+		er.delete(evento);
+		return "redirect:/user/meus-eventos";
+	}
+	
 	
 	/* SALVAR PARTICIPANTE  */
 	@RequestMapping(value="/evento/{codigo}", method = RequestMethod.POST)
 	public String salvarParticipante(@PathVariable("codigo") long codigo, @Valid Participante participante, BindingResult result, @Valid String telefone, RedirectAttributes attributes){		
-		List<String> msg = new ArrayList<String>();			
+		List<String> msg = new ArrayList<String>();		
 		
 		if(result.hasErrors()){
 			for (ObjectError objectError : result.getAllErrors()) {

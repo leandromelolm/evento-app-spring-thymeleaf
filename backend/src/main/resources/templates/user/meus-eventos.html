@@ -18,20 +18,35 @@
 					<th>Local</th>
 					<th>Data</th>
 					<th>Horario</th>
-					<th>Deletar</th>
+					<th class="hide">Deletar</th>
+					<th>Excluir</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="evento : ${eventos}">
 					<div th:if="${#authentication.name == evento.emailResponsavelEvento}">
 						<td><span th:text="${evento.codigo}"></span></td>
-					<td> <a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.nome}"></span></a></td>
+					<td> 
+						<a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}">
+							<span th:text="${evento.nome}"></span>
+						</a>
+					</td>
 					<td><span th:text="${evento.local}"></span></td>
 					<td><span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span></td>
 					<td><span th:text="${evento.horario}"></span></td>
-					<td> <a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('EC#deletarMeuEvento').arg(0, evento.codigo)).build()}">
+					<td class="hide"> 
+						<a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('EC#deletarMeuEvento').arg(0, evento.codigo)).build()}">
 							<i class="material-icons">delete_forever</i>
 						</a>
+					</td>
+					<td> 
+						<form action="#" th:action="@{/user/meus-eventos/delete}" method="POST">
+						<input type="hidden" name="codigo" th:value="*{evento.codigo}">								
+						<input type="hidden" disable=true name="emailResponsavelEvento" th:value="${#authentication.name}">						
+							<button type="submit" class="btn btn-info col-2">
+								<i class="material-icons">delete</i>
+							</button>
+						</form>
 					</td>					
 					</div>
 				</tr>
