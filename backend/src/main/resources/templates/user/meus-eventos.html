@@ -40,10 +40,10 @@
 						</a>
 					</td>
 					<td> 
-						<form action="#" th:action="@{/user/meus-eventos/delete}" method="POST">
+						<form action="#" name="formExcluir" th:action="@{/user/meus-eventos/delete}" method="POST">
 						<input type="hidden" name="codigo" th:value="*{evento.codigo}">								
 						<input type="hidden" disable=true name="emailResponsavelEvento" th:value="${#authentication.name}">						
-							<button type="submit" class="btn btn-info col-2">
+							<button type="submit" class="btn btn-info col-2" onclick="return confirmarExcluir();">
 								<i class="material-icons">delete</i>
 							</button>
 						</form>
@@ -88,6 +88,21 @@
 		
 	</div>
 	<!--JavaScript at end of body for optimized loading-->
+	
+	<script type="text/javascript"> 
+		function confirmarExcluir(){ 
+			
+   			var resultado = (confirm('Tem certeza que quer excluir este evento?'))
+   			if (resultado == true) {          
+            	alert("O item será excluído da lista!");    
+        	}
+        	else{            	
+            	return false;
+        	}
+		} 
+	</script>
+
+	
 	<script type="text/javascript" src="/https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/materialize/js/materialize.min.js"></script>    
     <script type="text/javascript" src="/js/main.js"></script>

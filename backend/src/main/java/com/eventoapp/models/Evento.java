@@ -46,7 +46,7 @@ public class Evento implements Serializable{
 	@OneToMany(mappedBy = "evento", orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Participante> participantes = new ArrayList<>();
 	
-	private Integer quantParticip;
+	private Integer quantParticip = 0;
 	
 	private int quantMaxParticip;
 	
