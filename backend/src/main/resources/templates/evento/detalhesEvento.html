@@ -79,9 +79,9 @@
 							<tr>
 								<th>Nome Participante</th>
 								<th>Email</th>
-								<th>CPF</th>
-								<th>ID</th>
-								<th>Data Nascimento</th>
+								<th sec:authorize="isAuthenticated()">CPF</th>
+								<th sec:authorize="isAuthenticated()" >ID</th>
+								<th sec:authorize="isAuthenticated()" >Data Nascimento</th>
 								<th>DataCadastro</th>
 								<th>Deletar</th>
 							</tr>
@@ -90,9 +90,9 @@
 							<tr th:each="participante : ${participantes}">
 								<td><span th:text="${participante.nomeParticipante}"></span></td>
 								<td><span th:text="${participante.email}"></span></td>
-								<td><span th:text="${participante.CPF}"></span></td>
-								<td><span th:text="${participante.idParticipante}"></span></td>
-								<td><span th:text="${#calendars.format(participante.dataNascimento, 'dd/MM/yyyy')}"></span>
+								<td sec:authorize="isAuthenticated()" ><span th:text="${participante.CPF}"></span></td>
+								<td sec:authorize="isAuthenticated()" ><span th:text="${participante.idParticipante}"></span></td>
+								<td sec:authorize="isAuthenticated()" ><span th:text="${#calendars.format(participante.dataNascimento, 'dd/MM/yyyy')}"></span>
 								</td>
 								<td><span th:text="${#calendars.format(participante.dataCadastro, 'dd/MM/yyyy')}"></span>
 								</td>
