@@ -69,6 +69,9 @@
 				height: 180px;
 			}
 		}
+		#btncadastrar{
+		margin: 10px 0px 15px 10px;
+		}
 	</style>
 	
 </head>
@@ -85,12 +88,12 @@
 		</div>
 		<div sec:authorize="isAuthenticated()">
 			<h5>Cadastre seus eventos e listas de convidados!</h5>
-			<a href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>
+			<a id="btncadastrar" href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>
 		</div>
 		<div class="row">
 			<div th:each="evento : ${eventos}">
       			<div class="col s12 m6 l4">
-      				<div class="card-panel">
+      				<div class="card-panel z-depth-5">
        					<span th:text="${evento.nome}"></span><p/>
 						<span th:text="${evento.local}"></span><p/>
 						<span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span>

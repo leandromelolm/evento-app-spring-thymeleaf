@@ -17,9 +17,18 @@ public class IndexController {
 	@Autowired
 	private EventoRepository er;
 	
+//	@RequestMapping("/")
+//	public String index() {
+//		return "index";
+//	}
+	
 	@RequestMapping("/")
-	public String index() {
-		return "index";
+	public ModelAndView index() {
+		ModelAndView mv = new ModelAndView("index");
+		List<Evento> eventos = er.findAllEventos("listaEventos");
+		
+		mv.addObject("eventos", eventos);
+		return mv;
 	}
 	
 	@RequestMapping("/home")
