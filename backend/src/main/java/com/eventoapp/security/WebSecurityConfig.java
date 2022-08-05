@@ -1,26 +1,23 @@
 package com.eventoapp.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
-	
-	@Autowired
-	private ImplementsUserDetailsService userDailsService;
+public class WebSecurityConfig {
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception{ // 1-ADMIN, 2-POWER_USER, 3-STANDARD_USER (Adicionados no data.sql)
+	@Bean
+	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{ // 1-ADMIN, 2-POWER_USER, 3-STANDARD_USER (Adicionados no data.sql)
 		http
 			.csrf().disable().authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/home", "/","/eventos","/evento/**", "/teste", "/register").permitAll()
@@ -36,29 +33,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.anyRequest().authenticated()
 			.and().formLogin().loginPage("/login.html")
 			.failureUrl("/login-error.html")
-			.successForwardUrl("/home").permitAll()
+			.permitAll()
 			.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/");
+		return http.build();
 	}
+	
+	@Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration auth) throws Exception {
+        return auth.getAuthenticationManager();
+    }
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth.userDetailsService(userDailsService)
-		.passwordEncoder(new BCryptPasswordEncoder());
-		
-//		auth.inMemoryAuthentication()
-//		.withUser("melo").password(passwordEncoder().encode("123456")).roles("User")
-//		.and()
-//        .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
-	}
-
-	@Override
-	public void configure(WebSecurity web) throws java.lang.Exception{
-		web.ignoring().antMatchers("/materialize/**", "/style/**", "/js/**","/h2-console/**");
-	}
+	@Bean
+	public WebSecurityCustomizer webSecurityCustomizer() {
+		return (web) -> web.ignoring().antMatchers("/materialize/**", "/style/**", "/js/**","/h2-console/**");
+	}	
 	
 	@Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-	
+    }	
 }
+
+// https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
+// https://stackoverflow.com/questions/72381114/spring-security-upgrading-the-deprecated-websecurityconfigureradapter-in-spring

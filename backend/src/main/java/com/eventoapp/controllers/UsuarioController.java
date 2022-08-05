@@ -32,7 +32,7 @@ public class UsuarioController {
 		return "user/register";
 	}
 	
-	@PostMapping("/registser")
+	@PostMapping("/register")
 //	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String form(@Valid Usuario u, BindingResult result, RedirectAttributes attributes) {	
 		List<String> msg = new ArrayList<String>();		
@@ -58,7 +58,7 @@ public class UsuarioController {
 		ur.save(u);
 		ur.InsertRole(u.getId(), 3); // 3 É UM PERFIL PREVIAMENTE INSERIDO NO BANCO DE DADOS
 		attributes.addFlashAttribute("mensagem", "Usuario cadastrado com sucesso!"+ " Nome: " +u.getNome());
-		return "redirect:/register";
+		return "redirect:/login.html";
 	}
 
 }
