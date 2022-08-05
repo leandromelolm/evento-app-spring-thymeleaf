@@ -105,6 +105,8 @@
 							 <span th:case="*"><span th:text="${evento.quantParticip} + ' participantes'"></span></span>
 						</div>
 						
+						<span th:text="${evento.status}"></span>
+						
 						<div class="div-button">
 							<a class="acessar"th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}">
 								Acessar

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.eventoapp.models.enums.StatusEvento;
 
 @Entity
 public class Evento implements Serializable{
@@ -46,8 +49,9 @@ public class Evento implements Serializable{
 	@OneToMany(mappedBy = "evento", orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Participante> participantes = new ArrayList<>();
 	
+	@Column(name="quant_part")
 	private Integer quantParticip = 0;
-	
+	@Column(name="max_part")
 	private int quantMaxParticip;
 	
 	@ManyToOne
@@ -59,7 +63,13 @@ public class Evento implements Serializable{
 	          name = "usuario_email", referencedColumnName = "email")) 
 	private Usuario usuario;
 	
-	private String emailResponsavelEvento;
+	private String emailResponsavelEvento;		
+
+	private Integer status;
+		
+	public Evento() {
+		addStatusEvento(StatusEvento.ABERTO);	
+	}
 	
 	public Long getCodigo() {
 		return codigo;
@@ -121,5 +131,11 @@ public class Evento implements Serializable{
 	public void setQuantMaxParticip(int quantMaxParticip) {
 		this.quantMaxParticip = quantMaxParticip;
 	}
+	public StatusEvento getStatus() {
+		return StatusEvento.toEnum(status);
+	}
+	public void addStatusEvento(StatusEvento status) {
+		this.status = status.getCod();
+	}	
 	
 }
