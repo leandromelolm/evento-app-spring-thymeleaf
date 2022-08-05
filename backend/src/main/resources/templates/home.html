@@ -11,13 +11,13 @@
 		}		
       	.div-button{
 			border: 3px solid rgb(32, 74, 135);
-			background-color:#1a237e ;
+			background-color:rgb(32, 74, 135) ;
 			position:absolute;
-			left: 20px;
-			bottom:20px;
+			left: 20px;			
+			bottom:5px;
 			width: 70px; 
-			height: 35px;
-			text-align: center;
+			height: 30px;
+			text-align: center;					
 			margin: auto;
 		}
       	.acessar{			
@@ -94,7 +94,7 @@
 			<div th:each="evento : ${eventos}">
       			<div class="col s12 m6 l4">
       				<div class="card-panel z-depth-5">
-       					<span th:text="${evento.nome}"></span><p/>
+       					<b th:text="${evento.nome}"></b><p/>
 						<span th:text="${evento.local}"></span><p/>
 						<span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span>
 						<span th:text="${evento.horario}"></span><p/>
@@ -120,7 +120,7 @@
 </div>
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>    
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="/materialize/js/materialize.min.js"></script>    
+    <script type="text/javascript" src="/js/main.js"></script>
 </body>
 </html>
