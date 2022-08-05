@@ -11,10 +11,11 @@ $(document).ready(function() {
 	});
 });
 
-function alertaSair() {	
-	alert("Deslogado");
-}
-
-function clickEvent() {	
-	alert("Test");	
+function confirmaDeslogar() {	
+	var resultado = (confirm('Tem certeza que deseja deslogar?'))
+	if (resultado){
+		return true		
+	}else{
+		return false
+	}
 }

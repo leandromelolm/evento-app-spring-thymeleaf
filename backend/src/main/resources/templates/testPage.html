@@ -7,23 +7,31 @@
 
 	<div th:replace="fragments :: menu" />
 	
-	<div class="container">		
-
-		<h5>Página Teste</h5>
+	<div class="container">
+		<div>			
+			<a onclick="return confirmaDeslogar();" sec:authorize="isAuthenticated()" href="/logout" class="waves-effect waves-light btn">Logout</a>
+		</div>		
+		</p>
+		<a id="btncadastrar" href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>
 		
 		<h4>Bem vindo!</h4>
 			<div sec:authorize="!isAuthenticated()">
 				<h5>Faça seu Login Para cadastrar seus eventos e deixar disponivel o cadastro de participantes!</h5>
-				<h5>[[${#session}]]</h5>
+				<p>Olá, [[${#authentication.name}]]!</p>
+				<p>session <b>[[${#session}]]</b></p>
+<!--				<p>AttributeNames <b>[[${#session.attributeNames}]]</b></p>-->
+				<p>lastAccessedTime <b>[[${#session.lastAccessedTime}]]</b></p>
+<!--				<p>getAttributeNames <b>[[${#session.getAttributeNames}]]</b></p>-->
+				<p>id <b>[[${#session.id}]]</b></p>				
 			</div>
+			
 			<div sec:authorize="isAuthenticated()">
-				<h5>Olá, [[${#authentication.name}]]!</h5>
-				<h5>[[${#session.attributeNames}]]</h5>
-				<h5>[[${#session.lastAccessedTime}]]</h5>
-				<h5>[[${#session.getAttributeNames}]]</h5>
-				<h5>[[${#session.id}]]</h5>	
-				<h5>Cadastre seus eventos e listas de convidados!</h5>
-				<a id="btncadastrar" href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>
+				<p>Olá, [[${#authentication.name}]]!</p>
+				<p>session <b>[[${#session}]]</b></p>
+<!--				<p>AttributeNames <b>[[${#session.attributeNames}]]</b></p>-->
+				<p>lastAccessedTime <b>[[${#session.lastAccessedTime}]]</b></p>
+<!--				<p>getAttributeNames <b>[[${#session.getAttributeNames}]]</b></p>-->
+				<p>id <b>[[${#session.id}]]</b></p>
 			</div>
 		
 		
@@ -48,22 +56,15 @@
 		<div sec:authorize="hasRole('ROLE_STANDARD_USER')">
   			USER NORMAL -This content is only shown to users.
 		</div>
-		
-		
+				
 		<!--		Authenticated user roles:<div sec:authentication="principal.authorities"></div>-->
 <!--		Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>-->
-		
-		<input type="button" href="/logout" onclick="clickEvent();" value="Test" />
-		
+				
 		</p>		
 		<div>
 			<button onclick="window.location.href = '/logout'">Sair</button>
 		</div>		
-		</p>		
-		<div>
-			<!--Deslogar-->
-			<a onclick="alertaSair();" sec:authorize="isAuthenticated()" href="/logout" class="waves-effect waves-light btn">Sair</a>
-		</div>
+		</p>
 		
 		<form method="get">
 			<div class="show">
@@ -72,15 +73,11 @@
 			<button class="waves-effect waves-light btn input-field" type="submit">Salvar</button>
 		</form>
 		
-<!--		 <h1 th:value="${#usuario.nome}"></h1>-->
-		
-		
 	</div>
 	
-	<script type="text/javascript" src="js/main.js"></script>
-
-	<script type="text/javascript" src="js/test.js"></script>
-	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/js/main.js"></script>
+	<script type="text/javascript" src="/js/test.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
 </body>
 
 </html>

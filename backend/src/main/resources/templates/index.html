@@ -20,45 +20,44 @@
 
 <body>
 	<div>
-		<div th:replace="fragments :: menu"/>
-		<div class="container">			
+		<div th:replace="fragments :: menu" />
+		<div class="container">
 			<div sec:authorize="!isAuthenticated()">
 				<h2>Bem vindo!</h2>
 				<h5>Faça seu Login Para cadastrar seus eventos e deixar disponivel o cadastro de participantes!</h5>
 			</div>
-			<div sec:authorize="isAuthenticated()">				
+			<div sec:authorize="isAuthenticated()">
 				<h5>Cadastre seus eventos e listas de convidados!</h5>
 				<a id="btncadastrar" href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>
 			</div>
 			<div class="row">
-			<div th:each="evento : ${eventos}">
-      			<div class="col s12 m6 l4">
-      				<div class="card-panel z-depth-5">
-       					<span th:text="${evento.nome}"></span><p/>
-						<span th:text="${evento.local}"></span><p/>
-						<span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span>
-						<span th:text="${evento.horario}"></span><p/>
-<!--						<span th:text="${evento.quantParticip}"></span>-->
-						
-						<div th:switch="${evento.quantParticip}">
-							<span th:case="'0'">Sem participante cadastrado!</span>
-							 <span th:case="'1'"><span th:text="${evento.quantParticip}"></span> participante</span>
-							 <span th:case="*"><span th:text="${evento.quantParticip}"></span> participantes</span>
+				<div th:each="evento : ${eventos}">
+					<div class="col s12 m6 l4">
+						<div class="card-panel z-depth-5">
+							<span th:text="${evento.nome}"></span>
+							<p />
+							<span th:text="${evento.local}"></span>
+							<p />
+							<span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span>
+							<span th:text="${evento.horario}"></span>
+							<p />
+							<!-- <span th:text="${evento.quantParticip}"></span> -->	
+							<div th:switch="${evento.quantParticip}">
+								<span th:case="'0'">Sem participante cadastrado!</span>
+								<span th:case="'1'"><span th:text="${evento.quantParticip}"></span> participante</span>
+								<span th:case="*"><span th:text="${evento.quantParticip}"></span> participantes</span>
+							</div>
+	
+							<div class="div-button">
+								<a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}">
+									Acessar
+								</a>
+							</div>
 						</div>
-						
-						<div class="div-button">
-							<a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}">
-								Acessar
-							</a>	
-						</div>						
 					</div>
 				</div>
-      		</div>      		    
-    	</div>
-			
-			
-			
-				
+			</div>
+	
 		</div>
 	</div>
 
