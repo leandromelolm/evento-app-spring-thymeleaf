@@ -101,8 +101,8 @@
 						
 						<div th:switch="${evento.quantParticip}">
 							<span th:case="'0'">Sem participante cadastrado!</span>
-							 <span th:case="'1'"><span th:text="${evento.quantParticip}"></span> participante</span>
-							 <span th:case="*"><span th:text="${evento.quantParticip}"></span> participantes</span>
+							 <span th:case="'1'"><span th:text="|${evento.quantParticip} participante|"></span></span>
+							 <span th:case="*"><span th:text="${evento.quantParticip} + ' participantes'"></span></span>
 						</div>
 						
 						<div class="div-button">
