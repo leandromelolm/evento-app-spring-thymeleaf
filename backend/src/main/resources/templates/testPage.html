@@ -10,6 +10,23 @@
 	<div class="container">		
 
 		<h5>Página Teste</h5>
+		
+		<h4>Bem vindo!</h4>
+			<div sec:authorize="!isAuthenticated()">
+				<h5>Faça seu Login Para cadastrar seus eventos e deixar disponivel o cadastro de participantes!</h5>
+				<h5>[[${#session}]]</h5>
+			</div>
+			<div sec:authorize="isAuthenticated()">
+				<h5>Olá, [[${#authentication.name}]]!</h5>
+				<h5>[[${#session.attributeNames}]]</h5>
+				<h5>[[${#session.lastAccessedTime}]]</h5>
+				<h5>[[${#session.getAttributeNames}]]</h5>
+				<h5>[[${#session.id}]]</h5>	
+				<h5>Cadastre seus eventos e listas de convidados!</h5>
+				<a id="btncadastrar" href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>
+			</div>
+		
+		
 		<div class="row">
 			<div class="input-field col l2 m6 s12">
 				<input type=text name="cdate" id="cdate" class="datepicker">
