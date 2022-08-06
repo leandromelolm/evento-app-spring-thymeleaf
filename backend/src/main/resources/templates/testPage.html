@@ -3,11 +3,21 @@
 
 <head th:replace="fragments :: html_head" />
 
-<body onload="nomeUsuarioLogado()">
+<body>
 
 	<div th:replace="fragments :: menu" />
 	
 	<div class="container">
+	
+		<div sec:authorize="isAuthenticated()">
+			<h4>Minha Conta</h4>
+			<p>Email: <b>[[${#authentication.name}]]</b></p>
+			<p>Nome: <b>[[${session.mySessionNome}]]</b></p>
+			<p>CPF: <b>[[${session.mySessionCpf}]]</b></p>
+			<p>Data do Cadastro: <b>[[${session.mySessionDataCadastro}]]</b></p>
+			<p>Perfil Usuário: <b>[[${session.mySessionTipoPerfil}]]</b></p>
+			<p class="hide" >Id: <b>[[${session.mySessionId}]]</b></p>
+		</div>
 	
 		<div>
 			<div>
@@ -16,29 +26,43 @@
 					class="waves-effect waves-light btn">Logout</a>
 				<a id="btncadastrar" href="/login.html" sec:authorize="!isAuthenticated()"
 					class="waves-effect waves-light btn">Entrar</a>
+				<a id="btncadastrar" href="/register" sec:authorize="!isAuthenticated()"
+					class="waves-effect waves-light btn">Cadastre-se</a>
 			</div>
 			</p>
 			<a id="btncadastrar" href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>
 			</p>	
-	
-			<p th:text="${session.mySessionAttribute}" th:unless="${session == null}">[...]</p>	
 		</div>
+
+		<div sec:authorize="isAuthenticated()">		
+			<!-- FORM POST EXCLUIR CONTA -->
+			<th:block th:include="mensagemValidacao"></th:block>
+			<form action="#" name="formExcluir" th:action="@{/deletarMinhaContaUsuario}" method="POST">
+				<input class="hide" readonly=true id="id" name="id" th:value="${session.mySessionId}"/>
+				<input class="hide" readonly=true id="email" name="email" th:value="${#authentication.name}">
+				<p/>
+				<button type="submit" class="btn-large red" onclick="return confirmarExcluir()">
+					<i class="material-icons">delete_forever</i>
+					EXCLUIR CONTA
+				</button>
+			</form>
+		</div>			
 		
 	
 		<div id="admin" sec:authorize="hasRole('ADMIN')">	
 			
 			<div sec:authorize="!isAuthenticated()">
-				<p>[[${#authentication.name}]]!</p>
-				<p>session <b>[[${#session}]]</b></p>
-				<p>lastAccessedTime <b>[[${#session.lastAccessedTime}]]</b></p>
-				<p>id <b>[[${#session.id}]]</b></p>
+				<p>[[${#authentication.name}]]</p>
+				<p>Nome usuario da sessão: <b>[[${session.mySessionNome}]]</b></p>
+				<p>lastAccessedTime: <b>[[${#session.lastAccessedTime}]]</b></p>
+				<p>id: <b>[[${#session.id}]]</b></p>
 			</div>
 	
 			<div sec:authorize="isAuthenticated()">
-				<p>[[${#authentication.name}]]!</p>
-				<p>session <b>[[${#session}]]</b></p>
-				<p>lastAccessedTime <b>[[${#session.lastAccessedTime}]]</b></p>
-				<p>id <b>[[${#session.id}]]</b></p>
+				<p>Email: <b>[[${#authentication.name}]]</b></p>
+				<p>Nome usuario da sessão: <b>[[${session.mySessionNome}]]</b></p>
+				<p>lastAccessedTime: <b>[[${#session.lastAccessedTime}]]</b></p>
+				<p>id: <b>[[${#session.id}]]</b></p>				
 			</div>
 	
 	
@@ -52,7 +76,7 @@
 	
 			<p><b th:text="${mensagem}"></b></p>
 			<th:block th:include="mensagemValidacao"></th:block>
-			<p th:text="| Nome do usuario da sessão:  ${session.mySessionAttribute}|" th:unless="${session == null}">[...]
+			<p th:text="| Nome do usuario da sessão:  ${session.mySessionNome}|" th:unless="${session == null}">[...]
 			</p>
 	
 			<table border="1" class="table table-striped table-responsive-md">
@@ -87,11 +111,11 @@
 	
 		<div>
 			<form name="formulario" id="formulario" class="formulario" method="get">
-				<div class="show">
+				<div class="hide">
 					User Logado:<input id="formname" name="emailResponsavelEvento" th:value="${#authentication.name}"
 						readonly=true />
 				</div>
-				<button class="waves-effect waves-light btn input-field" type="submit">Salvar</button>
+				<button class="waves-effect waves-light btn input-field" type="submit">Teste Email URL</button>
 			</form>
 		</div>
 	
@@ -99,7 +123,7 @@
 	
 	
 	
-	<script>
+	<script type="text/javascript">
 		window.onload = function () {	
 			console.log("function called...");
 			let nome = document.getElementById("formname").value
@@ -116,7 +140,18 @@
            		//	alert("success");
         		//}
 			});   	
-		}		
+		}
+		
+		function confirmarExcluir() {
+			var resultado = (confirm('Tem certeza que você quer excluir sua Conta? Sua conta será deslogada e seus dados apagados. Para acessar novamente você precisará fazer um novo cadastro.'))
+			if (resultado == true) {
+				alert("Clique em OK para Excluir sua conta!")
+				return true;				
+			}else {				
+				return false;
+			}
+		}	
+			
 	</script>
 	
 	<script type="text/javascript" src="/js/main.js"></script>

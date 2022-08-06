@@ -45,7 +45,7 @@
 		}
 		.nav-wrapper{
 			margin:0px 20px 0px 20px;
-		}		
+		}
 	</style>
 </head>
 
@@ -54,7 +54,7 @@
 	<div th:fragment="menu">		
 		<header>
 		<ul id="dropdown1" class="dropdown-content">			
-			<li><a href="/teste"><i class="material-icons left">code</i>TestPage</a></li>
+			<li><a href="/teste"><i class="material-icons left">settings</i>Minha Conta</a></li>
 			<li class="cadastrarevento"><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
 			<li class="divider"></li>			
 			<li sec:authorize="isAuthenticated()"><a class="logout" href="/logout">Sair</a></li>
@@ -69,13 +69,13 @@
 						<li><a href="/eventos"><i class="material-icons left">list</i>Eventos</a></li>
 						<li><a href="/user/meus-eventos"><i class="material-icons left">playlist_add_check</i>Meus Eventos</a></li>
 						<li class="participante"><a href="/participantes"><i class="material-icons left">view_comfy</i>Participantes</a></li>
-						<li class="testpage" sec:authorize="!isAuthenticated()"><a href="/teste"><i class="material-icons left">build</i>TestPage</a></li>						
+						<li class="testpage" sec:authorize="!isAuthenticated()"><a href="/teste"><i class="material-icons left">code</i>TestPage</a></li>						
 						<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html">Log in</a></li>
 						<li sec:authorize="isAuthenticated()"><a class="dropdown-trigger" data-target="dropdown1"><span sec:authentication="name"></span><i
 									class="material-icons right">arrow_drop_down</i></a></li>
 									
-<!--						<li><a href="#" th:text="${session.mySessionAttribute}"></a></li>-->
-<!--						<li th:text="| User:  ${session.mySessionAttribute}|" ></li>-->
+<!--						<li><a href="#" th:text="${session.mySessionNome}"></a></li>-->
+<!--						<li th:text="| User:  ${session.mySessionNome}|" ></li>-->
 						
 					</ul>
 				</div>
@@ -89,7 +89,7 @@
 			<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
 			<li><a href="/eventos"><i class="material-icons left">view_list</i>Lista de Eventos</a></li>					
 			<li><a href="/participantes"><i class="material-icons left">view_comfy</i>Todos Participantes</a></li>
-			<li><a href="/teste"><i class="material-icons left">code</i>TestPage</a></li>			
+			<li><a href="/teste"><i class="material-icons left">settings</i>Minha Conta</a></li>			
 			<li sec:authorize="isAuthenticated()"><a class="logout" href="/logout"><i class="material-icons left">exit_to_app</i>Sair</a></li>	
 		</ul>
 	</header>

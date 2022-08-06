@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -51,7 +52,7 @@ public class Usuario implements UserDetails {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date atualAcesso;
 	
-	@ManyToMany
+	@ManyToMany (cascade = CascadeType.ALL)
 	@JoinTable( 
 	        name = "usuarios_roles", 
 	        joinColumns = @JoinColumn(
@@ -60,7 +61,7 @@ public class Usuario implements UserDetails {
 	          name = "role_id", referencedColumnName = "id")) 
 	private List<Role> roles;
 	
-	@OneToMany(mappedBy = "usuario")	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "usuario")	
 	private List<Evento> eventos = new ArrayList<>();
 	
 	@Transient
