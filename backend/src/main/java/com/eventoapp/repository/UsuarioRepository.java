@@ -11,6 +11,8 @@ import com.eventoapp.models.Usuario;
 
 @Repository
 public interface UsuarioRepository extends CrudRepository<Usuario, String> {
+	
+	@Transactional(readOnly = true)
 	Usuario findByEmail(String email);
 	
 	@Transactional

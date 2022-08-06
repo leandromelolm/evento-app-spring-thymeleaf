@@ -52,11 +52,6 @@ public class EventoController {
 		return "evento/formEvento";
 	}
 	
-	@RequestMapping(value="/teste", method=RequestMethod.GET)
-	public String test() {
-		return "/testPage";
-	}
-	
 	@RequestMapping(value="/cadastrarEvento", method=RequestMethod.POST)
 	public String form(@Valid Evento evento, BindingResult result, RedirectAttributes attributes) {	
 		List<String> msg = new ArrayList<String>();		
