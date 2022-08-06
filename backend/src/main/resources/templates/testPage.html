@@ -8,86 +8,99 @@
 	<div th:replace="fragments :: menu" />
 	
 	<div class="container">
-		<div>			
-			<a onclick="return confirmaDeslogar();" sec:authorize="isAuthenticated()" href="/logout" class="waves-effect waves-light btn">Logout</a>
-		</div>		
-		</p>
-		<a id="btncadastrar" href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>
-		
-		<h4>Bem vindo!</h4>
-			<div sec:authorize="!isAuthenticated()">
-				<h5>Faça seu Login Para cadastrar seus eventos e deixar disponivel o cadastro de participantes!</h5>
-				<p>Olá, [[${#authentication.name}]]!</p>
-				<p>session <b>[[${#session}]]</b></p>
-<!--				<p>AttributeNames <b>[[${#session.attributeNames}]]</b></p>-->
-				<p>lastAccessedTime <b>[[${#session.lastAccessedTime}]]</b></p>
-<!--				<p>getAttributeNames <b>[[${#session.getAttributeNames}]]</b></p>-->
-				<p>id <b>[[${#session.id}]]</b></p>				
+	
+		<div>
+			<div>
+				</p>
+				<a onclick="return confirmaDeslogar();" sec:authorize="isAuthenticated()" href="/logout"
+					class="waves-effect waves-light btn">Logout</a>
+				<a id="btncadastrar" href="/login.html" sec:authorize="!isAuthenticated()"
+					class="waves-effect waves-light btn">Entrar</a>
 			</div>
+			</p>
+			<a id="btncadastrar" href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>
+			</p>	
+	
+			<p th:text="${session.mySessionAttribute}" th:unless="${session == null}">[...]</p>	
+		</div>
+		
+	
+		<div id="admin" sec:authorize="hasRole('ADMIN')">	
 			
-			<div sec:authorize="isAuthenticated()">
-				<p>Olá, [[${#authentication.name}]]!</p>
+			<div sec:authorize="!isAuthenticated()">
+				<p>[[${#authentication.name}]]!</p>
 				<p>session <b>[[${#session}]]</b></p>
-<!--				<p>AttributeNames <b>[[${#session.attributeNames}]]</b></p>-->
 				<p>lastAccessedTime <b>[[${#session.lastAccessedTime}]]</b></p>
-<!--				<p>getAttributeNames <b>[[${#session.getAttributeNames}]]</b></p>-->
 				<p>id <b>[[${#session.id}]]</b></p>
 			</div>
-		
-		
-		<div class="row">
-			<div class="input-field col l2 m6 s12">
-				<input type=text name="cdate" id="cdate" class="datepicker">
-				<label for="cdate">Teste Calendario</label>
+	
+			<div sec:authorize="isAuthenticated()">
+				<p>[[${#authentication.name}]]!</p>
+				<p>session <b>[[${#session}]]</b></p>
+				<p>lastAccessedTime <b>[[${#session.lastAccessedTime}]]</b></p>
+				<p>id <b>[[${#session.id}]]</b></p>
 			</div>
+	
+	
+			<div class="row">
+				<div class="input-field col l2 m6 s12">
+					<input type=text name="cdate" id="cdate" class="datepicker">
+					<label for="cdate">Calendario</label>
+				</div>
+			</div>
+	
+	
+			<p><b th:text="${mensagem}"></b></p>
+			<th:block th:include="mensagemValidacao"></th:block>
+			<p th:text="| Nome do usuario da sessão:  ${session.mySessionAttribute}|" th:unless="${session == null}">[...]
+			</p>
+	
+			<table border="1" class="table table-striped table-responsive-md">
+				<tr th:each="u : ${usuario}">
+					<td><span th:text="${u.nome}"></span></td>
+					<td><span th:text="${u.cpf}"></span></td>
+					<td><span th:text="${u.email}"></span></td>
+				</tr>
+			</table>	
+	
+			<div sec:authorize="hasRole('USER')">Text visible to user.</div>
+			<div sec:authorize="hasRole('ADMIN')">Text visible to admin (usuario administrador).</div>
+			<div sec:authorize="isAuthenticated()"> Text visible only to authenticated users.</div>
+			<div> Authenticated username: <span sec:authentication="name"></span> </div>
+	
+			<div sec:authorize="hasRole('ROLE_ADMIN')">
+				USER ADMINISTRADOR -This content is only shown to administrators.
+			</div>
+			<div sec:authorize="hasRole('ROLE_STANDARD_USER')">
+				USER NORMAL -This content is only shown to users.
+			</div>
+			<!--		Authenticated user roles:<div sec:authentication="principal.authorities"></div>-->
+			<!--		Roles: <span sec:authentication="principal.authorities">[ROLE_STANDARD_USER, ROLE_ADMIN]</span>-->
+	
+			</p>
+			<div>
+				<button onclick="window.location.href = '/logout'">Sair</button>
+			</div>
+			</p>
 		</div>
 		
-		
-		<p>Retorno do backend: <b th:text="${mensagem}"></b></p>
-		<th:block th:include="mensagemValidacao"></th:block>
-		<p th:text="${session.mySessionAttribute}" th:unless="${session == null}">[...]</p>
-		
-		<table border="1" class="table table-striped table-responsive-md">
-			<tr th:each="u : ${usuario}">
-				<td><span th:text="${u.nome}"></span></td>
-				<td><span th:text="${u.cpf}"></span></td>
-				<td><span th:text="${u.email}"></span></td>
-			</tr>
-		</table>
-		
-		
+	
+		<div>
+			<form name="formulario" id="formulario" class="formulario" method="get">
+				<div class="show">
+					User Logado:<input id="formname" name="emailResponsavelEvento" th:value="${#authentication.name}"
+						readonly=true />
+				</div>
+				<button class="waves-effect waves-light btn input-field" type="submit">Salvar</button>
+			</form>
+		</div>
+	
 	</div>
 	
-	<div class="container">		
-		<div sec:authorize="hasRole('USER')">Text visible to user.</div>
-		<div sec:authorize="hasRole('ADMIN')">Text visible to admin (usuario administrador).</div>
-		<div sec:authorize="isAuthenticated()">	Text visible only to authenticated users.</div>
-		<div> Authenticated username: <span sec:authentication="name"></span> </div>
-
-		<div sec:authorize="hasRole('ROLE_ADMIN')">
-  			USER ADMINISTRADOR -This content is only shown to administrators.
-		</div>
-		<div sec:authorize="hasRole('ROLE_STANDARD_USER')">
-  			USER NORMAL -This content is only shown to users.
-		</div>				
-<!--		Authenticated user roles:<div sec:authentication="principal.authorities"></div>-->
-<!--		Roles: <span sec:authentication="principal.authorities">[ROLE_STANDARD_USER, ROLE_ADMIN]</span>-->
-				
-		</p>		
-		<div>
-			<button onclick="window.location.href = '/logout'">Sair</button>
-		</div>		
-		</p>
-		
-		<form name="formulario" id="formulario" class="formulario"  method="get">
-			<div class="show">
-					User Logado:<input  id="formname" name="emailResponsavelEvento" th:value="${#authentication.name}" readonly=true/>
-			</div>
-			<button class="waves-effect waves-light btn input-field" type="submit">Salvar</button>
-		</form>
-	</div>
-	<script>	
- 		window.onload = function () {
+	
+	
+	<script>
+		window.onload = function () {	
 			console.log("function called...");
 			let nome = document.getElementById("formname").value
     		console.log(nome)
@@ -103,8 +116,7 @@
            		//	alert("success");
         		//}
 			});   	
-		}	
-		
+		}		
 	</script>
 	
 	<script type="text/javascript" src="/js/main.js"></script>
