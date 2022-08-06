@@ -11,6 +11,8 @@
 	<!--Let browser know website is optimized for mobile-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
+<!--	<meta http-equiv="refresh" content="1">-->
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	
 	<!--Mascara no formulario-->
@@ -49,7 +51,7 @@
 
 <body>
 
-	<div th:fragment="menu">
+	<div th:fragment="menu">		
 		<header>
 		<ul id="dropdown1" class="dropdown-content">			
 			<li><a href="/teste"><i class="material-icons left">code</i>TestPage</a></li>
@@ -64,7 +66,6 @@
 					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down">
 						<li><a href="/home"><i class="material-icons left">home</i>Página Inicial</a></li>
-						
 						<li><a href="/eventos"><i class="material-icons left">list</i>Eventos</a></li>
 						<li><a href="/user/meus-eventos"><i class="material-icons left">playlist_add_check</i>Meus Eventos</a></li>
 						<li class="participante"><a href="/participantes"><i class="material-icons left">view_comfy</i>Participantes</a></li>
@@ -72,6 +73,10 @@
 						<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html">Log in</a></li>
 						<li sec:authorize="isAuthenticated()"><a class="dropdown-trigger" data-target="dropdown1"><span sec:authentication="name"></span><i
 									class="material-icons right">arrow_drop_down</i></a></li>
+									
+<!--						<li><a href="#" th:text="${session.mySessionAttribute}"></a></li>-->
+<!--						<li th:text="| User:  ${session.mySessionAttribute}|" ></li>-->
+						
 					</ul>
 				</div>
 			</div>		
@@ -79,7 +84,7 @@
 		
 		<ul class="sidenav" id="mobile-demo">
 			<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html"><i class="material-icons left">person_outline</i>Log in</a></li>
-			<li sec:authorize="isAuthenticated()"><a href="/home"><i class="material-icons left">person</i><span sec:authentication="name"></span></a></li>			
+			<li sec:authorize="isAuthenticated()"><a href="/home"><i class="material-icons left">person</i><span sec:authentication="name" th:value="${#authentication.name}"></span></a></li>			
 			<li><a href="/home"><i class="material-icons left">home</i>Página Inicial</a></li>
 			<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
 			<li><a href="/eventos"><i class="material-icons left">view_list</i>Lista de Eventos</a></li>					
@@ -88,8 +93,43 @@
 			<li sec:authorize="isAuthenticated()"><a class="logout" href="/logout"><i class="material-icons left">exit_to_app</i>Sair</a></li>	
 		</ul>
 	</header>
-		
+	<div class="hide">
+					User Logado:<input id="formname" name="emailResponsavelEvento" th:value="${#authentication.name}"
+						readonly=true />
+				</div>
+	
+<!--	<div onload="nomeUsuarioLogado()"></div>-->
+	<div>
+<!--		<div onload="setTimeout()"></div>-->
 	</div>
 
+
+	<script>
+		window.onload = function () {	
+			console.log("function called...");
+			let nome = document.getElementById("formname").value
+    		console.log(nome)
+    		//Função do Ajax para enviar uma solicitação get
+  			$.ajax({
+ 		 		type: "POST",
+ 		 		url: "/testepost",
+  				data: nome,  // usuario-padrao%40email.com=	   
+  				dataType: "text",
+  				//data: JSON.stringify(nome), // %22usuario-padrao%40email.com%22=
+        		//dataType: 'json',
+  				//success: function(){
+           		//	alert("success");
+        		//}
+			});   	
+		}
+		
+		setTimeout(function() {
+ 			// window.location.reload();
+			}, 5000); // 1 seg = 1000
+		
+	</script>
+	
+		
+	</div>
 </body>
 </html>
