@@ -41,7 +41,7 @@
 					User Logado:<input id="formname" name="emailResponsavelEvento" th:value="${#authentication.name}"
 						readonly=true />
 				</div>
-				<button class="waves-effect waves-light btn input-field" type="submit">Teste Email URL</button>
+				<button class="waves-effect waves-light btn input-field" type="submit"> METHOD GET Email</button>
 			</form>
 		</div>
 
@@ -124,13 +124,12 @@
 	
 	<script type="text/javascript">
 		window.onload = function () {	
-			console.log("function called...");
 			let nome = document.getElementById("formname").value
-    		console.log(nome)
+    		//console.log(nome)
     		//Função do Ajax para enviar uma solicitação get
   			$.ajax({
  		 		type: "POST",
- 		 		url: "/testepost",
+ 		 		url: "/info-user-logged",
   				data: nome,  // usuario-padrao%40email.com=	   
   				dataType: "text",
   				//data: JSON.stringify(nome), // %22usuario-padrao%40email.com%22=

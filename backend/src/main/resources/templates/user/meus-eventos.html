@@ -53,42 +53,41 @@
 			</tbody>
 		</table>
 		
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+			<h5>Todos Eventos</h5>		
+			<table class="responsive-table">
+				<thead>
+					<tr>
+						<th>Responsavel</th>
+						<th>Meu Evento</th>
+						<th>Cod.</th>
+						<th>Nome</th>
+						<th>Local</th>
+						<th>Data</th>
+						<th>Horario</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="evento : ${eventos}">
+						<td><span th:text="${evento.emailResponsavelEvento}"></span></td>
+						<td>
+							<span th:if="${#authentication.name == evento.emailResponsavelEvento}">SIM</span>
+							<span th:unless="${#authentication.name == evento.emailResponsavelEvento}">NÃO</span>
+						</td>
 		
-		<h5>Todos Eventos</h5>
-		
-		<table class="responsive-table">
-			<thead>
-				<tr>
-					<th>Responsavel</th>
-					<th>Meu Evento</th>
-					<th>Cod.</th>
-					<th>Nome</th>
-					<th>Local</th>
-					<th>Data</th>
-					<th>Horario</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="evento : ${eventos}">
-					<td><span th:text="${evento.emailResponsavelEvento}"></span></td>					
-					<td>
-    					<span th:if="${#authentication.name == evento.emailResponsavelEvento}">SIM</span>
-    					<span th:unless="${#authentication.name == evento.emailResponsavelEvento}">NÃO</span>
-					</td>
-										
-					<td><span th:text="${evento.codigo}"></span></td>
-					<td> <a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.nome}"></span></a></td>
-					<td><span th:text="${evento.local}"></span></td>
-					<td><span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span></td>
-					<td><span th:text="${evento.horario}"></span></td>					
-				</tr>
-			</tbody>
-		</table>
-		
-		
+						<td><span th:text="${evento.codigo}"></span></td>
+						<td> <a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span
+									th:text="${evento.nome}"></span></a></td>
+						<td><span th:text="${evento.local}"></span></td>
+						<td><span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span></td>
+						<td><span th:text="${evento.horario}"></span></td>
+					</tr>
+				</tbody>
+			</table>		
+		</div>
 	</div>
-	<!--JavaScript at end of body for optimized loading-->
 	
+	<!--JavaScript at end of body for optimized loading-->	
 	<script type="text/javascript">
 		function confirmarExcluir() {
 			var resultado = (confirm('Tem certeza que quer excluir este evento?'))
@@ -98,10 +97,8 @@
 				return false;
 			}
 		}
-	</script>
-
+	</script>	
 	
-	<script type="text/javascript" src="/https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/materialize/js/materialize.min.js"></script>    
     <script type="text/javascript" src="/js/main.js"></script>
 </body>
