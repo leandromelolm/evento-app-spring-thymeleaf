@@ -50,12 +50,12 @@ public interface UsuarioRepository extends CrudRepository<Usuario, String> {
 			nativeQuery = true)
 	void deletarUsuario(@Param("id") long id);
 	
-//	@Transactional
-//	@Modifying
-//	@Query(
-//		value =
-//			"DELETE FROM evento WHERE email_responsavel_evento LIKE :email",
-//			nativeQuery = true)
-//	void deletarUsuarioTodosEventos(@Param("email") String email);	
+	@Transactional
+	@Modifying
+	@Query(
+		value =
+			"DELETE FROM evento WHERE email_responsavel_evento LIKE :email",
+			nativeQuery = true)
+	void deletarUsuarioTodosSeusEventos(@Param("email") String email);	
 	
 }

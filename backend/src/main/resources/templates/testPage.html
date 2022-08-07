@@ -9,6 +9,7 @@
 	
 	<div class="container">
 	
+		<!-- INFORMAÇÕES DA CONTA -->
 		<div sec:authorize="isAuthenticated()">
 			<h4>Minha Conta</h4>
 			<p>Email: <b>[[${#authentication.name}]]</b></p>
@@ -19,8 +20,11 @@
 			<p class="hide" >Id: <b>[[${session.mySessionId}]]</b></p>
 		</div>
 	
+	<!-- BOTÕES SAIR ENTRAR CADASTRAR -->
 		<div>
 			<div>
+				</p>
+				<a id="btncadastrar" href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>				
 				</p>
 				<a onclick="return confirmaDeslogar();" sec:authorize="isAuthenticated()" href="/logout"
 					class="waves-effect waves-light btn">Logout</a>
@@ -28,14 +32,22 @@
 					class="waves-effect waves-light btn">Entrar</a>
 				<a id="btncadastrar" href="/register" sec:authorize="!isAuthenticated()"
 					class="waves-effect waves-light btn">Cadastre-se</a>
-			</div>
-			</p>
-			<a id="btncadastrar" href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>
-			</p>	
+			</div>				
+		</div>
+		
+		<div>
+			<form name="formulario" id="formulario" class="formulario" method="get">
+				<div class="hide">
+					User Logado:<input id="formname" name="emailResponsavelEvento" th:value="${#authentication.name}"
+						readonly=true />
+				</div>
+				<button class="waves-effect waves-light btn input-field" type="submit">Teste Email URL</button>
+			</form>
 		</div>
 
 		<div sec:authorize="isAuthenticated()">		
-			<!-- FORM POST EXCLUIR CONTA -->
+		
+		<!-- FORM POST EXCLUIR CONTA -->
 			<th:block th:include="mensagemValidacao"></th:block>
 			<form action="#" name="formExcluir" th:action="@{/deletarMinhaContaUsuario}" method="POST">
 				<input class="hide" readonly=true id="id" name="id" th:value="${session.mySessionId}"/>
@@ -107,21 +119,8 @@
 			</div>
 			</p>
 		</div>
-		
 	
-		<div>
-			<form name="formulario" id="formulario" class="formulario" method="get">
-				<div class="hide">
-					User Logado:<input id="formname" name="emailResponsavelEvento" th:value="${#authentication.name}"
-						readonly=true />
-				</div>
-				<button class="waves-effect waves-light btn input-field" type="submit">Teste Email URL</button>
-			</form>
-		</div>
-	
-	</div>
-	
-	
+	</div>	
 	
 	<script type="text/javascript">
 		window.onload = function () {	
