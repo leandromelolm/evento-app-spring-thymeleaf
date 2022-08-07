@@ -68,7 +68,7 @@
 					<ul class="right hide-on-med-and-down">
 						<li><a href="/home"><i class="material-icons left">home</i>Página Inicial</a></li>
 						<li><a href="/eventos"><i class="material-icons left">list</i>Eventos</a></li>
-						<li><a href="/user/meus-eventos"><i class="material-icons left">playlist_add_check</i>Meus Eventos</a></li>
+						<li sec:authorize="isAuthenticated()"><a href="/user/meus-eventos"><i class="material-icons left">playlist_add_check</i>Meus Eventos</a></li>
 						<li class="participante"><a href="/participantes"><i class="material-icons left">view_comfy</i>Participantes</a></li>
 												
 						<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html">Log in</a></li>
@@ -76,35 +76,33 @@
 									class="material-icons right">arrow_drop_down</i></a></li>
 									
 <!--						<li><a href="#" th:text="${session.mySessionNome}"></a></li>-->
-<!--						<li th:text="| User:  ${session.mySessionNome}|" ></li>-->
-						
+<!--						<li th:text="| User:  ${session.mySessionNome}|" ></li>-->						
 					</ul>
 				</div>
 			</div>		
 		</nav>
 		
+<!--MENU MOBILE-->
 		<ul class="sidenav" id="mobile-demo">
 			<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html"><i class="material-icons left">person_outline</i>Log in</a></li>
 			<li sec:authorize="isAuthenticated()"><a href="/home"><i class="material-icons left">person</i><span sec:authentication="name" th:value="${#authentication.name}"></span></a></li>			
 			<li><a href="/home"><i class="material-icons left">home</i>Página Inicial</a></li>
 			<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
-			<li><a href="/eventos"><i class="material-icons left">view_list</i>Lista de Eventos</a></li>					
+			<li><a href="/eventos"><i class="material-icons left">view_list</i>Lista de Eventos</a></li>
+			<li sec:authorize="isAuthenticated()"><a href="/user/meus-eventos"><i class="material-icons left">playlist_add_check</i>Meus Eventos</a></li>					
 			<li><a href="/participantes"><i class="material-icons left">view_comfy</i>Todos Participantes</a></li>
 			<li sec:authorize="isAuthenticated()"><a href="/minha-conta"><i class="material-icons left">settings</i>Minha Conta</a></li>			
 			<li sec:authorize="isAuthenticated()"><a class="logout" href="/logout"><i class="material-icons left">exit_to_app</i>Sair</a></li>	
 		</ul>
 	</header>
 	<div class="hide">
-					User Logado:<input id="formname" name="emailResponsavelEvento" th:value="${#authentication.name}"
-						readonly=true />
-				</div>
-	
-<!--	<div onload="nomeUsuarioLogado()"></div>-->
-	<div>
-<!--		<div onload="setTimeout()"></div>-->
+		User Logado:<input id="formname" name="emailResponsavelEvento" th:value="${#authentication.name}"
+		readonly=true />
+	</div>		
 	</div>
-
-
+<!--	<div onload="nomeUsuarioLogado()"></div>-->
+<!--	<div onload="setTimeout()"></div>-->
+	
 	<script>
 		window.onload = function () {			
 			let nome = document.getElementById("formname").value
@@ -125,11 +123,9 @@
 		
 		setTimeout(function() {
  			// window.location.reload();
-			}, 5000); // 1 seg = 1000
+		}, 5000); // 1 seg = 1000
 		
 	</script>
 	
-		
-	</div>
 </body>
 </html>

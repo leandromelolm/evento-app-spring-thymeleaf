@@ -24,7 +24,9 @@
 		<div class="container">
 			<div sec:authorize="!isAuthenticated()">
 				<h2>Bem vindo!</h2>
-				<h5>Faça seu Login Para cadastrar seus eventos e deixar disponivel o cadastro de participantes!</h5>
+				<h5>Faça login para cadastrar seus eventos e deixá-los disponíveis para o cadastro de participantes!</h5>
+				<p><a id="btncadastrar" href="/login.html" class="waves-effect waves-light btn">Entrar</a>
+				<a id="btncadastrar" href="/register" class="waves-effect waves-light btn">Criar conta</a>
 			</div>
 			<div sec:authorize="isAuthenticated()">
 				<h5>Cadastre seus eventos e listas de convidados!</h5>
