@@ -88,7 +88,7 @@ public class UsuarioController {
 		String nomeDecode = URLDecoder.decode(nome, "UTF-8");
 		System.out.println("nome: "+ nome +"  nomeDecode: "+ nomeDecode.replaceAll("=","") );
 //		ModelAndView mv = new ModelAndView("redirect:/user/minha-conta");
-		ModelAndView mv = new ModelAndView("user/minha-conta");
+		ModelAndView mv = new ModelAndView("/user/minha-conta");
 		Usuario user = ur.findByEmail(nomeDecode.replaceAll("=", ""));
 		System.out.println("Usuario nome.."+user.getNome());
 		System.out.println("Usuario cpf.."+user.getCpf());

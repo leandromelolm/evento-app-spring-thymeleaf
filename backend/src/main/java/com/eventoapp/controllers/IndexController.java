@@ -17,10 +17,10 @@ public class IndexController {
 	@Autowired
 	private EventoRepository er;
 	
-//	@RequestMapping("/")
-//	public String index() {
-//		return "index";
-//	}
+	@RequestMapping("/info")
+	public String sobre() {
+		return "/sobre";
+	}
 	
 	@RequestMapping("/")
 	public ModelAndView index() {

@@ -21,13 +21,13 @@ function confirmaDeslogar() {
 }
 
 function nomeUsuarioLogado() {
-	console.log("function called...");
+	console.log("function called....");
 	let nome = document.getElementById("username").value
 	console.log(nome)
 	//Função do Ajax para enviar uma solicitação get
 	$.ajax({
 		type: "POST",
-		url: "/testepost",
+		url: "/info-user-logged",
 		data: nome,  // usuario-padrao%40email.com=	   
 		dataType: "text",
 		//data: JSON.stringify(nome), // %22usuario-padrao%40email.com%22=

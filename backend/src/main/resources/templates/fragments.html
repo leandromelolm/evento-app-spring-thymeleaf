@@ -56,7 +56,7 @@
 		<ul id="dropdown1" class="dropdown-content">			
 			<li><a href="/minha-conta"><i class="material-icons left">settings</i>Minha Conta</a></li>
 			<li class="cadastrarevento"><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
-			<li class="#" sec:authorize="isAuthenticated()"><a href="#"><i class="material-icons left">code</i>Sobre</a></li>
+			<li><a href="/info"><i class="material-icons left">code</i>Sobre</a></li>
 			<li class="divider"></li>			
 			<li sec:authorize="isAuthenticated()"><a class="logout" href="/logout">Sair</a></li>
 		</ul>
@@ -70,7 +70,7 @@
 						<li><a href="/eventos"><i class="material-icons left">list</i>Eventos</a></li>
 						<li sec:authorize="isAuthenticated()"><a href="/user/meus-eventos"><i class="material-icons left">playlist_add_check</i>Meus Eventos</a></li>
 						<li class="participante"><a href="/participantes"><i class="material-icons left">view_comfy</i>Participantes</a></li>
-												
+						<li><a href="/info"><i class="material-icons left">code</i>Sobre</a></li>						
 						<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html">Log in</a></li>
 						<li sec:authorize="isAuthenticated()"><a class="dropdown-trigger" data-target="dropdown1"><span sec:authentication="name"></span><i
 									class="material-icons right">arrow_drop_down</i></a></li>
@@ -91,6 +91,7 @@
 			<li><a href="/eventos"><i class="material-icons left">view_list</i>Lista de Eventos</a></li>
 			<li sec:authorize="isAuthenticated()"><a href="/user/meus-eventos"><i class="material-icons left">playlist_add_check</i>Meus Eventos</a></li>					
 			<li><a href="/participantes"><i class="material-icons left">view_comfy</i>Todos Participantes</a></li>
+			<li><a href="/info"><i class="material-icons left">code</i>Sobre</a></li>
 			<li sec:authorize="isAuthenticated()"><a href="/minha-conta"><i class="material-icons left">settings</i>Minha Conta</a></li>			
 			<li sec:authorize="isAuthenticated()"><a class="logout" href="/logout"><i class="material-icons left">exit_to_app</i>Sair</a></li>	
 		</ul>
@@ -98,15 +99,12 @@
 	<div class="hide">
 		User Logado:<input id="formname" name="emailResponsavelEvento" th:value="${#authentication.name}"
 		readonly=true />
-	</div>		
-	</div>
-<!--	<div onload="nomeUsuarioLogado()"></div>-->
-<!--	<div onload="setTimeout()"></div>-->
-	
-	<script>
+	</div>	
+<!--
+		<script>
 		window.onload = function () {			
 			let nome = document.getElementById("formname").value
-    		//console.log("username: "+nome)
+    		console.log("username: "+nome)
     		//Função do Ajax para enviar uma solicitação get
   			$.ajax({
  		 		type: "POST",
@@ -125,7 +123,11 @@
  			// window.location.reload();
 		}, 5000); // 1 seg = 1000
 		
-	</script>
+	</script>	
+-->		
+	</div>
+<!--	<div onload="nomeUsuarioLogado()"></div>-->
+<!--	<div onload="setTimeout()"></div>-->	
 	
 </body>
 </html>

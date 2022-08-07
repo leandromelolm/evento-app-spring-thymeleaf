@@ -7,14 +7,14 @@
 	<div>	
 		<div th:replace="fragments :: menu"/>
 		<div class="container">
-			<h5>Lista de Participantes</h5>
+			<h5>Lista de todos participantes em todos os eventos</h5>
 			<table class="responsive-table">
 				<thead>
 					<tr>
 						<th>Nome</th>
-						<th>Email</th>
+						<th sec:authorize="hasRole('ADMIN')" >Email</th>
 						<th class="hide">CPF</th>
-						<th>ID</th>
+						<th sec:authorize="hasRole('ADMIN')" >ID</th>
 						<th>DataCadastro</th>
 						<th>Cod Evento</th>
 						<th>Nome Evento</th>
@@ -24,9 +24,9 @@
 				<tbody>
 					<tr th:each="participante : ${participantes}">
 						<td><span th:text="${participante.nomeParticipante}"></span></td>
-						<td><span th:text="${participante.email}"></span></td>
+						<td sec:authorize="hasRole('ADMIN')" ><span th:text="${participante.email}"></span></td>
 						<td class="hide"><span th:text="${participante.CPF}"></span></td>
-						<td><span th:text="${participante.idParticipante}"></span></td>
+						<td sec:authorize="hasRole('ADMIN')" ><span th:text="${participante.idParticipante}"></span></td>
 						<td><span th:text="${participante.dataCadastro}"></span></td>
 						<td> <a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, participante.evento.codigo)).build()}"> 
 							<span th:text="${participante.evento.codigo}"></span></a>

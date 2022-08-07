@@ -19,6 +19,13 @@
 			<p>Perfil Usuário: <b>[[${session.mySessionTipoPerfil}]]</b></p>
 			<p class="hide" >Id: <b>[[${session.mySessionId}]]</b></p>
 		</div>
+		
+		<p th:if="${session.mySessionNome == null}">Se as informações da conta não aparecerem 
+				<a onclick="window.location.reload()"> Clique aqui</a> ou no botão Atualizar Página
+		</p>
+		<span th:if="${session.mySessionNome == null}"> 
+			<button class="waves-effect waves-light btn input-field" type="submit" onClick="window.location.reload()"> Atualizar Página</button>
+		</span>		
 	
 	<!-- BOTÕES SAIR ENTRAR CADASTRAR -->
 		<div>
@@ -53,10 +60,12 @@
 				<input class="hide" readonly=true id="id" name="id" th:value="${session.mySessionId}"/>
 				<input class="hide" readonly=true id="email" name="email" th:value="${#authentication.name}">
 				<p/>
-				<button type="submit" class="btn-large red" onclick="return confirmarExcluir()">
-					<i class="material-icons">delete_forever</i>
-					EXCLUIR CONTA
-				</button>
+				<span th:unless="${session.mySessionNome == null}">
+					<button type="submit" class="btn-large red" onclick="return confirmarExcluir()">
+						<i class="material-icons">delete_forever</i>
+						EXCLUIR CONTA
+					</button>
+				</span>				
 			</form>
 		</div>			
 		
@@ -123,7 +132,8 @@
 	</div>	
 	
 	<script type="text/javascript">
-		window.onload = function () {	
+		window.onload = function () {
+			console.log("function called page minha-conta...");	
 			let nome = document.getElementById("formname").value
     		//console.log(nome)
     		//Função do Ajax para enviar uma solicitação get
@@ -148,8 +158,7 @@
 			}else {				
 				return false;
 			}
-		}	
-			
+		}		
 	</script>
 	
 	<script type="text/javascript" src="/js/main.js"></script>
