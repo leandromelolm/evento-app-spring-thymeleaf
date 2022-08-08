@@ -83,24 +83,25 @@ public class UsuarioController {
 //	https://javabycode.com/sf/spring-boot-tutorial/spring-boot-thymeleaf-ajax-example.html	
 //	@RequestMapping(value="/info-user-logged", method=RequestMethod.POST)
 	@PostMapping("/info-user-logged")
-	public ModelAndView infoUsuarioLogado(@RequestBody String nome, Model model, Usuario u, RedirectAttributes attrib, HttpSession session) throws UnsupportedEncodingException {
-		System.out.println("metodo testPost()...");
-		String nomeDecode = URLDecoder.decode(nome, "UTF-8");
-		System.out.println("nome: "+ nome +"  nomeDecode: "+ nomeDecode.replaceAll("=","") );
-//		ModelAndView mv = new ModelAndView("redirect:/user/minha-conta");
+	public ModelAndView infoUsuarioLogado(@RequestBody String stringEmail, Model model, Usuario u, RedirectAttributes attrib, HttpSession session) throws UnsupportedEncodingException {
+		String emailDecode = URLDecoder.decode(stringEmail, "UTF-8");
 		ModelAndView mv = new ModelAndView("/user/minha-conta");
-		Usuario user = ur.findByEmail(nomeDecode.replaceAll("=", ""));
-		System.out.println("Usuario nome.."+user.getNome());
-		System.out.println("Usuario cpf.."+user.getCpf());
-		attrib.addFlashAttribute("mensagem", user.getNome());
+		Usuario user = ur.findByEmail(emailDecode.replaceAll("=", ""));
 		
 		session.setAttribute("mySessionNome", user.getNome());
 		session.setAttribute("mySessionCpf", user.getCpf());
 		session.setAttribute("mySessionDataCadastro", user.getDataCadastro());
 		session.setAttribute("mySessionTipoPerfil", user.getRoles().get(0).getNameRole());
+		session.setAttribute("mySessionUsuarioAtivo", user.isEnabled());
 		session.setAttribute("mySessionId", user.getId());
 		
+		List<Evento> eventos = er.findEventosByEmail(user.getEmail());		
+		session.setAttribute("userQuantEventos", eventos.size());
+		
+		model.addAttribute("usuarioModel", user);
+		
 		mv.addObject("usuario", user);
+
 		return mv;
 //		return "redirect:/user/minha-conta";
 	}

@@ -18,8 +18,8 @@ public class IndexController {
 	private EventoRepository er;
 	
 	@RequestMapping("/info")
-	public String sobre() {
-		return "/sobre";
+	public String info() {
+		return "/info";
 	}
 	
 	@RequestMapping("/")

@@ -61,7 +61,7 @@ public class Usuario implements UserDetails {
 	          name = "role_id", referencedColumnName = "id")) 
 	private List<Role> roles;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "usuario")	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "usuario")
 	private List<Evento> eventos = new ArrayList<>();
 	
 	@Transient

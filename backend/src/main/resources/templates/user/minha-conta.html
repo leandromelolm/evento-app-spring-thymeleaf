@@ -17,11 +17,14 @@
 			<p>CPF: <b>[[${session.mySessionCpf}]]</b></p>
 			<p>Data do Cadastro: <b>[[${session.mySessionDataCadastro}]]</b></p>
 			<p>Perfil Usuário: <b>[[${session.mySessionTipoPerfil}]]</b></p>
+			<p>Conta Ativa: <b>[[${session.mySessionUsuarioAtivo}]]</b></p>			
 			<p class="hide" >Id: <b>[[${session.mySessionId}]]</b></p>
 		</div>
 		
-		<p th:if="${session.mySessionNome == null}">Se as informações da conta não aparecerem 
-				<a onclick="window.location.reload()"> Clique aqui</a> ou no botão Atualizar Página
+		<div id="infominhaconta"></div>
+		
+		<p th:if="${session.mySessionNome == null}">
+			Se as informações da conta não aparecerem <a onclick="window.location.reload()"> Clique aqui</a> ou no botão Atualizar Página
 		</p>
 		<span th:if="${session.mySessionNome == null}"> 
 			<button class="waves-effect waves-light btn input-field" type="submit" onClick="window.location.reload()"> Atualizar Página</button>
@@ -45,7 +48,7 @@
 		<div>
 			<form name="formulario" id="formulario" class="formulario" method="get">
 				<div class="hide">
-					User Logado:<input id="formname" name="emailResponsavelEvento" th:value="${#authentication.name}"
+					User Logado:<input id="formEmailUser" name="emailResponsavelEvento" th:value="${#authentication.name}"
 						readonly=true />
 				</div>
 				<button class="waves-effect waves-light btn input-field" type="submit"> METHOD GET Email</button>
@@ -58,7 +61,7 @@
 			<th:block th:include="mensagemValidacao"></th:block>
 			<form action="#" name="formExcluir" th:action="@{/deletarMinhaContaUsuario}" method="POST">
 				<input class="hide" readonly=true id="id" name="id" th:value="${session.mySessionId}"/>
-				<input class="hide" readonly=true id="email" name="email" th:value="${#authentication.name}">
+				<input class="hide" readonly=true id="email" name="email" th:Quantidade de eventos cadastrados:value="${#authentication.name}">
 				<p/>
 				<span th:unless="${session.mySessionNome == null}">
 					<button type="submit" class="btn-large red" onclick="return confirmarExcluir()">
@@ -134,19 +137,31 @@
 	<script type="text/javascript">
 		window.onload = function () {
 			console.log("function called page minha-conta...");	
-			let nome = document.getElementById("formname").value
+			let stringEmail = document.getElementById("formEmailUser").value
     		//console.log(nome)
     		//Função do Ajax para enviar uma solicitação get
   			$.ajax({
  		 		type: "POST",
  		 		url: "/info-user-logged",
-  				data: nome,  // usuario-padrao%40email.com=	   
+  				data: stringEmail,  // usuario-padrao%40email.com=	   
   				dataType: "text",
   				//data: JSON.stringify(nome), // %22usuario-padrao%40email.com%22=
         		//dataType: 'json',
-  				//success: function(){
-           		//	alert("success");
-        		//}
+  				success: function(){
+					console.log("POST success ")
+					var sessionUserName = '[[${session.mySessionNome}]]';
+					if (!sessionUserName){ // igual a verificar dessa forma (sessionUserName = "")
+						console.log("Atributo vazio" + sessionUserName);
+						window.location.reload();
+					}else{						
+						console.log("Atributo sessionUserName: "+ '[[${session.mySessionNome}]]')
+						var quantEventos =  '[[${session.userQuantEventos}]]';
+						document.getElementById("infominhaconta").innerHTML = " Sua quantidade de eventos: <b> "+quantEventos+"</b>"
+						+"<p/>Para excluir sua conta é necessário deletar todos os seus eventos que estejam cadastrados.";
+						console.log("Quantidade de Eventos "+ "[(${session.userQuantEventos})]")						
+					}					
+           			//alert("success");        			
+        		}
 			});   	
 		}
 		
@@ -158,12 +173,28 @@
 			}else {				
 				return false;
 			}
-		}		
+		}
+		
+		function myFunction() {
+			document.getElementById("demo").innerHTML = "Iframe is loaded.";
+  			alert("Page is loaded");
+		}
+		
+		//setTime();
+   		function setTime() {
+			console.log("function setTime");	
+			window.location.reload();
+      		var date = new Date().getTime();
+      		var string = "Timestamp: "+date;
+      		setTimeout(setTime, 3000);
+      		$('#setTime').html(string);
+   		}
+				
 	</script>
 	
 	<script type="text/javascript" src="/js/main.js"></script>
 	<script type="text/javascript" src="/js/test.js"></script>
-	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>	
 </body>
 
 </html>
