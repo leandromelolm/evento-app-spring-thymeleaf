@@ -19,7 +19,15 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 	
 	<title>EventoApp</title>
-	<script type="text/javascript" src="/js/main.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('.sidenav').sidenav();
+		});
+
+		$(document).ready(function () {
+			$(".dropdown-trigger").dropdown()
+		});
+	</script>
 
 	<style>
 		.participante {
