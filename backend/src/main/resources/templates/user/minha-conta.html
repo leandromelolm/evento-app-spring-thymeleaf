@@ -153,8 +153,9 @@
 					if (!sessionUserName){ // igual a verificar dessa forma (sessionUserName = "")
 						console.log("Atributo vazio" + sessionUserName);
 						window.location.reload();
-					}else{						
-						console.log("Atributo sessionUserName: "+ '[[${session.mySessionNome}]]')
+					}else{
+						console.log("Atributos Carregados")						
+						//console.log("Atributo sessionUserName: "+ '[[${session.mySessionNome}]]')
 						var quantEventos =  '[[${session.userQuantEventos}]]';
 						document.getElementById("infominhaconta").innerHTML = " Sua quantidade de eventos: <b> "+quantEventos+"</b>"
 						+"<p/>Para excluir sua conta é necessário deletar todos os seus eventos que estejam cadastrados.";

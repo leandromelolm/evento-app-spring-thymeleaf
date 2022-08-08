@@ -32,8 +32,8 @@ function nomeUsuarioLogado() {
 		dataType: "text",
 		//data: JSON.stringify(nome), // %22usuario-padrao%40email.com%22=
 		//dataType: 'json',
-		//success: function(){
-		//	alert("success");
-		//}
+		success: function(){
+			alert("success");
+		}
 	});
 }
