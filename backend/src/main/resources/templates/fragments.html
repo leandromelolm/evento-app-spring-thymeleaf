@@ -19,7 +19,7 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 	
 	<title>EventoApp</title>
-	
+	<script type="text/javascript" src="/js/main.js"></script>
 
 	<style>
 		.participante {
@@ -67,7 +67,7 @@
 						<li sec:authorize="isAuthenticated()"><a href="/user/meus-eventos"><i class="material-icons left">playlist_add_check</i>Meus Eventos</a></li>
 						<li class="participante"><a href="/participantes"><i class="material-icons left">view_comfy</i>Participantes</a></li>
 						<li><a href="/info"><i class="material-icons left">code</i>Sobre</a></li>						
-						<li sec:authorize="!isAuthenticated()"><a class="login" href="/login">Log in</a></li>
+						<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html">Log in</a></li>
 						<li sec:authorize="isAuthenticated()"><a class="dropdown-trigger" data-target="dropdown1"><span sec:authentication="name"></span><i
 									class="material-icons right">arrow_drop_down</i></a></li>
 									
@@ -80,7 +80,7 @@
 		
 <!--MENU MOBILE-->
 		<ul class="sidenav" id="mobile-demo">
-			<li sec:authorize="!isAuthenticated()"><a class="login" href="/login"><i class="material-icons left">person_outline</i>Log in</a></li>
+			<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html"><i class="material-icons left">person_outline</i>Log in</a></li>
 			<li sec:authorize="isAuthenticated()"><a href="/home"><i class="material-icons left">person</i><span sec:authentication="name" th:value="${#authentication.name}"></span></a></li>			
 			<li><a href="/home"><i class="material-icons left">home</i>Página Inicial</a></li>
 			<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
@@ -125,11 +125,7 @@
 <!--	<div onload="nomeUsuarioLogado()"></div>-->
 <!--	<div onload="setTimeout()"></div>-->	
 	
-	<script>
-		$(document).ready(function () {
-			$(".dropdown-trigger").dropdown()
-		});
-	</script>
+
 	
 </body>
 </html>
