@@ -5,45 +5,15 @@
 
 <head th:fragment="html_head">
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<title>EventosApp</title>
+	 <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
 
-<!--<script
-  src="https://code.jquery.com/jquery-3.5.1.js"
-  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-  crossorigin="anonymous"></script>-->
-<script
-  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
-  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
-  crossorigin="anonymous"></script>
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<!--	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
-	
-	<!--Mascara no formulario-->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-
-	<!--Import Google Icon Font-->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-	
-	<!--Import materialize.css-->
-	<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css" media="screen,projection" />
-	
-	<!--Let browser know website is optimized for mobile-->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />	
-	
-<!--	<meta http-equiv="refresh" content="1">-->
-
-	<script>
-//		 document.addEventListener('DOMContentLoaded', function() {
-//    		var elems = document.querySelectorAll('.sidenav');
-//    		var instances = M.Sidenav.init(elems, options);
-//  		});
-
-	
-		$(document).ready(function () {
-			$('.sidenav').sidenav();
-			$(".dropdown-trigger").dropdown();
-		});
-	</script>
 
 	<style>
 		.participante {
@@ -120,36 +90,14 @@
 		User Logado:<input id="formname" name="emailResponsavelEvento" th:value="${#authentication.name}"
 		readonly=true />
 	</div>	
-<!--
-		<script>
-		window.onload = function () {			
-			let nome = document.getElementById("formname").value
-    		console.log("username: "+nome)
-    		//Função do Ajax para enviar uma solicitação get
-  			$.ajax({
- 		 		type: "POST",
- 		 		url: "/info-user-logged",
-  				data: nome,  // usuario-padrao%40email.com=	   
-  				dataType: "text",
-  				//data: JSON.stringify(nome), // %22usuario-padrao%40email.com%22=
-        		//dataType: 'json',
-  				//success: function(){
-           		//	alert("success");
-        		//}
-			});   	
-		}
-		
-		setTimeout(function() {
- 			// window.location.reload();
-		}, 5000); // 1 seg = 1000
-		
-	</script>	
--->		
-	</div>
-<!--	<div onload="nomeUsuarioLogado()"></div>-->
-<!--	<div onload="setTimeout()"></div>-->	
-	
 
+	</div>
+  <!--JavaScript at end of body for optimized loading-->
+  	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="/js/main.js"></script>
+	<script src="/js/init.js"></script>
 	
 </body>
 </html>

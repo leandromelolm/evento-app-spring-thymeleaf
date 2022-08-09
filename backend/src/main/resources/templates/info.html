@@ -4,16 +4,15 @@
 <meta charset="UTF-8" />
 <title>EventoAdd</title>
 
-
     <head th:replace="fragments :: html_head"/>
 
 </head>
 
 <body>
-	
+	<div th:insert="fragments :: menu"/>
 
 	<div>		
-		<div>
+		<div class="container">
 			<h5>Projeto EventoApp</h5>
 			<p>Projeto desenvolvido como aprendizagem.</p> 
 			<p>Feito com base no <b>Curso Spring Boot: Criando uma aplicação Java Web</b> com a professora Michelli Brito.</p>
@@ -22,8 +21,13 @@
 			<a href="https://github.com/leandromelolm/evento-app-spring-thymeleaf">Aqui meu Projeto no github.</a>				
 		</div>
 	</div>
-
+  
+  <!--JavaScript at end of body for optimized loading-->
+  	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="/js/main.js"></script>
+	<script src="/js/init.js"></script>
 
 </body>
-
 </html>
