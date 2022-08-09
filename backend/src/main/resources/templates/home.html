@@ -4,28 +4,36 @@
 <head>
 	<title>EventosApp</title>
       <head th:replace="fragments :: html_head" />
-      
-      <style>
-      	p{
-			margin:1px 0px 0px 0px;
-		}		
-      	.div-button{
-			border: 3px solid rgb(32, 74, 135);
-			background-color:rgb(32, 74, 135) ;
-			position:absolute;
-			left: 20px;			
-			bottom:5px;
-			width: 70px; 
-			height: 30px;
-			text-align: center;					
-			margin: auto;
-		}
-      	.acessar{			
-			color: white;
-			font-weight: bold;
-		}
-		
-		@media screen and (max-width: 600px) { /* Largura máxima. Abaixo do max-width usa o css desta chave*/
+<style>
+#btncadastrar{
+	margin: 10px 0px 15px 10px;
+}
+.card-panel{			
+	position:relative;
+	white-space: nowrap;
+	text-overflow: ellipsis; /* text-overflow especifica como conteúdo estourado que não é exibido e é sinalizado ao usuário com reticências (...) */
+	overflow: hidden !important;
+}
+p{
+	margin:1px
+}
+.div-button{
+	border: 3px solid rgb(32, 74, 135);
+	background-color:rgb(32, 74, 135) ;
+	position:absolute;
+	right: 5px;			
+	bottom:5px;
+	width: 70px; 
+	height: 30px;
+	text-align: center;					
+	margin: auto;
+}
+.acessar{			
+	color: white;
+	font-weight: bold;
+}
+/*		
+		@media screen and (max-width: 600px) { // Largura máxima. Abaixo do max-width usa o css do bloco
 			.row {
 				position:relative;
 				width: 500px;
@@ -33,14 +41,14 @@
 			}
 			.card-panel{
 				position:relative;
-				/*	white-space: nowrap; */
+				//white-space: nowrap;
 				text-overflow: ellipsis;
 				overflow: hidden !important;	
 				width: 250px; 
 				height: 150px;
 			}			
 		}
-		@media screen and (max-width: 993px) { /* Abaixo do valor de min-width o css dessa chave é usado*/
+		@media screen and (max-width: 993px) { // Abaixo do valor de min-width usa o css desse bloco
 			.row{
 				position:relative;				
 				width: 800px; 
@@ -55,7 +63,7 @@
 				height: 180px;
 			}
 		}
-		@media screen and (min-width: 993px) { /* Acima do valor de min-width o css dessa chave é usado*/
+		@media screen and (min-width: 993px) { // Acima do valor de min-width usa o css desse bloco
 			.row{
 				position:relative;				
 				width: 900px; 				
@@ -69,9 +77,7 @@
 				height: 180px;
 			}
 		}
-		#btncadastrar{
-		margin: 10px 0px 15px 10px;
-		}
+*/		
 	</style>
 	
 </head>

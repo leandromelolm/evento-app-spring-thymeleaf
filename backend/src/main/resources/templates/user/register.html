@@ -16,11 +16,11 @@
 					<div class="row">
 						<div class="input-field col s12">
 							<label for="username">Email</label>
-							<input type="text" id="email" name="email" autofocus="autofocus" required=true />
+							<input style="text-transform: lowercase;" type="text" id="email" name="email" autofocus="autofocus" required=true />
 						</div>
 						<div class="input-field col s12">
-							<label for="username">Nome</label>
-							<input type="text" id="nome" name="nome" autofocus="autofocus" required=true />
+							<label for="name">Nome</label>
+							<input style="text-transform: uppercase;" type="text" id="nome" name="nome" autofocus="autofocus" required=true />
 						</div>
 						<div class="input-field col s12"> <!-- no navegador do smartphone o type text não funciona a mascara -->
 								<input type="tel" value="" name="cpf" onkeypress="$(this).mask('000.000.000-00');"
@@ -53,6 +53,9 @@
 	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
 	<script type="text/javascript" src="/js/main.js"></script>	
 	<script src="/js/init.js"></script>	
+	
+	<!--Aplicar mascara do atributo onkeypress-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 <!--
 	<script type="text/javascript">
 		$(document).ready(function () {
