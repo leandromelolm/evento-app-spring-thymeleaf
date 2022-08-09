@@ -77,7 +77,7 @@ public class UsuarioController {
 	
 	@RequestMapping(value="/minha-conta", method=RequestMethod.GET)
 	public String test() {
-		return "/user/minha-conta";
+		return "user/minha-conta";
 	}
 	
 //	https://javabycode.com/sf/spring-boot-tutorial/spring-boot-thymeleaf-ajax-example.html	
