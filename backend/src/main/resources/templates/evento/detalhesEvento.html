@@ -48,12 +48,15 @@
 						</div>
 						<div class="row">
 							<div class="input-field col s12 m4">
-								<input type=text value="" name="CPF" id="cpf" onkeypress="$(this).mask('000.000.000-00');"
-									pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" required="true" />
+								<input type="text" value="" name="CPF" id="cpf" required="true" 
+									placeholder="000.000.000-00" 
+									 class="form-control" onkeypress="$(this).mask('000.000.000-00');" />
 								<label>CPF</label>
 							</div>
 							<div class="input-field col s12 m4">
-								<input type="tel" value="" name="telefone" id="telefoneCelular" />
+								<input type="tel" value="" name="telefone" id="telefoneCelular"
+								placeholder="(xx) x xxxx-xxxx " 
+									 class="form-control" onkeypress="$(this).mask('(00) 0 0000-0000');" />
 								<label>Tel Celular</label>
 							</div>
 							<div class="input-field col s12 m4">
@@ -75,7 +78,7 @@
 			</div>
 			<div class="card-content grey lighten-4">
 				<div id="listaParticipantes">
-					<table class="responsive-table">
+					<table>
 						<thead>
 							<tr>
 								<th>Nome Participante</th>
@@ -116,14 +119,18 @@
 	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
 	<script type="text/javascript" src="/js/main.js"></script>	
 	<script src="/js/init.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
-<!--	<script type="text/javascript">
+<!--
+	<script type="text/javascript">
 		$(document).ready(function () {
 			$('#telefoneCelular').mask('(00) 0 0000-0000');
 			$('#cpf').mask('000.000.000-00'); // Mascara funciona na versão mobile
 		});
-	</script>-->
-
+	</script>
+-->
+	
 </body>
 
 </html>
