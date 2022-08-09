@@ -3,7 +3,7 @@
     <head>
         <title>Error page</title>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="css/main.css" th:href="@{/css/main.css}" />
+<!--        <link rel="stylesheet" href="css/main.css" th:href="@{/css/main.css}" />-->
         <head th:replace="fragments :: html_head" />
     </head>
     <body th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf((#response != null)? #response.status : 500)}">
