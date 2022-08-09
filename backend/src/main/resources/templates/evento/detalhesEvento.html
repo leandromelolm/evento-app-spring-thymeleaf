@@ -48,7 +48,7 @@
 						</div>
 						<div class="row">
 							<div class="input-field col s12 m4">
-								<input type=text value="" name="CPF" onkeypress="$(this).mask('000.000.000-00');"
+								<input type=text value="" name="CPF" id="cpf" onkeypress="$(this).mask('000.000.000-00');"
 									pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" required="true" />
 								<label>CPF</label>
 							</div>
@@ -117,7 +117,7 @@
 	<script type="text/javascript">
 		$(document).ready(function () {
 			$('#telefoneCelular').mask('(00) 0 0000-0000');
-			$('#cpf').mask('000.000.000-00');
+			$('#cpf').mask('000.000.000-00'); // Mascara funciona na versão mobile
 		});
 	</script>
 
