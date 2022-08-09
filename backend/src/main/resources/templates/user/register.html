@@ -22,8 +22,8 @@
 							<label for="username">Nome</label>
 							<input type="text" id="nome" name="nome" autofocus="autofocus" required=true />
 						</div>
-						<div class="input-field col s12">
-								<input type=text value="" name="cpf" onkeypress="$(this).mask('000.000.000-00');"
+						<div class="input-field col s12"> <!-- no navegador do smartphone o type text não funciona a mascara -->
+								<input type="tel" value="" name="cpf" onkeypress="$(this).mask('000.000.000-00');"
 									pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" required="true" />
 								<label>CPF</label>
 							</div>
