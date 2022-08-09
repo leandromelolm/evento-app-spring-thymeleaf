@@ -17,9 +17,9 @@ public class IndexController {
 	@Autowired
 	private EventoRepository er;
 	
-	@RequestMapping("/info")
+	@RequestMapping("/infodesenvolvimento")
 	public String info() {
-		return "/info";
+		return "infoDev";
 	}
 	
 	@RequestMapping("/")
