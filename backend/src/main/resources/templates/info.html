@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+<title>EventoAdd</title>
 
-<head th:replace="fragments :: html_head" />
+<!--/*/ <th:block th:include="fragments/geral.html :: headerfiles">
+        </th:block> /*/-->
+
+</head>
 
 <body>
 	
-	<div th:replace="fragments :: menu"/>
+
 	<div>		
 		<div>
 			<h5>Projeto EventoApp</h5>
@@ -17,8 +23,7 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>	
-	<script type="text/javascript" src="/js/main.js"></script>
+
 </body>
 
 </html>
