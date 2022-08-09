@@ -85,7 +85,7 @@ public class UsuarioController {
 	@PostMapping("/info-user-logged")
 	public ModelAndView infoUsuarioLogado(@RequestBody String stringEmail, Model model, Usuario u, RedirectAttributes attrib, HttpSession session) throws UnsupportedEncodingException {
 		String emailDecode = URLDecoder.decode(stringEmail, "UTF-8");
-		ModelAndView mv = new ModelAndView("/user/minha-conta");
+		ModelAndView mv = new ModelAndView("user/minha-conta");
 		Usuario user = ur.findByEmail(emailDecode.replaceAll("=", ""));
 		
 		session.setAttribute("mySessionNome", user.getNome());
