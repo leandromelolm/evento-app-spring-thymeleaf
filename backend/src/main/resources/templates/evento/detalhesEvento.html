@@ -13,14 +13,14 @@
 
 			<div class="card-content grey lighten-4">
 			
-				<div class="card" th:each="evento : ${evento}">
-					<div class="card">
-						<span class="card-title activator grey-text text-darken-4">Evento</span>
+				<div th:each="evento : ${evento}">
+					<div class="card container">
+						<span class="card-subtitle text-muted" style="margin-top: 0px;">Evento</span>
 						<div class="row">
-							<div class="col s3"><span th:text="${evento.nome}"></span></div>
-							<div class="col s3"><span th:text="${evento.local}"></span></div>
-							<div class="col s3"><span th:text="${#dates.format(evento.data, 'dd-MM-yyyy')}"></span></div>
-							<div class="col s3"><span th:text="${evento.horario}"></span></div>
+							<div class="col-sm"><span th:text="${evento.nome}"></span></div>
+							<div class="col-sm"><span th:text="${evento.local}"></span></div>
+							<div class="col-sm"><span th:text="${#dates.format(evento.data, 'dd-MM-yyyy')}"></span></div>
+							<div class="col-sm"><span th:text="${evento.horario}"></span></div>
 						</div>						
 					</div>
 					<div class="card-reveal">
@@ -37,31 +37,32 @@
 						<th:block th:include="mensagemValidacao"></th:block>
 						<br />
 						<div class="row">
-							<div class="input-field col s12 m6">
-								<input type=text value="" name="nomeParticipante" required="true" />
+							<div class="col-sm">
 								<label for="nomeParticipante">Nome</label>
+								<input type=text value="" name="nomeParticipante" required="true" />
+								
 							</div>
-							<div class="input-field col s12 m6">
-								<input type=text value="" name="email" required="true" />
+							<div class="col-sm">
 								<label for="email">Email</label>
+								<input type=text value="" name="email" required="true" />								
 							</div>
 						</div>
 						<div class="row">
-							<div class="input-field col s12 m4">
+							<div class="col-sm">
+								<label>CPF</label>
 								<input type="tel" value="" name="CPF" id="cpf" required="true" 
 									placeholder="xxx.xxx.xxx-xx" 
-									 class="form-control" onkeypress="$(this).mask('000.000.000-00');" />
-								<label>CPF</label>
+									 class="form-control" onkeypress="$(this).mask('000.000.000-00');" />								
 							</div>
-							<div class="input-field col s12 m4">
+							<div class="col-sm">
+								<label>Tel Celular</label>
 								<input type="tel" value="" name="telefone" id="telefoneCelular"
 								placeholder="(xx) x xxxx-xxxx " 
-									 class="form-control" onkeypress="$(this).mask('(00) 0 0000-0000');" />
-								<label>Tel Celular</label>
+									 class="form-control" onkeypress="$(this).mask('(00) 0 0000-0000');" />								
 							</div>
-							<div class="input-field col s12 m4">
-								<input type="date" value="" name="dataNascimento" />
+							<div class="col-sm">
 								<label>Data de Nascimento</label>
+								<input type="date" value="" name="dataNascimento" />								
 							</div>
 						</div>
 						<div class="row">
@@ -77,8 +78,8 @@
 				<span>LISTA DE PARTICIPANTES</span>
 			</div>
 			<div class="card-content grey lighten-4">
-				<div id="listaParticipantes">
-					<table>
+				<div id="listaParticipantes" class="table-responsive">
+					<table class="table">
 						<thead>
 							<tr>
 								<th>Nome Participante</th>
@@ -121,6 +122,9 @@
 	<script src="/js/init.js"></script>
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+	
+	<!-- Bootstrap -->
+	<link href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
 
 <!--
 	<script type="text/javascript">
