@@ -98,7 +98,7 @@ public class UsuarioController {
 		List<Evento> eventos = er.findEventosByEmail(user.getEmail());		
 		session.setAttribute("userQuantEventos", eventos.size());
 		
-		model.addAttribute("usuarioModel", user);
+		//model.addAttribute("usuarioModel", user);
 		
 		mv.addObject("usuario", user);
 

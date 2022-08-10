@@ -44,9 +44,9 @@
 	<div th:fragment="menu">		
 		<header>
 		<ul id="dropdown1" class="dropdown-content">			
-			<li><a href="/minha-conta"><i class="material-icons left">settings</i>Minha Conta</a></li>
-			<li class="cadastrarevento"><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
-			<li><a href="/infodesenvolvimento"><i class="material-icons left">code</i>Sobre</a></li>
+			<li><a href="/minha-conta">Minha Conta</a></li>
+			<li class="cadastrarevento"><a href="/cadastrarEvento">Cadastrar Evento</a></li>
+			<li><a href="/infodesenvolvimento">Sobre</a></li>
 			<li class="divider"></li>			
 			<li sec:authorize="isAuthenticated()"><a class="logout" href="/logout">Sair</a></li>
 		</ul>
@@ -62,7 +62,7 @@
 						<li class="participante"><a href="/participantes"><i class="material-icons left">view_comfy</i>Participantes</a></li>
 						<li><a href="/infodesenvolvimento"><i class="material-icons left">code</i>Sobre</a></li>						
 						<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html">Log in</a></li>
-						<li sec:authorize="isAuthenticated()"><a class="dropdown-trigger" data-target="dropdown1"><span sec:authentication="name"></span><i
+						<li  style="width:180px !important; text-align: right;"  sec:authorize="isAuthenticated()"><a class="dropdown-trigger" data-target="dropdown1"><b>[[${session.mySessionNome}]]</b><i
 									class="material-icons right">arrow_drop_down</i></a></li>
 									
 <!--						<li><a href="#" th:text="${session.mySessionNome}"></a></li>-->
@@ -75,7 +75,7 @@
 <!--MENU MOBILE-->
 		<ul class="sidenav" id="mobile-demo">
 			<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html"><i class="material-icons left">person_outline</i>Log in</a></li>
-			<li sec:authorize="isAuthenticated()"><a href="/home"><i class="material-icons left">person</i><span sec:authentication="name" th:value="${#authentication.name}"></span></a></li>			
+			<li sec:authorize="isAuthenticated()"><a href="/minha-conta"><i class="material-icons left">person</i><div id="meuNomeUsuario"></div></a></li>			
 			<li><a href="/home"><i class="material-icons left">home</i>Página Inicial</a></li>
 			<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
 			<li><a href="/eventos"><i class="material-icons left">view_list</i>Lista de Eventos</a></li>
@@ -86,12 +86,40 @@
 			<li sec:authorize="isAuthenticated()"><a class="logout" href="/logout"><i class="material-icons left">exit_to_app</i>Sair</a></li>	
 		</ul>
 	</header>
+	
 	<div class="hide">
-		User Logado:<input id="formname" name="emailResponsavelEvento" th:value="${#authentication.name}"
-		readonly=true />
-	</div>	
-
+		<input 	id="formEmailUser" 
+				name="emailResponsavelEvento" 
+				th:value="${#authentication.name}"
+				readonly=true />
+		<b>[[${session.mySessionNome}]]</b>
 	</div>
+	
+	<script type="text/javascript">
+		window.onload = function () {
+				console.log("function called menu...");
+				let stringEmail = document.getElementById("formEmailUser").value
+				if ('[[${#authentication.name}]]' != "anonymousUser") {
+					$.ajax({
+						type: "POST",
+						url: "/info-user-logged",
+						data: stringEmail, //data: JSON.stringify(nome)
+						dataType: "text", //dataType: 'json',
+						success: function () {
+							//console.log("POST success ")
+							var sessionUserName = '[[${#authentication.name}]]';
+							if (!'[[${session.mySessionNome}]]') {
+								window.location.reload();
+							}
+							var mySessionNome =  '[[${session.mySessionNome}]]';
+							document.getElementById("meuNomeUsuario").innerHTML = " <b>"+mySessionNome+"</b>";     			
+						}
+					});
+				}
+			}
+	</script>	
+
+	</div>	
   <!--JavaScript at end of body for optimized loading-->
   	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
