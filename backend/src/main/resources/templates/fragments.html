@@ -62,9 +62,12 @@
 						<li class="participante"><a href="/participantes"><i class="material-icons left">view_comfy</i>Participantes</a></li>
 						<li><a href="/infodesenvolvimento"><i class="material-icons left">code</i>Sobre</a></li>						
 						<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html">Log in</a></li>
-						<li  style="width:180px !important; text-align: right;"  sec:authorize="isAuthenticated()"><a class="dropdown-trigger" data-target="dropdown1"><b>[[${session.mySessionNome}]]</b><i
-									class="material-icons right">arrow_drop_down</i></a></li>
-									
+						<li  style="width:200px !important; text-align: right;"  sec:authorize="isAuthenticated()">
+							<a class="dropdown-trigger" data-target="dropdown1">
+								<b>[[${session.mySessionNome}]]</b>
+								<i class="material-icons right">arrow_drop_down</i>	
+							</a>
+						</li>									
 <!--						<li><a href="#" th:text="${session.mySessionNome}"></a></li>-->
 <!--						<li th:text="| User:  ${session.mySessionNome}|" ></li>-->						
 					</ul>
@@ -75,7 +78,12 @@
 <!--MENU MOBILE-->
 		<ul class="sidenav" id="mobile-demo">
 			<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html"><i class="material-icons left">person_outline</i>Log in</a></li>
-			<li sec:authorize="isAuthenticated()"><a href="/minha-conta"><i class="material-icons left">person</i><div id="meuNomeUsuario"></div></a></li>			
+			<li sec:authorize="isAuthenticated()">
+				<a href="/minha-conta"><i class="material-icons left">person</i>
+					<div class="hide" id="meuNomeUsuario"></div>
+					<b>[[${session.mySessionNome}]]</b>
+				</a>
+			</li>			
 			<li><a href="/home"><i class="material-icons left">home</i>Página Inicial</a></li>
 			<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
 			<li><a href="/eventos"><i class="material-icons left">view_list</i>Lista de Eventos</a></li>
@@ -99,23 +107,30 @@
 		window.onload = function () {
 				console.log("function called menu...");
 				let stringEmail = document.getElementById("formEmailUser").value
-				if ('[[${#authentication.name}]]' != "anonymousUser") {
-					$.ajax({
-						type: "POST",
-						url: "/info-user-logged",
-						data: stringEmail, //data: JSON.stringify(nome)
-						dataType: "text", //dataType: 'json',
-						success: function () {
-							//console.log("POST success ")
-							var sessionUserName = '[[${#authentication.name}]]';
-							if (!'[[${session.mySessionNome}]]') {
-								window.location.reload();
-							}
-							var mySessionNome =  '[[${session.mySessionNome}]]';
-							document.getElementById("meuNomeUsuario").innerHTML = " <b>"+mySessionNome+"</b>";     			
-						}
-					});
+				var mySessionNome = '[[${session.mySessionNome}]]';
+				//console.log(mySessionNome)
+				if ('[[${#authentication.name}]]' == "anonymousUser") {
+					return console.log("usuario anônimo");
 				}
+				if (mySessionNome != "") {					
+					document.getElementById("meuNomeUsuario").innerHTML = " <b>" + mySessionNome + "</b>";
+					return console.log("Não precisa fazer nova requisição ajax");
+				}
+				$.ajax({
+					type: "POST",
+					url: "/info-user-logged",
+					data: stringEmail, //data: JSON.stringify(nome)
+					dataType: "text", //dataType: 'json',
+					success: function () {
+						console.log("POST success ")
+						//var sessionUserName = '[[${#authentication.name}]]';
+						if (!'[[${session.mySessionNome}]]') {
+							window.location.reload();
+						}
+						document.getElementById("meuNomeUsuario").innerHTML = " <b>" + mySessionNome + "</b>";
+					}
+				});
+
 			}
 	</script>	
 
