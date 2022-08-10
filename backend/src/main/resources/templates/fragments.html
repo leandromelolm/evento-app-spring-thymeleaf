@@ -36,6 +36,7 @@
 		.nav-wrapper{
 			margin:0px 20px 0px 20px;
 		}
+		
 	</style>
 </head>
 
@@ -60,11 +61,11 @@
 						<li><a href="/eventos"><i class="material-icons left">list</i>Eventos</a></li>
 						<li sec:authorize="isAuthenticated()"><a href="/user/meus-eventos"><i class="material-icons left">playlist_add_check</i>Meus Eventos</a></li>
 						<li class="participante"><a href="/participantes"><i class="material-icons left">view_comfy</i>Participantes</a></li>
-						<li><a href="/infodesenvolvimento"><i class="material-icons left">code</i>Sobre</a></li>						
+						<li sec:authorize="!isAuthenticated()" ><a href="/infodesenvolvimento"><i class="material-icons left">code</i>Sobre</a></li>						
 						<li sec:authorize="!isAuthenticated()"><a class="login" href="/login.html">Log in</a></li>
-						<li  style="width:200px !important; text-align: right;"  sec:authorize="isAuthenticated()">
+						<li style="text-align: right;"  sec:authorize="isAuthenticated()">
 							<a class="dropdown-trigger" data-target="dropdown1">
-								<b>[[${session.mySessionNome}]]</b>
+								<b id="nomeUsuarioMenu"  >[[${session.mySessionNome}]]</b>
 								<i class="material-icons right">arrow_drop_down</i>	
 							</a>
 						</li>									
