@@ -20,6 +20,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,10 +39,12 @@ public class Usuario implements UserDetails {
 	@Column(unique=true)
 	private String email;
 	
-	private String senha;
+	private String senha;	
 	
-	@Column(unique=true)
-	private String nome;	
+	@Size(min=5, max=20, message ="Nome precisa ter de 5 a 20 letras")
+	private String nome;
+	
+	@NotNull(message ="Cpf não pode ser nulo")
 	private String cpf;
 	private Instant dataCadastro;
 	

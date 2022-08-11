@@ -12,37 +12,59 @@
 				<h5>Cadastro</h5>
 				<p th:if="${loginError}" class="error" style="color: red;">Wrong user or password (usuário ou senha incorretos)</p>
 				<th:block th:include="mensagemValidacao"></th:block>
-				<form method="post">		
-					<div class="row">
-						<div class="input-field col s12">
-							<label for="username">Email</label>
-							<input style="text-transform: lowercase;" type="text" id="email" name="email" autofocus="autofocus" required=true />
-						</div>
-						<div class="input-field col s12">
-							<label for="name">Nome</label>
-							<input style="text-transform: uppercase;" type="text" id="nome" name="nome" autofocus="autofocus" required=true />
-						</div>
-						<div class="input-field col s12"> <!-- no navegador do smartphone o type text não funciona a mascara -->
-								<input type="tel" value="" name="cpf" onkeypress="$(this).mask('000.000.000-00');"
+				
+				<br/>
+				
+				<div th:each="m : ${msg}">
+					<span class="error" th:text="${m}"></span>				
+				</div>
+				
+				
+				<div th:if="${sucessoCadastro}">					
+					<div th:object="${usuarioobj}">
+						<p>Faça seu login com o email <b>[[*{email}]]</b></p>
+						<a href="/login.html">Log in</a></li>
+					</div>
+				</div>
+				
+				<div th:unless="${sucessoCadastro}">
+					<form method="post" th:object="${usuarioobj}">
+						<div class="row">
+							<div class="input-field col s12">
+								<label for="username">Email</label>
+								<input style="text-transform: lowercase;" type="text" id="email" name="email" th:field="*{email}"
+									autofocus="autofocus" required=true />
+							</div>
+							<div class="input-field col s12">
+								<label for="name">Nome</label>
+								<input style="text-transform: uppercase;" type="text" id="nome" name="nome" th:field="*{nome}"
+									autofocus="autofocus" required=true />
+							</div>
+							<div class="input-field col s12">
+								<!-- no navegador do smartphone o type text não funciona a mascara -->
+								<input type="tel" value="" name="cpf" th:field="*{cpf}" onkeypress="$(this).mask('000.000.000-00');"
 									pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" required="true" />
 								<label>CPF</label>
 							</div>
-						<div class="input-field col s12">
-							<label for="password">senha</label>
-							<input type="password" id="password" name="senha" required=true />
+							<div class="input-field col s12">
+								<label for="password">senha</label>
+								<input type="password" id="password" name="senha" required=true />
+							</div>
+							<div class="input-field col s12">
+								<label for="password">repita a senha</label>
+								<input type="password" id="passwordRepeat" name="senhaRepetida" required=true />
+							</div>
+				
+							<div class="col s12">
+								<button class="btn waves-effect waves-light" style="width: 100%;" type="submit" value="Log in">
+									Cadastrar
+								</button>
+							</div>
 						</div>
-						<div class="input-field col s12">
-							<label for="password">repita a senha</label>
-							<input type="password" id="passwordRepeat" name="senhaRepetida" required=true />
-						</div>
-						
-						<div class="col s12">
-							<button class="btn waves-effect waves-light" style="width: 100%;" type="submit" value="Log in">
-								Cadastrar
-							</button>
-						</div>						
-					</div>
-				</form>
+					</form>
+				
+				</div>
+				
 			</div>
 		</div>		
 	</div>

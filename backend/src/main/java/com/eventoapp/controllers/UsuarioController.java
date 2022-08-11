@@ -42,37 +42,59 @@ public class UsuarioController {
 	private EventoRepository er;
 	
 	@GetMapping("/register")
-	public String pageUserRegister() {
-		return "user/register";
+	public ModelAndView pageUserRegister() {
+		ModelAndView mv = new ModelAndView("user/register");
+		mv.addObject("usuarioobj", new Usuario());
+		return mv;
 	}
 	
 	@PostMapping("/register")
-//	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String form(@Valid Usuario u, BindingResult result, RedirectAttributes attributes) {	
+	public ModelAndView form(@Valid Usuario u, BindingResult result, RedirectAttributes attributes) {	
 		List<String> msg = new ArrayList<String>();		
+		ModelAndView mv = new ModelAndView("user/register");
 		if(result.hasErrors()){
 			for (ObjectError objectError : result.getAllErrors()) {
 				msg.add(objectError.getDefaultMessage());
 				System.out.println("ErrorMessage__ "+ objectError.getDefaultMessage());
 			}		
-			attributes.addFlashAttribute("mensagem", "Verifique os campos!  "+ msg.toString().substring(1, msg.toString().length()-1));			
-			return "redirect:/register";
+			//attributes.addFlashAttribute("mensagem", "Verifique os campos!  "+ msg.toString().substring(1, msg.toString().length()-1));			
+			mv.addObject("msg", msg);
+			mv.addObject("usuarioobj", u);
+			return mv;
 		}
 		if (!u.getSenha().equals(u.getSenhaRepetida())) {
-			attributes.addFlashAttribute("mensagem", "Senha não são iguais!");			
-			return "redirect:/register";
+
+			mv.addObject("msg", "Senha não são iguais!");
+			mv.addObject("usuarioobj", u);
+			return mv;
 		}
 		if(!Objects.isNull(ur.findByEmail(u.getEmail()))) {
-			attributes.addFlashAttribute("mensagem", "Email já cadastrado");
-			return "redirect:/register";
-		}		
+
+			mv.addObject("msg", "Email já cadastrado");
+			mv.addObject("usuarioobj", u);
+			return mv;
+		}
+		if(!Objects.isNull(ur.findByNome(u.getNome()))) {
+			mv.addObject("msg", "Nome já cadastrado");
+			mv.addObject("usuarioobj", u);
+			return mv;
+		}
+		if(!Objects.isNull(ur.findByCpf(u.getCpf()))) {
+			mv.addObject("msg", "Cpf já cadastrado");
+			mv.addObject("usuarioobj", u);			
+			return mv;
+		}
 		u.setDataCadastro(Instant.now());
 		u.setEnabledUser(true);
 		u.setSenha(new BCryptPasswordEncoder().encode(u.getSenha()));
 		ur.save(u);
 		ur.InsertRole(u.getId(), 3); // 3 É UM PERFIL PREVIAMENTE INSERIDO NO BANCO DE DADOS
-		attributes.addFlashAttribute("mensagem", "Usuario cadastrado com sucesso!"+ " Nome: " +u.getNome());
-		return "redirect:/login.html";
+
+		mv.addObject("msg", u.getNome()+", Seu cadastro foi realizado com sucesso!");
+		mv.addObject("sucessoCadastro", "sucess");
+		mv.addObject("usuarioobj", u);
+		//ModelAndView mv1 = new ModelAndView("login.html");
+		return mv;
 	}
 	
 	@RequestMapping(value="/minha-conta", method=RequestMethod.GET)
