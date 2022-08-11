@@ -79,11 +79,11 @@ public class UsuarioController {
 			mv.addObject("usuarioobj", u);
 			return mv;
 		}
-//		if(!Objects.isNull(ur.findByCpf(u.getCpf()))) {
-//			mv.addObject("msg", "Cpf já cadastrado");
-//			mv.addObject("usuarioobj", u);			
-//			return mv;
-//		}
+		if(!Objects.isNull(ur.findByCpf(u.getCpf()))) {
+			mv.addObject("msg", "Cpf já cadastrado");
+			mv.addObject("usuarioobj", u);			
+			return mv;
+		}
 		u.setDataCadastro(Instant.now());
 		u.setEnabledUser(true);
 		u.setSenha(new BCryptPasswordEncoder().encode(u.getSenha()));
