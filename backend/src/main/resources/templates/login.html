@@ -13,28 +13,41 @@
 			<div class="col s10 push-s1 m4 push-m4">
 				<h5>Sign In</h5>
 				<p th:if="${loginError}" class="error" style="color: red;">Wrong user or password (usuário ou senha incorretos)</p>
-		
-				<form th:action="@{/login.html}" method="post">		
-					<div class="row">
-						<div class="input-field col s12">
-							<label for="username">Username</label>
-							<input style="text-transform: lowercase;" type="text" id="username" name="username" autofocus="autofocus" required=true />
-						</div>
-						<div class="input-field col s12">
-							<label for="password">Password</label>
-							<input type="password" id="password" name="password" required=true />
-						</div>
-						<div class="col s12">
-							<button class="btn waves-effect waves-light" style="width: 100%;" 
-									type="submit" value="Log in">
-								Entrar
-							</button>
-						</div>
-						<div class="col s12">
-							<p><a href="/register">Cadastre-se</a></p>
-						</div>						
+						
+				<div th:if="${#authentication.name} != anonymousUser">					
+					<div>					
+						<p>Usuario já está Logado</p>
+						<a onclick="return confirmaDeslogar();" sec:authorize="isAuthenticated()" href="/logout"
+							class="waves-effect waves-light btn">Logout</a>
 					</div>
-				</form>
+				</div>
+				
+				<div th:unless="${#authentication.name} != anonymousUser">
+					<div>
+						<form th:action="@{/login.html}" method="post">
+							<div class="row">
+								<div class="input-field col s12">
+									<label for="username">Username</label>
+									<input style="text-transform: lowercase;" type="text" id="username" name="username"
+										autofocus="autofocus" required=true />
+								</div>
+								<div class="input-field col s12">
+									<label for="password">Password</label>
+									<input type="password" id="password" name="password" required=true />
+								</div>
+								<div class="col s12">
+									<button class="btn waves-effect waves-light" style="width: 100%;" type="submit" value="Log in">
+										Entrar
+									</button>
+								</div>
+								<div class="col s12">
+									<p><a href="/register">Cadastre-se</a></p>
+								</div>
+							</div>
+						</form>				
+					</div>
+				</div>
+								
 			</div>
 		</div>		
 	</div>
@@ -45,5 +58,7 @@
 	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
 	<script type="text/javascript" src="/js/main.js"></script>
 	<script src="/js/init.js"></script>
+	
+	<script type="text/javascript" src="/js/test.js"></script>
 </body>
 </html>
