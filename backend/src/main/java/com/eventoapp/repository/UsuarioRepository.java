@@ -1,5 +1,7 @@
 package com.eventoapp.repository;
 
+import java.util.Date;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -23,6 +25,17 @@ public interface UsuarioRepository extends CrudRepository<Usuario, String> {
 	
 	@Transactional(readOnly = true)
 	Usuario findById(Long id);
+	
+	@Transactional
+	@Modifying
+	@Query(
+			value =
+				"UPDATE usuario\n"
+				+ "	SET atual_acesso=:atualAcesso,  ultimo_acesso=:ultAcesso\n"
+				+ "	WHERE id = :idUsuario",
+				nativeQuery = true)
+	void updateAcessoAtualUsuario(@Param("idUsuario")Long idUsuario,@Param("atualAcesso") Date acessoAtual, @Param("ultAcesso") Date ultimoAcesso);
+	//void updateAcessoAtual(Long idUsuario);
 	
 	@Transactional
 	@Modifying

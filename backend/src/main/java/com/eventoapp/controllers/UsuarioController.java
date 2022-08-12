@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -102,13 +103,25 @@ public class UsuarioController {
 		return "user/minha-conta";
 	}
 	
-//	https://javabycode.com/sf/spring-boot-tutorial/spring-boot-thymeleaf-ajax-example.html	
-//	@RequestMapping(value="/info-user-logged", method=RequestMethod.POST)
+	@PostMapping("/atualizar-nome-menu")
+	public ModelAndView userNameMenu(@RequestBody String stringEmail, Usuario u, HttpSession session) throws UnsupportedEncodingException {
+		String emailDecode = URLDecoder.decode(stringEmail, "UTF-8");
+		ModelAndView mv = new ModelAndView("user/minha-conta");
+		Usuario user = ur.findByEmail(emailDecode.replaceAll("=", ""));				
+		session.setAttribute("mySessionNome", user.getNome());
+		// Atualizar entrada no sistema
+		user.setUltimoAcesso(user.getAtualAcesso());		  
+		user.setAtualAcesso(new Date());
+		ur.updateAcessoAtualUsuario(user.getId(),user.getAtualAcesso(),user.getUltimoAcesso());		
+		mv.addObject("usuario", user);
+		return mv;
+	}
+	
 	@PostMapping("/info-user-logged")
 	public ModelAndView infoUsuarioLogado(@RequestBody String stringEmail, Model model, Usuario u, RedirectAttributes attrib, HttpSession session) throws UnsupportedEncodingException {
 		String emailDecode = URLDecoder.decode(stringEmail, "UTF-8");
 		ModelAndView mv = new ModelAndView("user/minha-conta");
-		Usuario user = ur.findByEmail(emailDecode.replaceAll("=", ""));
+		Usuario user = ur.findByEmail(emailDecode.replaceAll("=", ""));		
 		
 		session.setAttribute("mySessionNome", user.getNome());
 		session.setAttribute("mySessionCpf", user.getCpf());
@@ -116,14 +129,13 @@ public class UsuarioController {
 		session.setAttribute("mySessionTipoPerfil", user.getRoles().get(0).getNameRole());
 		session.setAttribute("mySessionUsuarioAtivo", user.isEnabled());
 		session.setAttribute("mySessionId", user.getId());
+		session.setAttribute("ultimoAcesso", user.getUltimoAcesso());
+		session.setAttribute("atualAcesso", user.getAtualAcesso());
 		
 		List<Evento> eventos = er.findEventosByEmail(user.getEmail());		
-		session.setAttribute("userQuantEventos", eventos.size());
-		
-		//model.addAttribute("usuarioModel", user);
-		
+		session.setAttribute("userQuantEventos", eventos.size());		
+		//model.addAttribute("usuarioModel", user);	
 		mv.addObject("usuario", user);
-
 		return mv;
 //		return "redirect:/user/minha-conta";
 	}
@@ -145,3 +157,6 @@ public class UsuarioController {
 	}	
 
 }
+
+
+//https://javabycode.com/sf/spring-boot-tutorial/spring-boot-thymeleaf-ajax-example.html	

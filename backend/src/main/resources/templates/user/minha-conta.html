@@ -15,11 +15,13 @@
 			<p>Email: <b>[[${#authentication.name}]]</b></p>
 			<p>Nome: <b>[[${session.mySessionNome}]]</b></p>
 			<p>CPF: <b>[[${session.mySessionCpf}]]</b></p>
-			<p>Data do Cadastro: <b>[[${session.mySessionDataCadastro}]]</b></p>
+			<p>Data do Cadastro: <b>[[${#dates.format(session.mySessionDataCadastro,'dd-MM-yyyy HH:mm')}]]</b></p>
 			<p>Perfil Usuário: <b>[[${session.mySessionTipoPerfil}]]</b></p>
 			<p>Conta Ativa: <b>[[${session.mySessionUsuarioAtivo}]]</b></p>			
 			<p class="hide" >Id: <b>[[${session.mySessionId}]]</b></p>
 		</div>
+		
+		<p id="acessoUsuario"></p>
 		
 		<div id="infominhaconta"></div>
 		
@@ -147,32 +149,31 @@
 		window.onload = function () {
 			console.log("function called page minha-conta...");	
 			let stringEmail = document.getElementById("formEmailUser").value
-    		//console.log(nome)
-    		//Função do Ajax para enviar uma solicitação get
-  			$.ajax({
- 		 		type: "POST",
- 		 		url: "/info-user-logged",
-  				data: stringEmail,  // usuario-padrao%40email.com=	   
-  				dataType: "text",
-  				//data: JSON.stringify(nome), // %22usuario-padrao%40email.com%22=
-        		//dataType: 'json',
-  				success: function(){
-					console.log("POST success ")
-					var sessionUserName = '[[${session.mySessionNome}]]';
-					if (!sessionUserName){ // igual a verificar dessa forma (sessionUserName = "")
-						console.log("Atributo vazio" + sessionUserName);
-						window.location.reload();
-					}else{
-						console.log("Atributos Carregados")						
-						//console.log("Atributo sessionUserName: "+ '[[${session.mySessionNome}]]')
-						var quantEventos =  '[[${session.userQuantEventos}]]';
-						document.getElementById("infominhaconta").innerHTML = " Sua quantidade de eventos: <b> "+quantEventos+"</b>"
-						+"<p/>Para excluir sua conta é necessário deletar todos os seus eventos que estejam cadastrados.";
-						console.log("Quantidade de Eventos "+ "[(${session.userQuantEventos})]")						
-					}					
-           			//alert("success");        			
-        		}
-			});   	
+			
+			var quantEventos =  '[[${session.userQuantEventos}]]';
+			var cpf =  '[[${session.mySessionCpf}]]';
+			var atualAcesso = "[[${#dates.format(session.atualAcesso,'dd-MM-yyyy HH:mm:ss') }]]";
+			var ultimoAcesso = "[[${#dates.format(session.ultimoAcesso,'dd-MM-yyyy HH:mm:ss') }]]";
+			
+			if(!cpf){
+				$.ajax({
+ 		 			type: "POST",
+ 		 			url: "/info-user-logged",
+  					data: stringEmail,
+  					dataType: "text",
+  					success: function(){
+						console.log("POST success minhaconta");
+						window.location.reload();						
+        			}
+				});	
+			}
+			console.log("Atributos de sessão carregados")							
+			document.getElementById("infominhaconta").innerHTML = "Sua quantidade de eventos: <b> "+quantEventos+"</b>"
+								+"<p/>Para excluir sua conta é necessário deletar todos os seus eventos que estejam cadastrados.";	
+			const elementDiv = document.getElementById("acessoUsuario");						
+			setTimeout(function() {						
+				elementDiv.innerHTML += "Atual Acesso: <b>" + atualAcesso + "</b> <p/>"+
+										"Ultimo Acesso: <b>" + ultimoAcesso + "</b>"},1000);				   	
 		}
 		
 		function confirmarExcluir() {

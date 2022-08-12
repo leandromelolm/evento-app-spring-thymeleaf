@@ -119,11 +119,11 @@
 				}
 				$.ajax({
 					type: "POST",
-					url: "/info-user-logged",
+					url: "/atualizar-nome-menu",
 					data: stringEmail, //data: JSON.stringify(nome)
 					dataType: "text", //dataType: 'json',
 					success: function () {
-						console.log("POST success ")
+						console.log("POST success atualizar-nome-menu ")
 						//var sessionUserName = '[[${#authentication.name}]]';
 						if (!'[[${session.mySessionNome}]]') {
 							window.location.reload();
