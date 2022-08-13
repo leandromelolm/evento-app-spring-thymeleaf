@@ -29,7 +29,7 @@ public class Participante implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.SEQUENCE)	
-	private long idParticipante;
+	private Long idParticipante;
 	
 	@NotEmpty (message = "O campo Nome não pode ser vazio")	
 	@Size(min=5, max=40, message="O campo nome deve ter entre 5 e 40 caracteres")
@@ -54,10 +54,10 @@ public class Participante implements Serializable{
 	@ManyToOne	
 	private Evento evento;
 	
-	public long getIdParticipante() {
+	public Long getIdParticipante() {
 		return idParticipante;
 	}
-	public void setIdParticipante(long idParticipante) {
+	public void setIdParticipante(Long idParticipante) {
 		this.idParticipante = idParticipante;
 	}
 	public String getNomeParticipante() {
