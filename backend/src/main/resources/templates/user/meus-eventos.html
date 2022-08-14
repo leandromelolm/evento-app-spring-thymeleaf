@@ -39,6 +39,13 @@
 							<i class="material-icons">delete_forever</i>
 						</a>
 					</td>
+					
+					<td> 
+						<a th:href="${(#mvc.url('EC#alterarEvento').arg(0, evento.codigo)).build()}">
+							<span>Editar</span>
+						</a>
+					</td>
+					
 					<td> 
 						<form action="#" name="formExcluir" th:action="@{/user/meus-eventos/delete}" method="POST">
 						<input type="hidden" name="codigo" th:value="*{evento.codigo}">								

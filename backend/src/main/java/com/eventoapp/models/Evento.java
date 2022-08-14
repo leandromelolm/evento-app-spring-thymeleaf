@@ -71,6 +71,16 @@ public class Evento implements Serializable{
 		addStatusEvento(StatusEvento.ABERTO);	
 	}
 	
+	public Evento(Evento evento) {
+		this.codigo = evento.getCodigo();
+		this.nome = evento.getNome();
+		this.local = evento.getLocal();
+		this.data = evento.getData();
+		this.horario = evento.getHorario();
+		//this.status = evento.status;
+		this.status = evento.getStatus().getCod();
+	}
+
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -136,6 +146,5 @@ public class Evento implements Serializable{
 	}
 	public void addStatusEvento(StatusEvento status) {
 		this.status = status.getCod();
-	}	
-	
+	}
 }

@@ -1,15 +1,18 @@
 package com.eventoapp.controllers;
 
+import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +30,7 @@ import com.eventoapp.models.Evento;
 import com.eventoapp.models.Participante;
 import com.eventoapp.models.Telefone;
 import com.eventoapp.models.Usuario;
+import com.eventoapp.models.enums.StatusEvento;
 import com.eventoapp.repository.EventoRepository;
 import com.eventoapp.repository.ParticipanteRepository;
 import com.eventoapp.repository.TelefoneRepository;
@@ -45,7 +49,7 @@ public class EventoController {
 	private TelefoneRepository tRepository;
 	
 	@Autowired
-	private UsuarioRepository ur;
+	private UsuarioRepository ur;	
 	
 	@RequestMapping(value="/cadastrarEvento", method=RequestMethod.GET)
 	public String form() {
@@ -143,6 +147,46 @@ public class EventoController {
 		return "redirect:/user/meus-eventos";
 	}
 	
+	@GetMapping("/user/meus-eventos/alterar-evento/{id}")
+	public String alterarEvento(@PathVariable("id") long id, Model model) {
+		Optional<Evento> eventoOpt = er.findById(id);
+		if(!eventoOpt.isPresent()) {
+			throw new IllegalArgumentException("Evento inválido.");
+		}
+		Evento evento = new Evento(eventoOpt.get());
+		
+		model.addAttribute("eventoForm", evento);
+		
+		List<String> descricaoStatus = new ArrayList<String>();
+		for(StatusEvento s : StatusEvento.values()){
+			//System.out.println(s.getDescricao());
+			descricaoStatus.add(s.getDescricao());
+		}		
+		model.addAttribute("statusEvento", descricaoStatus);
+		return "user/editar-evento";
+	}
+	
+	@PostMapping("/user/meus-eventos/alterar-evento")
+	public String alterarEventoPost( @ModelAttribute("eventoForm") Evento evento, @Param("s") String status, 
+			BindingResult result, RedirectAttributes attributes ,Model model) {		
+		List<String> msg = new ArrayList<String>();		
+		if(result.hasErrors()){
+			for (ObjectError objectError : result.getAllErrors()) {
+				msg.add(objectError.getDefaultMessage());
+			}						
+			return "redirect:/user/meus-eventos";
+		}		
+		Evento eventoAlterado = er.findById(evento.getCodigo()).orElseThrow(() -> new InvalidParameterException("Evento Inválido!"));
+		eventoAlterado.setNome(evento.getNome());
+		eventoAlterado.setLocal(evento.getLocal());
+		eventoAlterado.setData(evento.getData());
+		//eventoAlterado.addStatusEvento(StatusEvento.ENCERRADO);
+		eventoAlterado.addStatusEvento(StatusEvento.valueOf(status.toUpperCase()));
+		er.save(eventoAlterado);
+		attributes.addFlashAttribute("mensagem", "Evento Alterado!"+ " Status atual: " +evento.getStatus());
+		return "redirect:/user/meus-eventos/alterar-evento/"+ eventoAlterado.getCodigo();
+	}
+		
 	
 	/* SALVAR PARTICIPANTE  */
 	@RequestMapping(value="/evento/{codigo}", method = RequestMethod.POST)

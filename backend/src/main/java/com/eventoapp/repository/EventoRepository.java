@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eventoapp.models.Evento;
 
-public interface EventoRepository extends CrudRepository<Evento, String> {
+public interface EventoRepository extends CrudRepository<Evento, Long> {
 	Evento findByCodigo(long codigo);
 	
 	@Query(value = "SELECT p FROM Evento p ORDER BY codigo DESC")		
