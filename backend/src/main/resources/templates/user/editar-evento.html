@@ -28,6 +28,8 @@
 		<form action="#" th:action="@{/user/meus-eventos/alterar-evento}" th:object="${eventoForm}" method="POST">
 		
 			<input type="hidden" id="id" readonly="readonly" th:field="*{codigo}" class="form-control mb-4 col-4">
+			<!--usuario autenticado-->
+			<input type="hidden" readonly name="emailResponsavelEvento" th:value="${#authentication.name}">	
 			
 			<div class="row">
 				<div class="input-fiel col-sm">

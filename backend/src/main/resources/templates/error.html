@@ -7,14 +7,16 @@
         <head th:replace="fragments :: html_head" />
     </head>
     <body th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf((#response != null)? #response.status : 500)}">
-        <h3 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h3>
-        <p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
-        <div class="collection container">
+    	<div class="container">
+    		<h5 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h5>
+        	<p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
+        	<div class="collection">
 <!--        	<a style="display: block;" href="javascript:history.back()"  class="waves-effect waves-light btn input-field">Go Back</a>-->
-        	<div class="col">        		
-        		<a href="javascript:history.back()"  class="waves-effect waves-light btn collection-item"><i class="material-icons left">arrow_back</i>Go Back(Voltar)</a>        	
-        		<a href="/home" th:href="@{/home}" class="waves-effect waves-light btn collection-item"><i class="material-icons left">home</i>Voltar Página Inicial</a>
-        	</div>        	
-        </div>
+        		<div class="col">        		
+        			<a href="javascript:history.back()"  class="waves-effect waves-light btn collection-item"><i class="material-icons left">arrow_back</i>Voltar</a>        	
+        			<a href="/home" th:href="@{/home}" class="waves-effect waves-light btn collection-item"><i class="material-icons left">home</i>Página Inicial</a>
+        		</div>        	
+        	</div>
+    	</div>        
     </body>
 </html>

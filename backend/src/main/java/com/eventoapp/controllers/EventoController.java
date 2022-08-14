@@ -123,7 +123,7 @@ public class EventoController {
 		return "redirect:/eventos";
 	}
 	
-	@RequestMapping("/user/meus-eventos/delete2")
+	@RequestMapping("/user/meus-eventos/deletar")
 	public String deletarMeuEvento(long codigo) {
 		Evento evento = er.findByCodigo(codigo);		
 		er.delete(evento);
@@ -131,7 +131,7 @@ public class EventoController {
 	}
 	
 	@PostMapping("/user/meus-eventos/delete")
-	public String alterarPapelUsuario(@ModelAttribute("evento")Evento evento, BindingResult bindingResult, Model model) {
+	public String excluirMeuEvento(@ModelAttribute("evento")Evento evento, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			System.out.println("ErrorMessage__ "+ bindingResult.hasErrors());
 			return "redirect:/user/meus-eventos";
@@ -168,7 +168,7 @@ public class EventoController {
 	
 	@PostMapping("/user/meus-eventos/alterar-evento")
 	public String alterarEventoPost( @ModelAttribute("eventoForm") Evento evento, @Param("s") String status, 
-			BindingResult result, RedirectAttributes attributes ,Model model) {		
+			BindingResult result, RedirectAttributes attributes) throws Exception {	
 		List<String> msg = new ArrayList<String>();		
 		if(result.hasErrors()){
 			for (ObjectError objectError : result.getAllErrors()) {
@@ -177,13 +177,17 @@ public class EventoController {
 			return "redirect:/user/meus-eventos";
 		}		
 		Evento eventoAlterado = er.findById(evento.getCodigo()).orElseThrow(() -> new InvalidParameterException("Evento Inválido!"));
+		if (!evento.getEmailResponsavelEvento().equals(eventoAlterado.getEmailResponsavelEvento()) ) {
+			throw new Exception("Usuário não pode alterar evento de outro usuário");
+		}		
 		eventoAlterado.setNome(evento.getNome());
 		eventoAlterado.setLocal(evento.getLocal());
 		eventoAlterado.setData(evento.getData());
-		//eventoAlterado.addStatusEvento(StatusEvento.ENCERRADO);
+		eventoAlterado.setHorario(evento.getHorario());		
 		eventoAlterado.addStatusEvento(StatusEvento.valueOf(status.toUpperCase()));
+		//eventoAlterado.addStatusEvento(StatusEvento.ENCERRADO);
 		er.save(eventoAlterado);
-		attributes.addFlashAttribute("mensagem", "Evento Alterado!"+ " Status atual: " +evento.getStatus());
+		attributes.addFlashAttribute("mensagem", "Evento Alterado!"+ " Status atual: " +status.toUpperCase());
 		return "redirect:/user/meus-eventos/alterar-evento/"+ eventoAlterado.getCodigo();
 	}
 		
