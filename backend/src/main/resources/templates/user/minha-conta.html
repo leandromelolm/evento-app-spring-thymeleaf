@@ -152,8 +152,8 @@
 			
 			var quantEventos =  '[[${session.userQuantEventos}]]';
 			var cpf =  '[[${session.mySessionCpf}]]';
-			var atualAcesso = "[[${#dates.format(session.atualAcesso,'dd-MM-yyyy HH:mm:ss') }]]";
-			var ultimoAcesso = "[[${#dates.format(session.ultimoAcesso,'dd-MM-yyyy HH:mm:ss') }]]";
+			var atualAcesso = "[[${#dates.format(session.atualAcesso,'dd-MM-yyyy HH:mm:ss z') }]]";
+			var ultimoAcesso = "[[${#dates.format(session.ultimoAcesso,'dd-MM-yyyy HH:mm:ss z') }]]";
 			
 			if(!cpf){
 				$.ajax({
