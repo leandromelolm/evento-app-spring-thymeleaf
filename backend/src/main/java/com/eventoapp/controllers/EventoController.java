@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -28,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eventoapp.models.Evento;
 import com.eventoapp.models.Participante;
+import com.eventoapp.models.ParticipanteDTO;
 import com.eventoapp.models.Telefone;
 import com.eventoapp.models.Usuario;
 import com.eventoapp.models.enums.StatusEvento;
@@ -95,7 +97,7 @@ public class EventoController {
 	public ModelAndView listarTodosParticipantes() {
 		ModelAndView mv = new ModelAndView("listaParticipantes");
 //		Iterable<Participante> participantes = pr.findAll(); 
-		//List<Participante> participantes = pr.findAllParticipantes(Sort.by("nomeParticipante"));
+//		List<Participante> participantes = pr.findAllParticipantes(Sort.by("nomeParticipante"));
 		List<Participante> participantes = pr.findAllParticipantes(Sort.by("idParticipante").descending());
 		mv.addObject("participantes", participantes);
 		return mv;
@@ -112,7 +114,11 @@ public class EventoController {
 		participantes.sort((p1, p2) -> {
 			return p2.getIdParticipante().compareTo(p1.getIdParticipante());
 	    });
-		mv.addObject("participantes", participantes); // enviado lista de participantes para view
+		
+		List<ParticipanteDTO> listParticipantesDto = participantes.stream()
+				.map(obj -> new ParticipanteDTO(obj)).collect(Collectors.toList());		
+		
+		mv.addObject("participantes", listParticipantesDto); // enviado lista de participantes para view
 		return mv;
 	}
 	
