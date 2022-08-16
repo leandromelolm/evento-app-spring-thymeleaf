@@ -1,5 +1,6 @@
 package com.eventoapp.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,6 +17,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebSecurityConfig {
 	
+	@Value("${token.key}")
+	private String uniqueAndSecret;	
 
 	@Bean
 	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{ // 1-ADMIN, 2-POWER_USER, 3-STANDARD_USER (Adicionados no data.sql)
@@ -40,7 +43,7 @@ public class WebSecurityConfig {
             .passwordParameter("txtPassword")
 			.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
 			.and()
-			.rememberMe().tokenValiditySeconds(604800).key("mySecret!").rememberMeParameter("checkRememberMe"); // 604800 segundos = 7 dias	
+			.rememberMe().tokenValiditySeconds(604800).key(uniqueAndSecret).rememberMeParameter("checkRememberMe"); // 604800 segundos = 7 dias	
 		return http.build();		
 	}
 	
