@@ -15,6 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
+	
 
 	@Bean
 	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{ // 1-ADMIN, 2-POWER_USER, 3-STANDARD_USER (Adicionados no data.sql)
@@ -34,10 +35,13 @@ public class WebSecurityConfig {
 			.antMatchers(HttpMethod.GET, "/deletarParticipantePageParticipantes").hasRole("ADMIN")
 			.anyRequest().authenticated()
 			.and().formLogin().loginPage("/login.html")
-			.failureUrl("/login-error.html")
-			.permitAll()
-			.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/");
-		return http.build();
+			.failureUrl("/login-error.html").permitAll()
+			.usernameParameter("txtUsername")
+            .passwordParameter("txtPassword")
+			.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
+			.and()
+			.rememberMe().tokenValiditySeconds(604800).key("mySecret!").rememberMeParameter("checkRememberMe"); // 604800 segundos = 7 dias	
+		return http.build();		
 	}
 	
 	@Bean
@@ -53,7 +57,8 @@ public class WebSecurityConfig {
 	@Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }	
+    }
+
 }
 
 // https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter

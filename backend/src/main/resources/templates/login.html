@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+ xmlns="http://www.w3.org/1999/xhtml">
   <head>
   	<head th:replace="fragments :: html_head" />
     <title>Login page</title>
@@ -26,20 +28,30 @@
 					<div>
 						<form th:action="@{/login.html}" method="post">
 							<div class="row">
+							
 								<div class="input-field col s12">
-									<label for="username">Username</label>
-									<input style="text-transform: lowercase;" type="text" id="username" name="username"
+									<label for="txtPassword">Username</label>
+									<input style="text-transform: lowercase;" type="text" id="txtUsername" name="txtUsername"
 										autofocus="autofocus" required=true />
 								</div>
+								
 								<div class="input-field col s12">
-									<label for="password">Password</label>
-									<input type="password" id="password" name="password" required=true />
+									<label for="txtPassword">Password</label>
+									<input type="password" id="txtPassword" name="txtPassword" required=true />
 								</div>
+								
+								<div class="form-check input-field col s12" style="margin: 0px 0px 10px 0px;">								
+									<label class="form-check-label" for="checkRememberMe">Lembrar de mim?</label>									
+									<input type="checkbox" class="form-check-input" id="checkRememberMe" name="checkRememberMe"
+										style="pointer-events: visible; opacity:10; position: relative; margin: 18px 0px 0px 130px">									
+								</div> 
+								
 								<div class="col s12">
 									<button class="btn waves-effect waves-light" style="width: 100%;" type="submit" value="Log in">
 										Entrar
 									</button>
-								</div>
+								</div> 						
+           						
 								<div class="col s12">
 									<p><a href="/register">Cadastre-se</a></p>
 								</div>
