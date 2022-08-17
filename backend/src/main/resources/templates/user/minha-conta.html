@@ -9,7 +9,7 @@
 	
 	<div class="container">
 	
-		<!-- INFORMAÇÕES DA CONTA -->
+	<!-- INFORMAÇÕES DA CONTA -->
 		<div sec:authorize="isAuthenticated()">
 			<h4>Minha Conta</h4>
 			<p>Email: <b>[[${#authentication.name}]]</b></p>
@@ -17,7 +17,7 @@
 			<p>CPF: <b>[[${session.mySessionCpf}]]</b></p>
 			<p>Data do Cadastro: <b>[[${#dates.format(session.mySessionDataCadastro,'dd-MM-yyyy HH:mm')}]]</b></p>
 			<p>Perfil Usuário: <b>[[${session.mySessionTipoPerfil}]]</b></p>
-			<p>Conta Ativa: <b>[[${session.mySessionUsuarioAtivo}]]</b></p>			
+			<p class="hide">Conta Ativa: <b>[[${session.mySessionUsuarioAtivo}]]</b></p>						
 			<p class="hide" >Id: <b>[[${session.mySessionId}]]</b></p>
 		</div>
 		
@@ -57,83 +57,30 @@
 			</form>
 		</div>
 
-		<div sec:authorize="isAuthenticated()">		
-		
-		<!-- FORM POST EXCLUIR CONTA -->
+	<!-- FORM POST EXCLUIR CONTA -->
+		<div sec:authorize="isAuthenticated()">	
+				
 			<th:block th:include="mensagemValidacao"></th:block>
+						
 			<form action="#" name="formExcluir" th:action="@{/deletarMinhaContaUsuario}" method="POST">
 				<input class="hide" readonly=true id="id" name="id" th:value="${session.mySessionId}"/>
 				<input class="hide" readonly=true id="email" name="email" th:Quantidade de eventos cadastrados:value="${#authentication.name}">
 				<p/>
 				<span th:unless="${session.mySessionNome == null}">
-					<button type="submit" class="btn-large red" onclick="return confirmarExcluir()">
+					<button type="submit" class="btn red" onclick="return confirmarExcluir()">
 						<i class="material-icons">delete_forever</i>
 						EXCLUIR CONTA
 					</button>
 				</span>				
 			</form>
 		</div>			
-		
-	
-		<div id="admin" sec:authorize="hasRole('ADMIN')">	
 			
-			<div sec:authorize="!isAuthenticated()">
-				<p>[[${#authentication.name}]]</p>
-				<p>Nome usuario da sessão: <b>[[${session.mySessionNome}]]</b></p>
-				<p>lastAccessedTime: <b>[[${#session.lastAccessedTime}]]</b></p>
-				<p>id: <b>[[${#session.id}]]</b></p>
-			</div>
-	
-			<div sec:authorize="isAuthenticated()">
-				<p>Email: <b>[[${#authentication.name}]]</b></p>
-				<p>Nome usuario da sessão: <b>[[${session.mySessionNome}]]</b></p>
-				<p>lastAccessedTime: <b>[[${#session.lastAccessedTime}]]</b></p>
-				<p>id: <b>[[${#session.id}]]</b></p>				
-			</div>
-	
-	
-			<div class="row">
-				<div class="input-field col l2 m6 s12">
-					<input type=text name="cdate" id="cdate" class="datepicker">
-					<label for="cdate">Calendario</label>
-				</div>
-			</div>
-	
-	
-			<p><b th:text="${mensagem}"></b></p>
-			<th:block th:include="mensagemValidacao"></th:block>
-			<p th:text="| Nome do usuario da sessão:  ${session.mySessionNome}|" th:unless="${session == null}">[...]
-			</p>
-	
-			<table border="1" class="table table-striped table-responsive-md">
-				<tr th:each="u : ${usuario}">
-					<td><span th:text="${u.nome}"></span></td>
-					<td><span th:text="${u.cpf}"></span></td>
-					<td><span th:text="${u.email}"></span></td>
-				</tr>
-			</table>	
-	
-			<div sec:authorize="hasRole('USER')">Text visible to user.</div>
-			<div sec:authorize="hasRole('ADMIN')">Text visible to admin (usuario administrador).</div>
-			<div sec:authorize="isAuthenticated()"> Text visible only to authenticated users.</div>
-			<div> Authenticated username: <span sec:authentication="name"></span> </div>
-	
-			<div sec:authorize="hasRole('ROLE_ADMIN')">
-				USER ADMINISTRADOR -This content is only shown to administrators.
-			</div>
-			<div sec:authorize="hasRole('ROLE_STANDARD_USER')">
-				USER NORMAL -This content is only shown to users.
-			</div>
-			<!--		Authenticated user roles:<div sec:authentication="principal.authorities"></div>-->
-			<!--		Roles: <span sec:authentication="principal.authorities">[ROLE_STANDARD_USER, ROLE_ADMIN]</span>-->
-	
-			</p>
+			
+		<div id="admin" sec:authorize="hasRole('ADMIN')">					
 			<div>
-				<button onclick="window.location.href = '/logout'">Sair</button>
-			</div>
-			</p>
+				<p id="userAdmin"></p>				
+			</div>	
 		</div>
-	
 	</div>
 	
 	<!--JavaScript at end of body for optimized loading-->
@@ -146,41 +93,21 @@
 	<script type="text/javascript" src="/js/test.js"></script>
 	
 	<script type="text/javascript">
+	
 		window.onload = function () {
 			console.log("function called page minha-conta...");	
 			let stringEmail = document.getElementById("formEmailUser").value
 			
 			var quantEventos =  '[[${session.userQuantEventos}]]';
 			var cpf =  '[[${session.mySessionCpf}]]';
-			var atualAcesso = "[[${#dates.format(session.atualAcesso,'dd-MM-yyyy HH:mm:ss ZZZ')}]]";
-			var ultimoAcesso = "[[${#dates.format(session.ultimoAcesso,'dd-MM-yyyy HH:mm:ss z')}]]";
-			
-			/*Teste para converter para hora local no Heroku*/
-			
-			var atualAcessoLocal = new Date("[[${session.atualAcesso}]]");			
-			console.log("atualAcessoLocal...: " + atualAcessoLocal) // Wed Aug 17 2022 06:58:53 GMT-0300 (Horário Padrão de Brasília)
-			console.log("atualAcessoLocal-formatado...: " + "[[${#dates.format(session.atualAcesso,'yyyy-dd-MM HH:mm:sss zZZZ') }]]")			
+			var atualAcesso = "[[${#dates.format(session.atualAcesso,'dd-MM-yyyy HH:mm:ss z ZZZ')}]]";
+			var ultimoAcesso = "[[${#dates.format(session.ultimoAcesso,'dd-MM-yyyy HH:mm:ss z ZZZ')}]]";
 			
 			var dtAtualAcesso = new Date("[[${#dates.formatISO(session.atualAcesso)}]]");
-			console.log("dtAtualAcesso-toString.....: "+  dtAtualAcesso.toString());
-			console.log("dtAtualAcesso..............: "+  dtAtualAcesso.toLocaleString());
-			
 			var dtUltAcesso = new Date("[[${#dates.formatISO(session.ultimoAcesso)}]]");
-			console.log("dtUltAcesso-toString.......: "+  dtUltAcesso.toString());
-			console.log("dtUltAcesso................:"+  dtUltAcesso.toLocaleString());
-						
-			var myTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;	
-			console.log("myTimeZone.........: "+ myTimeZone)	// America/Recife				
-			var MyDate = new Date();
-			console.log("MyDate.............: " + MyDate); // Wed Aug 17 2022 07:03:10 GMT-0300 (Horário Padrão de Brasília)			
-			var MyString = MyDate.toTimeString();
-			console.log("MyString...........: " +MyString); // 07:03:10 GMT-0300 (Horário Padrão de Brasília)		
-			var MyOffset = MyString.slice(9,17);
-			console.log("MyOffset...........: " +MyOffset); // GMT-0300
-
-			/**/
 			
 			if(!cpf){
+				console.log("ajax post")
 				$.ajax({
  		 			type: "POST",
  		 			url: "/info-user-logged",
@@ -192,15 +119,19 @@
         			}
 				});	
 			}
-			console.log("Atributos de sessão carregados")							
+			
+			console.log("ok!")							
 			document.getElementById("infominhaconta").innerHTML = "Sua quantidade de eventos: <b> "+quantEventos+"</b>"
 								+"<p/>Para excluir sua conta é necessário deletar todos os seus eventos que estejam cadastrados.";	
 			const elementDiv = document.getElementById("acessoUsuario");						
 			setTimeout(function() {						
-				elementDiv.innerHTML += "Atual Acesso: <b>" + atualAcesso + "</b> <p/>"+
-										"Ultimo Acesso: <b>" + ultimoAcesso + "</b> <p/>"+
-										"Hora Local do acesso atual: <b>" +dtAtualAcesso.toLocaleString() + "</b> <p/>"+
-										"Hora Local do último acesso: <b>" +dtUltAcesso.toLocaleString() + "</b>"},500);				   	
+				elementDiv.innerHTML += "Atual Acesso: <b>" + dtAtualAcesso.toLocaleString() + "</b> <p/>"+
+										"Ultimo Acesso: <b>" + dtUltAcesso.toLocaleString() + "</b> <p/>"},1);	
+										
+			const element = document.getElementById("userAdmin");						
+			setTimeout(function() {						
+				element.innerHTML += "Atual Acesso (GMT): <b>" + atualAcesso + "</b> <p/>"+
+									"Ultimo Acesso (GMT): <b>" + ultimoAcesso + "</b> <p/>"},1000);											   	
 		}
 		
 		function confirmarExcluir() {
@@ -212,21 +143,6 @@
 				return false;
 			}
 		}
-		
-		function myFunction() {
-			document.getElementById("demo").innerHTML = "Iframe is loaded.";
-  			alert("Page is loaded");
-		}
-		
-		//setTime();
-   		function setTime() {
-			console.log("function setTime");	
-			window.location.reload();
-      		var date = new Date().getTime();
-      		var string = "Timestamp: "+date;
-      		setTimeout(setTime, 3000);
-      		$('#setTime').html(string);
-   		}
 				
 	</script>
 </body>
