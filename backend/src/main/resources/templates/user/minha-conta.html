@@ -152,22 +152,31 @@
 			
 			var quantEventos =  '[[${session.userQuantEventos}]]';
 			var cpf =  '[[${session.mySessionCpf}]]';
-			var atualAcesso = "[[${#dates.format(session.atualAcesso,'dd-MM-yyyy HH:mm:ss ZZZ') }]]";
-			var ultimoAcesso = "[[${#dates.format(session.ultimoAcesso,'dd-MM-yyyy HH:mm:ss z') }]]";
+			var atualAcesso = "[[${#dates.format(session.atualAcesso,'dd-MM-yyyy HH:mm:ss ZZZ')}]]";
+			var ultimoAcesso = "[[${#dates.format(session.ultimoAcesso,'dd-MM-yyyy HH:mm:ss z')}]]";
 			
-			/**/
+			/*Teste para converter para hora local no Heroku*/
 			
 			var atualAcessoLocal = new Date("[[${session.atualAcesso}]]");			
-			var myTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;	
+			console.log("atualAcessoLocal...: " + atualAcessoLocal) // Wed Aug 17 2022 06:58:53 GMT-0300 (Horário Padrão de Brasília)
+			console.log("atualAcessoLocal-formatado...: " + "[[${#dates.format(session.atualAcesso,'yyyy-dd-MM HH:mm:sss zZZZ') }]]")			
 			
-			console.log("atualAcessoLocal...:" + atualAcessoLocal)
-			console.log("myTimeZone.........:"+ myTimeZone)			
+			var dtAtualAcesso = new Date("[[${#dates.formatISO(session.atualAcesso)}]]");
+			console.log("dtAtualAcesso-toString.....: "+  dtAtualAcesso.toString());
+			console.log("dtAtualAcesso..............: "+  dtAtualAcesso.toLocaleString());
+			
+			var dtUltAcesso = new Date("[[${#dates.formatISO(session.ultimoAcesso)}]]");
+			console.log("dtUltAcesso-toString.......: "+  dtUltAcesso.toString());
+			console.log("dtUltAcesso................:"+  dtUltAcesso.toLocaleString());
+						
+			var myTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;	
+			console.log("myTimeZone.........: "+ myTimeZone)	// America/Recife				
 			var MyDate = new Date();
-			console.log("MyDate.............:" + MyDate);
+			console.log("MyDate.............: " + MyDate); // Wed Aug 17 2022 07:03:10 GMT-0300 (Horário Padrão de Brasília)			
 			var MyString = MyDate.toTimeString();
-			console.log("MyString...........:" +MyString);
+			console.log("MyString...........: " +MyString); // 07:03:10 GMT-0300 (Horário Padrão de Brasília)		
 			var MyOffset = MyString.slice(9,17);
-			console.log("MyString...........:" +MyOffset);
+			console.log("MyOffset...........: " +MyOffset); // GMT-0300
 
 			/**/
 			
@@ -189,8 +198,9 @@
 			const elementDiv = document.getElementById("acessoUsuario");						
 			setTimeout(function() {						
 				elementDiv.innerHTML += "Atual Acesso: <b>" + atualAcesso + "</b> <p/>"+
-										"Ultimo Acesso: <b>" + ultimoAcesso + "</b><p/>"+
-										"Hora Local do login: <b>" + atualAcessoLocal + "</b>"},500);				   	
+										"Ultimo Acesso: <b>" + ultimoAcesso + "</b> <p/>"+
+										"Hora Local do acesso atual: <b>" +dtAtualAcesso.toLocaleString() + "</b> <p/>"+
+										"Hora Local do último acesso: <b>" +dtUltAcesso.toLocaleString() + "</b>"},500);				   	
 		}
 		
 		function confirmarExcluir() {
