@@ -152,8 +152,24 @@
 			
 			var quantEventos =  '[[${session.userQuantEventos}]]';
 			var cpf =  '[[${session.mySessionCpf}]]';
-			var atualAcesso = "[[${#dates.format(session.atualAcesso,'dd-MM-yyyy HH:mm:ss z') }]]";
+			var atualAcesso = "[[${#dates.format(session.atualAcesso,'dd-MM-yyyy HH:mm:ss ZZZ') }]]";
 			var ultimoAcesso = "[[${#dates.format(session.ultimoAcesso,'dd-MM-yyyy HH:mm:ss z') }]]";
+			
+			/**/
+			
+			var atualAcessoLocal = new Date("[[${session.atualAcesso}]]");			
+			var myTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;	
+			
+			console.log("atualAcessoLocal...:" + atualAcessoLocal)
+			console.log("myTimeZone.........:"+ myTimeZone)			
+			var MyDate = new Date();
+			console.log("MyDate.............:" + MyDate);
+			var MyString = MyDate.toTimeString();
+			console.log("MyString...........:" +MyString);
+			var MyOffset = MyString.slice(9,17);
+			console.log("MyString...........:" +MyOffset);
+
+			/**/
 			
 			if(!cpf){
 				$.ajax({
@@ -173,7 +189,8 @@
 			const elementDiv = document.getElementById("acessoUsuario");						
 			setTimeout(function() {						
 				elementDiv.innerHTML += "Atual Acesso: <b>" + atualAcesso + "</b> <p/>"+
-										"Ultimo Acesso: <b>" + ultimoAcesso + "</b>"},1000);				   	
+										"Ultimo Acesso: <b>" + ultimoAcesso + "</b><p/>"+
+										"Hora Local do login: <b>" + atualAcessoLocal + "</b>"},500);				   	
 		}
 		
 		function confirmarExcluir() {
