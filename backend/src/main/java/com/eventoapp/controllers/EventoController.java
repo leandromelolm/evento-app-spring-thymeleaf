@@ -55,7 +55,7 @@ public class EventoController {
 	
 	@RequestMapping(value="/cadastrarEvento", method=RequestMethod.GET)
 	public String form() {
-		return "evento/formEvento";
+		return "user/cadastrar-evento";
 	}
 	
 	@RequestMapping(value="/cadastrarEvento", method=RequestMethod.POST)
@@ -105,7 +105,7 @@ public class EventoController {
 	
 	@RequestMapping(value="/evento/{codigo}", method = RequestMethod.GET)
 	public ModelAndView detalhesEvento(@PathVariable("codigo") long codigo) {
-		ModelAndView mv = new ModelAndView("evento/detalhesEvento");
+		ModelAndView mv = new ModelAndView("detalhesEvento");
 		Evento evento = er.findByCodigo(codigo);
 		mv.addObject("evento", evento);
 		
