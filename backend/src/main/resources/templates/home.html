@@ -18,8 +18,8 @@ p{
 	margin:1px
 }
 .div-button{
-	border: 3px solid rgb(32, 74, 135);
-	background-color:rgb(32, 74, 135) ;
+	border: 3px solid rgb(52, 101, 164);
+	background-color:rgb(52, 101, 164) ;
 	position:absolute;
 	right: 5px;			
 	bottom:5px;
@@ -28,9 +28,13 @@ p{
 	text-align: center;					
 	margin: auto;
 }
-.acessar{			
+.cardEvento{			
+	background: transparent;
+	/*font-weight: bold;*/
+	color: black;
+}
+#acessar{
 	color: white;
-	font-weight: bold;
 }
 /*		
 		@media screen and (max-width: 600px) { // Largura máxima. Abaixo do max-width usa o css do bloco
@@ -100,6 +104,7 @@ p{
 			<div th:each="evento : ${eventos}">
       			<div class="col s12 m6 l4">
       				<div class="card-panel z-depth-5">
+      				<a class="cardEvento"th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}">
        					<b th:text="${evento.nome}"></b><p/>
 						<span th:text="${evento.local}"></span><p/>
 						<span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span>
@@ -113,12 +118,12 @@ p{
 						
 						<span th:text="${evento.status}"></span>
 						
-						<div class="div-button">
-							<a class="acessar"th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}">
-								Acessar
-							</a>	
-						</div>						
+						<div class="div-button">							
+							<div id="acessar">Acessar</div>									
+						</div>
+					</a>						
 					</div>
+					
 				</div>
       		</div>      		    
     	</div>
