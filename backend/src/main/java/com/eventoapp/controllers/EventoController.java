@@ -80,7 +80,7 @@ public class EventoController {
 	public ModelAndView listaEventos() {
 		ModelAndView mv = new ModelAndView("listaEventos");
 //		Iterable<Evento> eventos = er.findAll();
-		List<Evento> eventos = er.findAllEventos("listaEventos");
+		List<Evento> eventos = er.findAllEventos();
 		mv.addObject("eventos", eventos);
 		return mv;
 	}
@@ -88,7 +88,7 @@ public class EventoController {
 	@GetMapping("/user/meus-eventos")
 	public ModelAndView meusEventos() {	
 		ModelAndView mv = new ModelAndView("user/meus-eventos");
-		List<Evento> eventos = er.findAllEventos("listaEventos");
+		List<Evento> eventos = er.findAllEventos();
 		mv.addObject("eventos", eventos);
 		return mv;
 	}

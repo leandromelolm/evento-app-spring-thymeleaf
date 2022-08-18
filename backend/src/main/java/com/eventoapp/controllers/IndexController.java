@@ -25,16 +25,15 @@ public class IndexController {
 	@RequestMapping("/")
 	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView("index");
-		List<Evento> eventos = er.findAllEventos("listaEventos");
-		
-		mv.addObject("eventos", eventos);
+		List<Evento> listaEventosAberto = er.findAllEventosStatus(1); // 1 = status Aberto		
+		mv.addObject("eventos", listaEventosAberto);
 		return mv;
 	}
 	
 	@RequestMapping("/home")
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("home");
-		List<Evento> eventos = er.findAllEventos("listaEventos");
+		List<Evento> eventos = er.findAllEventos();
 		mv.addObject("eventos", eventos);
 		return mv;
 	}

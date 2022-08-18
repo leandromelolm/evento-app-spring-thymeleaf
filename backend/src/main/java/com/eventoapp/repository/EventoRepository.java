@@ -13,7 +13,10 @@ public interface EventoRepository extends CrudRepository<Evento, Long> {
 	Evento findByCodigo(long codigo);
 	
 	@Query(value = "SELECT p FROM Evento p ORDER BY codigo DESC")		
-	List<Evento> findAllEventos(String evento);
+	List<Evento> findAllEventos();
+	
+	@Query(value = "SELECT e FROM Evento e WHERE e.status = :status ORDER BY codigo DESC")		
+	List<Evento> findAllEventosStatus(Integer status);
 	
 	@Transactional(readOnly = true)
 	@Query(value = "SELECT e FROM Evento e WHERE e.emailResponsavelEvento = :email")
