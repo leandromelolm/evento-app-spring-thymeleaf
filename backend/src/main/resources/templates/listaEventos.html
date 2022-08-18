@@ -13,7 +13,7 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th sec:authorize="isAuthenticated()" >Código</th>
+					<th sec:authorize="hasRole('ADMIN')" >Código</th>
 					<th>Nome</th>
 					<th>Local</th>
 					<!--<th>Nº particip</th>-->
@@ -26,7 +26,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="evento : ${eventos}">
-					<td sec:authorize="isAuthenticated()" ><span th:text="${evento.codigo}"></span></td>
+					<td sec:authorize="hasRole('ADMIN')" ><span th:text="${evento.codigo}"></span></td>
 					<td> 
 						<div th:if="${evento.status.descricao} eq 'Aberto'">
 							<a  th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}">
