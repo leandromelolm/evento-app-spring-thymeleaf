@@ -29,9 +29,8 @@
 					<td sec:authorize="hasRole('ADMIN')" ><span th:text="${evento.codigo}"></span></td>
 					<td> 
 						<div th:if="${evento.status.descricao} eq 'Aberto'">
-							<a  th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}">
-								<span th:text="${evento.nome}"></span>
-							</a>
+							<!--<a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.nome}"></span></a>-->							
+							<a th:href="@{/evento/{codigo}(codigo = ${evento.codigo})}"><span th:text="${evento.nome}"></span></a>
 						</div>
 						<div th:unless="${evento.status.descricao} eq 'Aberto'">
 							<span th:text="${evento.nome}"></span>
