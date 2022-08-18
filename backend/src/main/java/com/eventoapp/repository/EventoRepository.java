@@ -12,11 +12,11 @@ import com.eventoapp.models.Evento;
 public interface EventoRepository extends CrudRepository<Evento, Long> {
 	Evento findByCodigo(long codigo);
 	
-	@Query(value = "SELECT p FROM Evento p ORDER BY codigo DESC")		
-	List<Evento> findAllEventos();
+	@Query(value = "SELECT p FROM Evento p ORDER BY status ASC, data ASC")		
+	List<Evento> findAllEventos(); //home
 	
-	@Query(value = "SELECT e FROM Evento e WHERE e.status = :status ORDER BY codigo DESC")		
-	List<Evento> findAllEventosStatus(Integer status);
+	@Query(value = "SELECT e FROM Evento e WHERE e.status = :status ORDER BY data ASC")		
+	List<Evento> findAllEventosStatus(Integer status); //index
 	
 	@Transactional(readOnly = true)
 	@Query(value = "SELECT e FROM Evento e WHERE e.emailResponsavelEvento = :email")
