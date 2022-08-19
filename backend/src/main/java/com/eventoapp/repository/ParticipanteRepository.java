@@ -29,5 +29,7 @@ public interface ParticipanteRepository extends CrudRepository<Participante, Str
 	
 	@Query(value = "SELECT p FROM Participante p")		
 	List<Participante> findAllParticipantes(Sort sort);
-
+	
+	@Transactional(readOnly=true)	
+	List<Participante> findAll();
 }

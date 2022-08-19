@@ -98,7 +98,8 @@ public class EventoController {
 		ModelAndView mv = new ModelAndView("listaParticipantes");
 //		Iterable<Participante> participantes = pr.findAll(); 
 //		List<Participante> participantes = pr.findAllParticipantes(Sort.by("nomeParticipante"));
-		List<Participante> participantes = pr.findAllParticipantes(Sort.by("idParticipante").descending());
+//		List<Participante> participantes = pr.findAllParticipantes(Sort.by("idParticipante").descending());
+		List<Participante> participantes = pr.findAll();
 		mv.addObject("participantes", participantes);
 		return mv;
 	}
