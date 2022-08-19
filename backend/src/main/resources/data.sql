@@ -36,9 +36,9 @@ INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
     VALUES (20107,'2023-01-02 12:00:00','usuario-padrao@email.com','12:18','Avenida com nome muito grande, bairro grande','Dia V de Vacinação',1,0,2);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
-    VALUES (20108,'2023-01-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste1',0,0,2);
+    VALUES (20108,'2023-01-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste1',1,0,2);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
-    VALUES (20109,'2023-01-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 2',0,0,1);
+    VALUES (20109,'2023-01-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 2',3,0,1);
 
 -- INSERIR RELAÇÃO USUARIO COM EVENTO
 INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('melo@email.com', 20101);
@@ -53,26 +53,34 @@ INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('usuario-avancad
 
 -- INSERIR PARTICIPANTE EM EVENTOS
 INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
-    VALUES (22101,'222.222.222-22','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser01 silva santos',20104);
+    VALUES (22101,'222.222.222-01','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser01 silva santos',20104);
 INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
-    VALUES (22102,'222.222.222-22','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuseR02 silva santos',20105);
+    VALUES (22102,'222.222.222-02','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuseR02 silva santos',20105);
 INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
-    VALUES (22103,'222.222.222-22','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuseR03 silva santos',20105);
+    VALUES (22103,'222.222.222-03','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuseR03 silva santos',20105);
 INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
-    VALUES (22104,'222.222.222-22','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser04 silva santos',20106);
+    VALUES (22104,'222.222.222-04','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser04 silva santos',20106);
 INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
-    VALUES (22105,'222.222.222-22','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser05 silva santos',20106);
+    VALUES (22105,'222.222.222-05','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser05 silva santos',20106);
 INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
-    VALUES (22106,'222.222.222-22','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser06 silva santos',20106);
+    VALUES (22106,'222.222.222-06','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser06 silva santos',20106);
 INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
-    VALUES (22107,'222.222.222-22','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser07 alCantsantos',20104);
+    VALUES (22107,'222.222.222-07','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser07 alCantsantos',20104);
 INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
-    VALUES (22108,'222.222.222-22','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser08 silva santos',20104);
+    VALUES (22108,'222.222.222-08','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser08 silva santos',20104);
 INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
-    VALUES (22109,'222.222.222-22','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser09 silva santos',20104);
+    VALUES (22109,'222.222.222-09','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser09 silva santos',20104);
 INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
-    VALUES (22110,'222.222.222-22','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser10 silva santos',20104);
+    VALUES (22110,'222.222.222-10','2022-08-03 11:14:59.899','1981-02-22','aaa10@email.com','testuser10 silva santos',20104);
 INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
-    VALUES (22111,'222.222.222-22','2022-08-03 11:14:59.899','1981-02-22','Wmsial@email.com','testuser10 silva santos',20107);
+    VALUES (22111,'222.222.222-11','2022-08-03 11:14:59.899','1981-02-22','usuario11l@email.com','testuser11 silva santos',20107);
+INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
+    VALUES (22112,'222.222.222-12','2022-08-03 11:14:59.899','1981-02-22','cde12@email.com','testuser12 silva santos',20108);
+INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
+    VALUES (22113,'222.222.222-13','2022-08-03 11:14:59.899','1981-02-22','test13l@email.com','testuser13 silva santos',20109);
+INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
+    VALUES (22114,'222.222.222-14','2022-08-03 11:14:59.899','1981-02-22','test14@email.com','testuser14 silva santos',20109);
+INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
+    VALUES (22115,'222.222.222-15','2022-08-03 11:14:59.899','1981-02-22','testusuario15@email.com','testuser15 silva santos',20109);
 
 INSERT INTO telefone(id_telefone, ddd, numero, tipo, id_participante) VALUES (721001,'11','9 1111-1111',NULL,22101);
