@@ -7,32 +7,35 @@
 	<div>	
 		<div th:replace="fragments :: menu"/>
 		<div class="container">
-			<h5>Lista de todos participantes em todos os eventos</h5>
-			<table class="responsive-table">
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th >Email</th>						
-						<th>ID</th>
-						<th>DataCadastro</th>						
-						
-						<th>Deletar</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="participante : ${participantesDto}">
-						<td><span th:text="${participante.nomeParticipanteHidden}"></span></td>
-						<td><span th:text="${participante.emailHidden}"></span></td>						
-						<td><span th:text="${participante.idParticipante}"></span></td>
-						<td><span th:text="${participante.dataCadastro}"></span></td>						
-						
-						<td> <a class="waves-effect waves-light btn-small"
-								th:href="${(#mvc.url('EC#deletarParticipantePageParticipantes').arg(0, participante.idParticipante)).build()}">
-								<i class="material-icons">delete_forever</i></a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		</p>
+			<div id="listaParticipantes" class="table-responsive">
+				<h5>Lista de todos participantes em todos os eventos</h5>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Email</th>
+							<th>ID</th>
+							<th>DataCadastro</th>
+							<th>Evento</th>
+							<th>Deletar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="participante : ${participantesDto}">
+							<td><span th:text="${participante.nomeParticipanteHidden}"></span></td>
+							<td><span th:text="${participante.emailHidden}"></span></td>
+							<td><span th:text="${participante.idParticipante}"></span></td>
+							<td><span th:text="${participante.dataCadastro}"></span></td>
+							<td><span th:text="${participante.evento.nome}"></span></td>
+							<td> <a class="waves-effect waves-light btn-small"
+									th:href="${(#mvc.url('EC#deletarParticipantePageParticipantes').arg(0, participante.idParticipante)).build()}">
+									<i class="material-icons">delete_forever</i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>			
+			</div>			
 		</div>
 	</div>
 	<!--JavaScript at end of body for optimized loading-->

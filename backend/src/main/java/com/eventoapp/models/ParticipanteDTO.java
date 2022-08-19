@@ -19,6 +19,7 @@ public class ParticipanteDTO implements Serializable {
 	
 	private String nomeEvento;
 	private String emailResponsavelEvento;
+	private Evento evento;
 	
 	public ParticipanteDTO(Participante p) {
 		idParticipante = p.getIdParticipante();
@@ -32,7 +33,7 @@ public class ParticipanteDTO implements Serializable {
 		emailHidden = p.getEmail().substring(0, 2)+"***";
 		
 		nomeEvento = p.getEvento().getNome();
-		emailResponsavelEvento = p.getEvento().getEmailResponsavelEvento();
+		emailResponsavelEvento = p.getEvento().getEmailResponsavelEvento();		
 	}
 	
 	public ParticipanteDTO(Participante p, long n) {
@@ -44,7 +45,11 @@ public class ParticipanteDTO implements Serializable {
 		dataCadastro = p.getDataCadastro();
 		
 		nomeParticipanteHidden = p.getNomeParticipante().substring(0, 3)+"***";
-		emailHidden = p.getEmail().substring(0, 2)+"***";		
+		emailHidden = p.getEmail().substring(0, 2)+"***";
+		
+		nomeEvento = p.getEvento().getNome();
+		emailResponsavelEvento = p.getEvento().getEmailResponsavelEvento();
+		evento = p.getEvento();
 	}
 
 	public Long getIdParticipante() {
@@ -125,5 +130,13 @@ public class ParticipanteDTO implements Serializable {
 
 	public void setEmailResponsavelEvento(String emailResponsavelEvento) {
 		this.emailResponsavelEvento = emailResponsavelEvento;
+	}
+
+	public Evento getEvento() {
+		return evento;
+	}
+
+	public void setEvento(Evento evento) {
+		this.evento = evento;
 	}	
 }
