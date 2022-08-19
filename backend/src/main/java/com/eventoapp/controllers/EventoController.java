@@ -93,7 +93,7 @@ public class EventoController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/participantes")
+	@GetMapping("/participantes")
 	public ModelAndView listarTodosParticipantes() {
 		ModelAndView mv = new ModelAndView("listaParticipantes");
 //		Iterable<Participante> participantes = pr.findAll(); 
