@@ -21,8 +21,8 @@
 				</thead>
 				<tbody>
 					<tr th:each="participante : ${participantesDto}">
-						<td><span th:text="${participante.nomeParticipante}"></span></td>
-						<td><span th:text="${participante.email}"></span></td>						
+						<td><span th:text="${participante.nomeParticipanteHidden}"></span></td>
+						<td><span th:text="${participante.emailHidden}"></span></td>						
 						<td><span th:text="${participante.idParticipante}"></span></td>
 						<td><span th:text="${participante.dataCadastro}"></span></td>						
 						

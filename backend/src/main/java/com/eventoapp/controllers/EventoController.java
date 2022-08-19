@@ -102,7 +102,7 @@ public class EventoController {
 		List<Participante> participantes = pr.findAll();
 		
 		List<ParticipanteDTO> listParticipantesDto = participantes.stream()
-				.map(obj -> new ParticipanteDTO(obj)).collect(Collectors.toList());			
+				.map(obj -> new ParticipanteDTO(obj,1)).collect(Collectors.toList());			
 		
 		mv.addObject("participantesDto", listParticipantesDto);
 		return mv;
