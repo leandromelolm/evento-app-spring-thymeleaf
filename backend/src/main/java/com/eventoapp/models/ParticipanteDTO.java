@@ -46,9 +46,7 @@ public class ParticipanteDTO implements Serializable {
 		
 		nomeParticipanteHidden = p.getNomeParticipante().substring(0, 3)+"***";
 		emailHidden = p.getEmail().substring(0, 2)+"***";
-		
-		nomeEvento = p.getEvento().getNome();
-		emailResponsavelEvento = p.getEvento().getEmailResponsavelEvento();
+
 		evento = p.getEvento();
 	}
 

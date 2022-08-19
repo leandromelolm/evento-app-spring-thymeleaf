@@ -112,6 +112,10 @@ public class EventoController {
 	public ModelAndView detalhesEvento(@PathVariable("codigo") long codigo) {
 		ModelAndView mv = new ModelAndView("detalhesEvento");
 		Evento evento = er.findByCodigo(codigo);
+		if(evento.equals(null)) {
+			throw new IllegalArgumentException("Evento inválido!");
+		}
+		
 		mv.addObject("evento", evento);
 		
 //		Iterable<Participante> participantes = pr.findByEvento(evento);

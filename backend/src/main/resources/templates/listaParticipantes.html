@@ -27,9 +27,12 @@
 							<td><span th:text="${participante.emailHidden}"></span></td>
 							<td><span th:text="${participante.idParticipante}"></span></td>
 							<td><span th:text="${participante.dataCadastro}"></span></td>
-							<td><span th:text="${participante.evento.nome}"></span></td>
+							<td> <a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, participante.evento.codigo)).build()}">
+								<span th:text="${participante.evento.nome}"></span></a>
+							</td>
 							<td> <a class="waves-effect waves-light btn-small"
-									th:href="${(#mvc.url('EC#deletarParticipantePageParticipantes').arg(0, participante.idParticipante)).build()}">
+									th:href="${(#mvc.url('EC#deletarParticipantePageParticipantes').arg(0, participante.idParticipante)).build()}"
+									onclick="return confirmarExclusao()">
 									<i class="material-icons">delete_forever</i></a>
 							</td>
 						</tr>
