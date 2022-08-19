@@ -28,11 +28,11 @@
 						<td class="hide"><span th:text="${participante.CPF}"></span></td>
 						<td sec:authorize="hasRole('ADMIN')" ><span th:text="${participante.idParticipante}"></span></td>
 						<td><span th:text="${participante.dataCadastro}"></span></td>
-						<td> <a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, participante.evento.codigo)).build()}"> 
-							<span th:text="${participante.evento.codigo}"></span></a>
+						<td> 
+							<span th:text="${participante.evento.codigo}"></span>
 						</td>
-						<td> <a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, participante.evento.codigo)).build()}">
-							<span th:text="${participante.evento.nome}"></span></a>
+						<td> 
+							<span th:text="${participante.evento.nome}"></span>
 						</td>
 						<td> <a class="waves-effect waves-light btn-small"
 								th:href="${(#mvc.url('EC#deletarParticipantePageParticipantes').arg(0, participante.idParticipante)).build()}">
