@@ -24,8 +24,9 @@ public class WebSecurityConfig {
 	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{ // 1-ADMIN, 2-POWER_USER, 3-STANDARD_USER (Adicionados no data.sql)
 		http
 			.csrf().disable().authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/home", "/","/eventos","/evento/**", "/teste", "/infodesenvolvimento").permitAll()
+			.antMatchers(HttpMethod.GET, "/home", "/","/eventos","/evento/**","/infodesenvolvimento").permitAll()
 			.antMatchers(HttpMethod.GET, "/register").anonymous()
+			.antMatchers(HttpMethod.GET, "/participantes").authenticated()
 			.antMatchers(HttpMethod.GET, "/cadastrarEvento").hasAnyRole("ADMIN","STANDARD_USER")
 			.antMatchers(HttpMethod.POST, "/cadastrarEvento").hasAnyRole("ADMIN","STANDARD_USER")
 			.antMatchers(HttpMethod.POST, "/evento/**").permitAll()
