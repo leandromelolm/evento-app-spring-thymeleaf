@@ -11,15 +11,6 @@ $(document).ready(function() {
 	});
 });
 
-function confirmaDeslogar() {	
-	var resultado = (confirm('Tem certeza que deseja deslogar?'))
-	if (resultado){
-		return true		
-	}else{
-		return false
-	}
-}
-
 //function nomeUsuarioLogado() {
 //	console.log("function called....");
 //	let nome = document.getElementById("username").value
