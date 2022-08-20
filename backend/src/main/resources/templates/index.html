@@ -44,7 +44,7 @@
 							<span th:text="${evento.horario}"></span>
 							<p />
 							<!-- <span th:text="${evento.quantParticip}"></span> -->	
-							<div th:switch="${evento.quantParticip}">
+							<div th:switch="${evento.participantes.size()}">
 								<span th:case="'0'">Sem participante cadastrado!</span>
 								<span th:case="'1'"><span th:text="${evento.quantParticip}"></span> participante</span>
 								<span th:case="*"><span th:text="${evento.quantParticip}"></span> participantes</span>								
