@@ -16,7 +16,7 @@ function confirmarExclusao() {
 	}
 }
 
-// minha-conta
+// minha-conta, login
 function confirmaDeslogar() {	
 	var resultado = (confirm('Tem certeza que deseja deslogar?'))
 	if (resultado){
