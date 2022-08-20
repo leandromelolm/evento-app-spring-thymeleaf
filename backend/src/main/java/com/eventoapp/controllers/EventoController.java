@@ -256,6 +256,11 @@ public class EventoController {
 	@RequestMapping("/deletarParticipantePageParticipantes")
 	public String deletarParticipantePageParticipantes(long codigo) {
 		Participante participante = pr.findByIdParticipante(codigo);
+		
+		Evento evento = participante.getEvento();
+		evento.setQuantParticip(evento.getQuantParticip()-1);
+		er.save(evento);
+		
 		pr.delete(participante);
 		return "redirect:/participantes";
 	}
