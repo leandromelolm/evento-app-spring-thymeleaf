@@ -8,9 +8,12 @@
 	<div th:replace="fragments :: menu"/>
 	
 	<div class="container">
+	
+	<p/>
+	<hr>
 
 		<h5>Meus Eventos</h5>
-		<table class="table-responsive">
+		<table class="table-responsive">  <!--Bootstrap-->
 			<thead>
 				<tr>
 					<th>Cod.</th>
@@ -64,13 +67,16 @@
 			</tbody>
 		</table>
 		
+		<p/>
+		<hr>
+		
 		<div sec:authorize="hasRole('ROLE_ADMIN')">
 			<h5>Todos Eventos</h5>		
-			<table class="responsive-table">
+			<table class="responsive-table"> <!--MaterializeCSS-->
 				<thead>
 					<tr>
 						<th>Responsavel</th>
-						<th>Meu Evento</th>
+						<th>Meu Evento?</th>
 						<th>Cod.</th>
 						<th>Nome</th>
 						<th>Local</th>
