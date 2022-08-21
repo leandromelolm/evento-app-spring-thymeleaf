@@ -105,7 +105,7 @@
 								</td>
 								<td th:if="${#authentication.name == participante.emailResponsavelEvento}" >								
 									<a class="waves-effect waves-light btn-small"
-										th:href="${(#mvc.url('EC#deletarParticipante').arg(0, participante.idParticipante)).build()}" onclick="return confirmarExclusao()">
+										th:href="${(#mvc.url('EC#deletarParticipante').arg(0, participante.idParticipante)).build()}" onclick="return confirmarExcluirParticipante()">
 										<i class="material-icons">delete_forever</i>
 									</a>
 								</td>

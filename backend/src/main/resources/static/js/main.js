@@ -6,14 +6,24 @@ $(document).ready(function () {
 	$(".dropdown-trigger").dropdown()
 });
 
-// detalhesEvento
-function confirmarExclusao() {
-	var resultado = (confirm('Tem certeza que você quer excluir esse participante?'))
+// detalhesEvento, listaParticipantes
+function confirmarExcluirParticipante() {
+	var resultado = (confirm('Tem certeza que você quer excluir este participante?'))
 	if (resultado == true) {
 		return true;
 	} else {
 		return false;
 	}
+}
+
+// meus-eventos,listaEventos
+function confirmarExcluirEvento() {
+	var resultado = (confirm('Tem certeza que você quer excluir este evento?'))
+	if (resultado == true) {
+		return true;
+	} else {
+		return false;
+	} 
 }
 
 // minha-conta, login

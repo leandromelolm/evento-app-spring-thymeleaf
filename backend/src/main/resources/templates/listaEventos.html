@@ -45,7 +45,8 @@
 										
 					<td><span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span></td>
 					<td><span th:text="${evento.horario}"></span></td>
-					<td> <a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"> 
+					<td> <a class="waves-effect waves-light btn-small" 
+							th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}" onclick="return confirmarExcluirEvento()"> 
 							<i class="material-icons">delete_forever</i> 
 						</a>
 					</td>
@@ -54,7 +55,7 @@
 		</table>
 		</div>
 	</div>
-  <!--JavaScript at end of body for optimized loading-->
+	
   	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.js"></script>

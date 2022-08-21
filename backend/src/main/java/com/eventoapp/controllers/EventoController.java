@@ -182,7 +182,6 @@ public class EventoController {
 		
 		List<String> descricaoStatus = new ArrayList<String>();
 		for(StatusEvento s : StatusEvento.values()){
-			//System.out.println(s.getDescricao());
 			descricaoStatus.add(s.getDescricao());
 		}		
 		model.addAttribute("statusEvento", descricaoStatus);
