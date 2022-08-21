@@ -34,7 +34,7 @@ INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
     VALUES (20106,'2023-04-19 13:00:00','usuario-padrao@email.com','23:58','Praça publica',' Campanha de Vacinação',3,0,4);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
-    VALUES (20107,'2023-01-02 12:00:00','usuario-padrao@email.com','12:18','Avenida com nome muito grande, bairro grande','Dia V de Vacinação',1,0,2);
+    VALUES (20107,'2023-01-02 12:00:00','usuario-padrao@email.com','12:18','Avenida com nome muito grande, bairro grande','Dia V de Vacinação(20107)',1,0,3);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
     VALUES (20108,'2023-01-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste1',1,0,2);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 

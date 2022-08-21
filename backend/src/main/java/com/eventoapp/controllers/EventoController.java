@@ -111,14 +111,22 @@ public class EventoController {
 	@RequestMapping(value="/evento/{codigo}", method = RequestMethod.GET)
 	public ModelAndView detalhesEvento(@PathVariable("codigo") long codigo) {
 		ModelAndView mv = new ModelAndView("detalhesEvento");
-		Evento evento = er.findByCodigo(codigo);
-		if(evento.equals(null)) {
-			throw new IllegalArgumentException("Evento inválido!");
+		Evento evento = er.findById(codigo).orElseThrow(() -> new InvalidParameterException("Evento não existe!"));			
+
+		if(evento.getStatus().getDescricao().equals("Pausado")) {
+			throw new IllegalArgumentException("Evento está pausado.");
 		}
 		
-		mv.addObject("evento", evento);
+		if(evento.getStatus().getDescricao().equals("Encerrado")) {
+			throw new IllegalArgumentException("Evento encerrado.");
+		}
 		
-//		Iterable<Participante> participantes = pr.findByEvento(evento);
+		if(evento.getStatus().getDescricao().equals("Finalizado")) {		
+			throw new IllegalArgumentException("Evento finalizado.");
+		}
+		
+		mv.addObject("evento", evento);	
+		
 		List<Participante> participantes = pr.findByEventoParticipantes2(codigo);
 		participantes.sort((p1, p2) -> {
 			return p2.getIdParticipante().compareTo(p1.getIdParticipante());
