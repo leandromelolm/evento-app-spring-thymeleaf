@@ -15,6 +15,7 @@
 				<tr>
 					<th sec:authorize="hasRole('ADMIN')" >Código</th>
 					<th>Nome</th>
+					<th sec:authorize="hasRole('ADMIN')" >Responsavel</th>
 					<th>Local</th>
 					<!--<th>Nº particip</th>-->
 					<th>Status</th>
@@ -26,7 +27,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="evento : ${eventos}">
-					<td sec:authorize="hasRole('ADMIN')" ><span th:text="${evento.codigo}"></span></td>
+					<td sec:authorize="hasRole('ADMIN')" ><span th:text="${evento.codigo}"></span></td>					
 					<td> 
 						<div th:if="${evento.status.descricao} eq 'Aberto'">
 							<!--<a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.nome}"></span></a>-->							
@@ -36,6 +37,7 @@
 							<span th:text="${evento.nome}"></span>
 						</div>						
 					</td>
+					<td sec:authorize="hasRole('ADMIN')" ><span th:text="${evento.emailResponsavelEvento}"></span></td>
 					<td><span th:text="${evento.local}"></span></td>
 					<td><span th:text="${evento.status}"></span></td>
 					<!--<td><span th:text="${evento.quantParticip}"></span></td>-->
