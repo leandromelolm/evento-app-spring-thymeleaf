@@ -1,10 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>	
-	<head th:replace="fragments :: html_head" />
-	<link type="text/css" rel="stylesheet" href="/css/home.css"  media="screen,projection"/>
-	<title>EventosApp</title>
+<head>
+	<title>EventosApp</title>	
+	<head th:replace="fragments :: html_head" />	
+<!--	<link th:href="@{/css/home.css}" rel="stylesheet" />-->
+	
+	<style>
+#btncadastrar{
+	margin: 10px 0px 15px 10px;
+}
+.card-panel{			
+	position:relative;
+	white-space: nowrap;
+	text-overflow: ellipsis; /* text-overflow especifica como conteúdo estourado que não é exibido e é sinalizado ao usuário com reticências (...) */
+	overflow: hidden !important;
+}
+p{
+	margin:1px
+}
+.div-button{
+	border: 3px solid rgb(52, 101, 164);
+	background-color:rgb(52, 101, 164) ;
+	position:absolute;
+	right: 5px;			
+	bottom:5px;
+	width: 70px; 
+	height: 30px;
+	text-align: center;					
+	margin: auto;
+}
+.cardEvento{			
+	background: transparent;
+	/*font-weight: bold;*/
+	color: black;
+}
+#acessar{
+	color: white;
+}		
+	</style>
+	
 </head>
 <body>
 		
