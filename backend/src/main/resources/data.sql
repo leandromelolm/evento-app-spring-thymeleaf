@@ -22,7 +22,7 @@ INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (10103,2);
 -- INSERIR EVENTO
 -- STATUS DO EVENTO -- 1 ABERTO, 2 PAUSADO, 3 ENCERRADO, 4 FINALIZADO
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
-    VALUES (20101,'2023-05-05 00:00:00','melo@email.com','06:30','Salão de festas do condomínio	','Reunião de condominio - Reajustes',0,0,1);
+    VALUES (20101,'2023-05-05 00:00:00','melo@email.com','06:30','Salão de festas do condomínio	','Reunião de condominio - Reajustes',2,0,1);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
     VALUES (20102,'2023-12-31 00:00:00','melo@email.com','23:58','Salão de festas do condomínio	','Festa de fim de ano',0,0,1);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
@@ -82,5 +82,9 @@ INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, 
     VALUES (22114,'222.222.222-14','2022-08-03 11:14:59.899','1981-02-22','test14@email.com','testuser14 silva santos',20109);
 INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
     VALUES (22115,'222.222.222-15','2022-08-03 11:14:59.899','1981-02-22','testusuario15@email.com','testuser15 silva santos',20109);
+INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
+    VALUES (22116,'222.222.222-14','2022-08-03 11:14:59.899','1981-02-22','t16test@email.com','t16testuser silva santos',20101);
+INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 
+    VALUES (22117,'222.222.222-15','2022-08-03 11:14:59.899','1981-02-22','t17testusuario@email.com','t17testuser15 silva santos',20101);
 
 INSERT INTO telefone(id_telefone, ddd, numero, tipo, id_participante) VALUES (721001,'11','9 1111-1111',NULL,22101);

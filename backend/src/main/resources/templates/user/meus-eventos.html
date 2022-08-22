@@ -9,8 +9,7 @@
 	
 	<div class="container">
 	
-	<p/>
-	<hr>
+		<p>	
 
 		<h5>Meus Eventos</h5>
 		<table class="table-responsive">  <!--Bootstrap-->
@@ -67,11 +66,11 @@
 			</tbody>
 		</table>
 		
-		<p/>
+		<p>
 		<hr>
 		
 		<div sec:authorize="hasRole('ROLE_ADMIN')">
-			<h5>Todos Eventos</h5>		
+			<h5>Todos Eventos Cadastrados</h5>		
 			<table class="responsive-table"> <!--MaterializeCSS-->
 				<thead>
 					<tr>
@@ -89,7 +88,7 @@
 						<td><span th:text="${evento.emailResponsavelEvento}"></span></td>
 						<td>
 							<span th:if="${#authentication.name == evento.emailResponsavelEvento}">SIM</span>
-							<span th:unless="${#authentication.name == evento.emailResponsavelEvento}">NÃO</span>
+							<span th:unless="${#authentication.name == evento.emailResponsavelEvento}">-</span>
 						</td>
 		
 						<td><span th:text="${evento.codigo}"></span></td>

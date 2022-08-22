@@ -115,30 +115,30 @@
 						<tr>
 							<th>Nome Participante</th>
 							<th>Email</th>
-							<th sec:authorize="isAuthenticated()">CPF</th>
-							<th sec:authorize="isAuthenticated()">ID</th>
-							<th sec:authorize="isAuthenticated()">Data Nascimento</th>
+							<th >CPF</th>
+							<th >ID</th>
+							<th >Data Nascimento</th>
 							<th>DataCadastro</th>
 							<th class="hide">Deletar</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="participante : ${participantes}">
-							<td th:if="${#authentication.name} != anonymousUser"><span
-									th:text="${participante.nomeParticipante}"></span></td>
-							<td th:unless="${#authentication.name} != anonymousUser"><span
-									th:text="${participante.nomeParticipanteHidden}"></span></td>
-							<td th:if="${#authentication.name} != anonymousUser"><span
-									th:text="${participante.email}"></span></td>
-							<td th:unless="${#authentication.name} != anonymousUser"><span
-									th:text="${participante.emailHidden}"></span></td>
-							<td sec:authorize="isAuthenticated()"><span th:text="${participante.CPF}"></span></td>
-							<td sec:authorize="isAuthenticated()"><span th:text="${participante.idParticipante}"></span>
+						
+							<td th:if="${#authentication.name == participante.emailResponsavelEvento}">
+								<span th:text="${participante.nomeParticipante}"></span>
 							</td>
-							<td sec:authorize="isAuthenticated()"><span
-									th:text="${#calendars.format(participante.dataNascimento, 'dd/MM/yyyy')}"></span>
+							<td th:unless="${#authentication.name == participante.emailResponsavelEvento}">
+								<span th:text="${participante.nomeParticipanteHidden}"></span>
 							</td>
-							<td><span th:text="${#calendars.format(participante.dataCadastro, 'dd/MM/yyyy   hh:mm:ss')}"></span>
+							
+							<td th:text="${#authentication.name == participante.emailResponsavelEvento} ? (${participante.emailResponsavelEvento}) : (${participante.emailHidden})"/>														
+							<td th:text="${#authentication.name == participante.emailResponsavelEvento} ? (${participante.CPF}) : '***********'"/>
+							<td th:text="${#authentication.name == participante.emailResponsavelEvento} ? (${participante.idParticipante}) : '******'"/>
+							<td th:text="${#authentication.name == participante.emailResponsavelEvento} ? (${#calendars.format(participante.dataNascimento, 'dd/MM/yyyy')}) : '****'"/>
+
+							<td>
+								<span th:text="${#calendars.format(participante.dataCadastro, 'dd-MM-yyyy   hh:mm:ss')}"></span>
 							</td>
 							<td th:if="${#authentication.name == participante.emailResponsavelEvento}">
 								<a class="waves-effect waves-light btn-small"
