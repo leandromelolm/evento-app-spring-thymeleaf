@@ -96,7 +96,6 @@ public class EventoController {
 	@GetMapping("/participantes")
 	public ModelAndView listarTodosParticipantes() {
 		ModelAndView mv = new ModelAndView("listaParticipantes");
-//		Iterable<Participante> participantes = pr.findAll(); 
 //		List<Participante> participantes = pr.findAllParticipantes(Sort.by("nomeParticipante"));
 //		List<Participante> participantes = pr.findAllParticipantes(Sort.by("idParticipante").descending());
 		List<Participante> participantes = pr.findAll();
@@ -135,7 +134,7 @@ public class EventoController {
 		List<ParticipanteDTO> listParticipantesDto = participantes.stream()
 				.map(obj -> new ParticipanteDTO(obj)).collect(Collectors.toList());		
 		
-		mv.addObject("participantes", listParticipantesDto); // enviado lista de participantes para view
+		mv.addObject("participantes", listParticipantesDto); // enviando lista de participantes para view
 		return mv;
 	}
 	
@@ -243,7 +242,7 @@ public class EventoController {
 		tel.setNumero(telefone.substring(5));
 		tel.setParticipante(participante);
 		tRepository.save(tel);		
-		attributes.addFlashAttribute("mensagem", "Participante adicionado!");	
+		attributes.addFlashAttribute("mensagem", "Participante "+ participante.getNomeParticipante().substring(0, 3) +"** adicionado!");	
 		return "redirect:/evento/{codigo}";
 	}
 	

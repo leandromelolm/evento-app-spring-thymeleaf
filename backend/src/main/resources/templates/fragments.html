@@ -21,7 +21,7 @@
 		}
 		.minhaconta{
 			display:block
-		}
+		}		
 	
 		@media screen and (max-width: 1110px) { /* Largura máxima. valor acima do max-width exibe elemento, abaixo remove (aplica o display:none) */
 			.participante {
@@ -42,7 +42,8 @@
 
 <body>
 
-	<div th:fragment="menu">		
+	<div th:fragment="menu">
+			
 		<header>
 		<ul id="dropdown1" class="dropdown-content">			
 			<li><a href="/minha-conta">Minha Conta</a></li>
@@ -124,7 +125,6 @@
 					dataType: "text", //dataType: 'json',
 					success: function () {
 						console.log("POST success atualizar-nome-menu ")
-						//var sessionUserName = '[[${#authentication.name}]]';
 						if (!'[[${session.mySessionNome}]]') {
 							window.location.reload();
 						}

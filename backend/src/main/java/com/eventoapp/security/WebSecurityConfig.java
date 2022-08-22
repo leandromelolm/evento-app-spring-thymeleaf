@@ -55,7 +55,7 @@ public class WebSecurityConfig {
 
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer() {
-		return (web) -> web.ignoring().antMatchers("/materialize/**", "/style/**", "/js/**","/h2-console/**","/webjars/**");
+		return (web) -> web.ignoring().antMatchers("/materialize/**", "/style/**", "/js/**","/css/**","/h2-console/**","/webjars/**");
 	}	
 	
 	@Bean
