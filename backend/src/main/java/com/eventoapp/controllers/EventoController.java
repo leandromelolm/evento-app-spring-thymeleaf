@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eventoapp.models.Evento;
+import com.eventoapp.models.EventoDTO;
 import com.eventoapp.models.Participante;
 import com.eventoapp.models.ParticipanteDTO;
 import com.eventoapp.models.Telefone;
@@ -175,9 +176,10 @@ public class EventoController {
 		if(!eventoOpt.isPresent()) {
 			throw new IllegalArgumentException("Evento inválido.");
 		}
-		Evento evento = new Evento(eventoOpt.get());
 		
-		model.addAttribute("eventoForm", evento);
+		EventoDTO eventoDto = new EventoDTO(eventoOpt.get());
+		
+		model.addAttribute("eventoForm", eventoDto);
 		
 		List<String> descricaoStatus = new ArrayList<String>();
 		for(StatusEvento s : StatusEvento.values()){

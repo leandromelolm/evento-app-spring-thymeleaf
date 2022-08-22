@@ -22,6 +22,7 @@
 <body>	
 	<div th:replace="fragments :: menu"/>
 	<div class="container">
+		</p>
 		<h5>Editar Evento</h5>
 		<th:block th:include="mensagemValidacao"></th:block>
 				
@@ -29,7 +30,10 @@
 		
 			<input type="hidden" id="id" readonly="readonly" th:field="*{codigo}" class="form-control mb-4 col-4">
 			<!--usuario autenticado-->
-			<input type="hidden" readonly name="emailResponsavelEvento" th:value="${#authentication.name}">	
+			<input type="hidden" readonly name="emailResponsavelEvento" th:value="${#authentication.name}">				
+			
+			<label for="email" class="active">Email Responsável</label> 
+			<input type="text" value="" name="email" th:field="*{usuario.email}" readonly>		
 			
 			<div class="row">
 				<div class="input-fiel col-sm">
