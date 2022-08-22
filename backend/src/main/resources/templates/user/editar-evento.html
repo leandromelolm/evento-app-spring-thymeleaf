@@ -22,7 +22,11 @@
 <body>	
 	<div th:replace="fragments :: menu"/>
 	<div class="container">
-		</p>
+		<p>				
+			<div>
+				<a th:href="@{/}">Página Inicial</a> > <a href="/user/meus-eventos">Meus Eventos</a> > <a>Editar Evento</a>
+			</div>
+		</p>			
 		<h5>Editar Evento</h5>
 		<th:block th:include="mensagemValidacao"></th:block>
 				
@@ -72,12 +76,7 @@
 			</div>
 			<button type="submit">Salvar alteração</button>
 		</form>
-		<hr>
-		
-		<div>
-			<a href="/user/meus-eventos">Meus Eventos</a>
-		</div>		
-		<a th:href="@{/}">Retornar Home</a>
+		<hr>		
 	</div>
 	 
 </body>
