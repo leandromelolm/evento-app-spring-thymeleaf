@@ -138,7 +138,7 @@
 							<td th:text="${#authentication.name == participante.emailResponsavelEvento} ? (${#calendars.format(participante.dataNascimento, 'dd/MM/yyyy')}) : '****'"/>
 
 							<td>
-								<span th:text="${#calendars.format(participante.dataCadastro, 'dd-MM-yyyy   hh:mm:ss')}"></span>
+								<span th:text="${#calendars.format(participante.dataCadastro, 'dd-MM-yyyy  HH:mm:ss  zzz')}"></span>
 							</td>
 							<td th:if="${#authentication.name == participante.emailResponsavelEvento}">
 								<a class="waves-effect waves-light btn-small"

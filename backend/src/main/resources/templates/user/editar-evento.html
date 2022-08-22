@@ -115,7 +115,7 @@
 											<td><span th:text="${participante.CPF}"></span></td>
 											<td><span th:text="${participante.idParticipante}"></span></td>
 											<td><span th:text="${#calendars.format(participante.dataNascimento, 'dd/MM/yyyy')}"></span></td>
-											<td><span th:text="${#calendars.format(participante.dataCadastro, 'dd-MM-yyyy   hh:mm:ss')}"></span></td>
+											<td><span th:text="${#calendars.format(participante.dataCadastro, 'dd-MM-yyyy  HH:mm:ss zzz ZZZ')}"></span></td>
 											<td th:if="${#authentication.name == participante.evento.emailResponsavelEvento}">
 												<a class="waves-effect waves-light btn-small"
 													th:href="${(#mvc.url('EC#deletarParticipante').arg(0, participante.idParticipante)).build()}"
