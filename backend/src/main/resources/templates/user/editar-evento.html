@@ -76,7 +76,54 @@
 			</div>
 			<button type="submit">Salvar alteração</button>
 		</form>
-		<hr>		
+		<hr>
+		
+		<div th:object="${eventoForm}">
+			<div th:if="${#authentication.name} == *{usuario.email}">
+				<div class="card">
+		
+					<div class="card-tabs">
+						<span>LISTA DE PARTICIPANTES</span>
+					</div>
+					<div class="card-content grey lighten-4">
+						<div id="listaParticipantes" class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Nome Participante</th>
+										<th>Email</th>
+										<th>CPF</th>
+										<th>ID</th>
+										<th>Data Nascimento</th>
+										<th>DataCadastro</th>
+										<th class="hide">Deletar</th>
+									</tr>
+								</thead>
+								<tbody>
+									<div th:each="participante : ${participantesEvento}">
+										<tr>
+											<td><span th:text="${participante.nomeParticipante}"></span></td>
+											<td><span th:text="${participante.email}"></span></td>
+											<td><span th:text="${participante.CPF}"></span></td>
+											<td><span th:text="${participante.idParticipante}"></span></td>
+											<td><span th:text="${participante.dataNascimento}"></span></td>
+											<td><span th:text="${participante.dataCadastro}"></span></td>
+											<td th:if="${#authentication.name == participante.evento.emailResponsavelEvento}">
+												<a class="waves-effect waves-light btn-small"
+													th:href="${(#mvc.url('EC#deletarParticipante').arg(0, participante.idParticipante)).build()}"
+													onclick="return confirmarExcluirParticipante()">
+													<i class="material-icons">delete_forever</i>
+												</a>
+											</td>
+										</tr>
+									</div>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>		
+			</div>
+		</div>
 	</div>
 	 
 </body>

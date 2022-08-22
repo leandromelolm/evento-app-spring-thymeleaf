@@ -180,6 +180,7 @@ public class EventoController {
 		EventoDTO eventoDto = new EventoDTO(eventoOpt.get());
 		
 		model.addAttribute("eventoForm", eventoDto);
+		model.addAttribute("participantesEvento", eventoDto.getParticipantes());
 		
 		List<String> descricaoStatus = new ArrayList<String>();
 		for(StatusEvento s : StatusEvento.values()){
