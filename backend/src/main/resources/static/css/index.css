@@ -1,0 +1,12 @@
+#btncadastrar{
+	margin: 10px 0px 15px 10px;
+}
+.card-panel{			
+	position:relative;
+	white-space: nowrap;
+	text-overflow: ellipsis; /* text-overflow especifica como conteúdo estourado que não é exibido e é sinalizado ao usuário com reticências (...) */
+	overflow: hidden !important;
+}
+p{
+	margin:1px
+}
