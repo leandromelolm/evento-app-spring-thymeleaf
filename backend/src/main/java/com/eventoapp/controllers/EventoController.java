@@ -213,12 +213,6 @@ public class EventoController {
 		
 		EventoDTO eventoDto = new EventoDTO(eventoOpt.get());
 		
-		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Usuario u = ur.findByEmail(userDetails.getUsername());
-		if (u.getEmail() != eventoDto.getEmailResponsavelEvento() ) {
-			throw new Exception("Acesso Proibido! Apenas o usuario responsável pelo evento pode realizar esse acesso.");
-		}		
-		
 		model.addAttribute("eventoForm", eventoDto);
 		model.addAttribute("participantesEvento", eventoDto.getParticipantes());
 		
