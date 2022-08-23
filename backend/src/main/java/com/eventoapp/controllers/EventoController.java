@@ -118,12 +118,12 @@ public class EventoController {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
-		if(evento.getStatus().getDescricao().equals("Pausado") && auth.getName().equals(evento.getEmailResponsavelEvento())) {			
-			throw new Exception("Evento Pausado!");			
+		if(evento.getStatus().getDescricao().equals("Pausado") && !auth.getName().equals(evento.getEmailResponsavelEvento())) {			
+			throw new Exception("Evento Pausado! Acesso Restrito.");			
 		}
 		
-		if(evento.getStatus().getDescricao().equals("Encerrado") && auth.getName().equals(evento.getEmailResponsavelEvento())) {
-			throw new IllegalArgumentException("Evento Encerrado!");
+		if(evento.getStatus().getDescricao().equals("Encerrado") && !auth.getName().equals(evento.getEmailResponsavelEvento())) {
+			throw new IllegalArgumentException("Evento Encerrado! Acesso Restrito.");
 		}
 		
 		if(evento.getStatus().getDescricao().equals("Finalizado")) {		
