@@ -118,14 +118,15 @@ public class EventoController {
 		ModelAndView mv = new ModelAndView("detalhesEvento");
 		Evento evento = er.findById(codigo).orElseThrow(() -> new InvalidParameterException("Evento não existe!"));			
 		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		if(evento.getStatus().getDescricao().equals("Pausado") && auth.getName() != evento.getEmailResponsavelEvento())
 		
-		if(evento.getStatus().getDescricao().equals("Pausado") && auth.getName() != evento.getEmailResponsavelEvento()) {// se o evento estiver pausado, apenas o usuario que criou o evento pode acessar os detalhes do evento.			
-			throw new Exception("Evento Pausado! O acesso está restrito!");			
+		if(evento.getStatus().getDescricao().equals("Pausado")) {			
+			throw new Exception("Evento Pausado!");			
 		}
 		
-		if(evento.getStatus().getDescricao().equals("Encerrado") && auth.getName() != evento.getEmailResponsavelEvento()) {
-			throw new IllegalArgumentException("Evento Encerrado! O acesso está restrito!");
+		if(evento.getStatus().getDescricao().equals("Encerrado")) {
+			throw new IllegalArgumentException("Evento Encerrado!");
 		}
 		
 		if(evento.getStatus().getDescricao().equals("Finalizado")) {		
@@ -186,30 +187,37 @@ public class EventoController {
 		
 		Optional<Evento> eventoOpt = er.findById(id);
 		
-		// Não funcionou no heroku
 		// Authentication para recuparar dados do usuario autenticado 
+		// Não funcionou quando feito deploy no heroku. Apenas nos teste local		
 //		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 //		if (auth.getName() != eventoOpt.get().getEmailResponsavelEvento() ) {
 //			throw new Exception("Acesso Proibido!");
 //		}		
 		
-		// Não funcionou no heroku
+		// Não funcionou quando feito deploy no heroku. Apenas nos teste local
 //		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
 //		if (userDetails.getUsername().toString() != eventoOpt.get().getEmailResponsavelEvento() ) {
 //			throw new Exception("Acesso Proibido! Apenas o usuario que criou o evento pode realizar esse acesso.");
 //		}
 		
-		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Usuario u = ur.findByEmail(userDetails.getUsername());
-		if (u.getEmail() != eventoOpt.get().getEmailResponsavelEvento() ) {
-			throw new Exception("Acesso Proibido! Apenas o usuario responsável pelo evento pode realizar esse acesso.");
-		}
+		// Não funcionou quando feito deploy no heroku. Apenas nos teste local
+//		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		Usuario u = ur.findByEmail(userDetails.getUsername());
+//		if (u.getEmail() != eventoOpt.get().getEmailResponsavelEvento() ) {
+//			throw new Exception("Acesso Proibido! Apenas o usuario responsável pelo evento pode realizar esse acesso.");
+//		}
 			
 		if(!eventoOpt.isPresent()) {
 			throw new IllegalArgumentException("Evento inválido.");
 		}
 		
 		EventoDTO eventoDto = new EventoDTO(eventoOpt.get());
+		
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Usuario u = ur.findByEmail(userDetails.getUsername());
+		if (u.getEmail() != eventoDto.getEmailResponsavelEvento() ) {
+			throw new Exception("Acesso Proibido! Apenas o usuario responsável pelo evento pode realizar esse acesso.");
+		}		
 		
 		model.addAttribute("eventoForm", eventoDto);
 		model.addAttribute("participantesEvento", eventoDto.getParticipantes());
