@@ -116,14 +116,13 @@ public class EventoController {
 		ModelAndView mv = new ModelAndView("detalhesEvento");
 		Evento evento = er.findById(codigo).orElseThrow(() -> new InvalidParameterException("Evento não existe!"));			
 		
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		if(evento.getStatus().getDescricao().equals("Pausado") && auth.getName() != evento.getEmailResponsavelEvento())
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
-		if(evento.getStatus().getDescricao().equals("Pausado")) {			
+		if(evento.getStatus().getDescricao().equals("Pausado") && auth.getName().equals(evento.getEmailResponsavelEvento())) {			
 			throw new Exception("Evento Pausado!");			
 		}
 		
-		if(evento.getStatus().getDescricao().equals("Encerrado")) {
+		if(evento.getStatus().getDescricao().equals("Encerrado") && auth.getName().equals(evento.getEmailResponsavelEvento())) {
 			throw new IllegalArgumentException("Evento Encerrado!");
 		}
 		
@@ -184,25 +183,11 @@ public class EventoController {
 	public String alterarEvento(@PathVariable("id") long id, Model model) throws Exception {	
 		
 		Optional<Evento> eventoOpt = er.findById(id);
-		
-		// Authentication para recuparar dados do usuario autenticado 
-		// Não funcionou quando feito deploy no heroku. Apenas nos teste local		
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		if (auth.getName() != eventoOpt.get().getEmailResponsavelEvento() ) {
-//			throw new Exception("Acesso Proibido!");
-//		}		
-		
-		// Não funcionou quando feito deploy no heroku. Apenas nos teste local
-//		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
-//		if (userDetails.getUsername().toString() != eventoOpt.get().getEmailResponsavelEvento() ) {
-//			throw new Exception("Acesso Proibido! Apenas o usuario que criou o evento pode realizar esse acesso.");
-//		}
-		
-		// Não funcionou quando feito deploy no heroku. Apenas nos teste local
+
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Usuario u = ur.findByEmail(userDetails.getUsername());
 		if (!u.getEmail().equals(eventoOpt.get().getEmailResponsavelEvento())) {
-			throw new Exception("Acesso Proibido! Apenas o usuario responsável pelo evento pode realizar esse acesso. "+ u.getEmail());
+			throw new Exception("Acesso Proibido! Apenas o usuario responsável pelo evento pode realizar esse acesso.");
 		}
 			
 		if(!eventoOpt.isPresent()) {
