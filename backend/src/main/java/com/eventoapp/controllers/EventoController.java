@@ -14,6 +14,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -109,12 +111,14 @@ public class EventoController {
 	}
 	
 	@RequestMapping(value="/evento/{codigo}", method = RequestMethod.GET)
-	public ModelAndView detalhesEvento(@PathVariable("codigo") long codigo) {
+	public ModelAndView detalhesEvento(@PathVariable("codigo") long codigo) throws Exception {
 		ModelAndView mv = new ModelAndView("detalhesEvento");
 		Evento evento = er.findById(codigo).orElseThrow(() -> new InvalidParameterException("Evento não existe!"));			
-
-		if(evento.getStatus().getDescricao().equals("Pausado")) {
-			throw new IllegalArgumentException("Evento está pausado.");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		if(evento.getStatus().getDescricao().equals("Pausado") && auth.getName() != evento.getEmailResponsavelEvento()) {// se o evento estiver pausado, apenas o usuario que criou o evento pode acessar os detalhes do evento.			
+			throw new Exception("Evento Pausado! O acesso está restrito!");			
 		}
 		
 		if(evento.getStatus().getDescricao().equals("Encerrado")) {
@@ -171,8 +175,17 @@ public class EventoController {
 	}
 	
 	@GetMapping("/user/meus-eventos/alterar-evento/{id}")
-	public String alterarEvento(@PathVariable("id") long id, Model model) {
+	public String alterarEvento(@PathVariable("id") long id, Model model) throws Exception {
+		
+		/* Authentication para recuparar dados do usuario autenticado */
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
 		Optional<Evento> eventoOpt = er.findById(id);
+
+		if (auth.getName() != eventoOpt.get().getEmailResponsavelEvento() ) {
+			throw new Exception("Acesso Proibido!");
+		}
+			
 		if(!eventoOpt.isPresent()) {
 			throw new IllegalArgumentException("Evento inválido.");
 		}
