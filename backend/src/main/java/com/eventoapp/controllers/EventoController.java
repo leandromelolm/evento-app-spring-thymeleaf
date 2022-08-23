@@ -14,8 +14,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -201,11 +199,11 @@ public class EventoController {
 //		}
 		
 		// Não funcionou quando feito deploy no heroku. Apenas nos teste local
-//		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		Usuario u = ur.findByEmail(userDetails.getUsername());
-//		if (u.getEmail() != eventoOpt.get().getEmailResponsavelEvento() ) {
-//			throw new Exception("Acesso Proibido! Apenas o usuario responsável pelo evento pode realizar esse acesso.");
-//		}
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Usuario u = ur.findByEmail(userDetails.getUsername());
+		if (!u.getEmail().equals(eventoOpt.get().getEmailResponsavelEvento())) {
+			throw new Exception("Acesso Proibido! Apenas o usuario responsável pelo evento pode realizar esse acesso. "+ u.getEmail());
+		}
 			
 		if(!eventoOpt.isPresent()) {
 			throw new IllegalArgumentException("Evento inválido.");
