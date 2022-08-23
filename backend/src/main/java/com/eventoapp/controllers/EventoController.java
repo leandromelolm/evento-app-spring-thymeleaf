@@ -14,6 +14,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -184,17 +186,24 @@ public class EventoController {
 		
 		Optional<Evento> eventoOpt = er.findById(id);
 		
-		/* Não funcionou no heroku*/
-		/* Authentication para recuparar dados do usuario autenticado */
-		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		//if (auth.getName() != eventoOpt.get().getEmailResponsavelEvento() ) {
-		//	throw new Exception("Acesso Proibido!");
-		//}		
+		// Não funcionou no heroku
+		// Authentication para recuparar dados do usuario autenticado 
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		if (auth.getName() != eventoOpt.get().getEmailResponsavelEvento() ) {
+//			throw new Exception("Acesso Proibido!");
+//		}		
 		
-		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
-		if (userDetails.getUsername().toString() != eventoOpt.get().getEmailResponsavelEvento() ) {
-			throw new Exception("Acesso Proibido! Apenas o usuario que criou o evento pode realizar esse acesso.");
-		}	
+		// Não funcionou no heroku
+//		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
+//		if (userDetails.getUsername().toString() != eventoOpt.get().getEmailResponsavelEvento() ) {
+//			throw new Exception("Acesso Proibido! Apenas o usuario que criou o evento pode realizar esse acesso.");
+//		}
+		
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Usuario u = ur.findByEmail(userDetails.getUsername());
+		if (u.getEmail() != eventoOpt.get().getEmailResponsavelEvento() ) {
+			throw new Exception("Acesso Proibido! Apenas o usuario responsável pelo evento pode realizar esse acesso.");
+		}
 			
 		if(!eventoOpt.isPresent()) {
 			throw new IllegalArgumentException("Evento inválido.");
