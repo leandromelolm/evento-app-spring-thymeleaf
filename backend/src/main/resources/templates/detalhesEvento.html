@@ -132,7 +132,7 @@
 								<span th:text="${participante.nomeParticipanteHidden}"></span>
 							</td>
 							
-							<td th:text="${#authentication.name == participante.emailResponsavelEvento} ? (${participante.emailResponsavelEvento}) : (${participante.emailHidden})"/>														
+							<td th:text="${#authentication.name == participante.emailResponsavelEvento} ? (${participante.email}) : (${participante.emailHidden})"/>														
 							<td th:text="${#authentication.name == participante.emailResponsavelEvento} ? (${participante.CPF}) : '***********'"/>
 							<td th:text="${#authentication.name == participante.emailResponsavelEvento} ? (${participante.idParticipante}) : '******'"/>
 							<td th:text="${#authentication.name == participante.emailResponsavelEvento} ? (${#calendars.format(participante.dataNascimento, 'dd/MM/yyyy')}) : '****'"/>
