@@ -67,36 +67,39 @@
 		</table>
 		
 		<p>
-		<hr>
 		
-		<div sec:authorize="hasRole('ROLE_ADMIN')">
+		<div class="card" sec:authorize="hasRole('ROLE_ADMIN')">
+			<p>
 			<h5>Todos Eventos Cadastrados</h5>		
 			<table class="responsive-table"> <!--MaterializeCSS-->
 				<thead>
-					<tr>
-						<th>Responsavel</th>
-						<th>Meu Evento?</th>
+					<tr>						
 						<th>Cod.</th>
 						<th>Nome</th>
+						<th>Status</th>
+						<th>Nº part</th>
 						<th>Local</th>
 						<th>Data</th>
 						<th>Horario</th>
+						<th>Responsavel</th>
+						<th>Meu Evento?</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="evento : ${eventos}">
+					<tr th:each="evento : ${eventos}">		
+						<td><span th:text="${evento.codigo}"></span></td>
+						<td> <a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span
+									th:text="${evento.nome}"></span></a></td>
+						<td><span th:text="${evento.status}"></span></td>
+						<td class="center" ><span th:text="${evento.participantes.size()}"></span></td>
+						<td><span th:text="${evento.local}"></span></td>
+						<td><span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span></td>
+						<td><span th:text="${evento.horario}"></span></td>
 						<td><span th:text="${evento.emailResponsavelEvento}"></span></td>
 						<td>
 							<span th:if="${#authentication.name == evento.emailResponsavelEvento}">SIM</span>
 							<span th:unless="${#authentication.name == evento.emailResponsavelEvento}">-</span>
 						</td>
-		
-						<td><span th:text="${evento.codigo}"></span></td>
-						<td> <a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span
-									th:text="${evento.nome}"></span></a></td>
-						<td><span th:text="${evento.local}"></span></td>
-						<td><span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span></td>
-						<td><span th:text="${evento.horario}"></span></td>
 					</tr>
 				</tbody>
 			</table>		

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +34,7 @@ import com.eventoapp.models.Evento;
 import com.eventoapp.models.Usuario;
 import com.eventoapp.repository.EventoRepository;
 import com.eventoapp.repository.UsuarioRepository;
+import com.eventoapp.service.UserService;
 
 @Controller
 public class UsuarioController {
@@ -105,6 +108,7 @@ public class UsuarioController {
 	
 	@PostMapping("/atualizar-nome-menu")
 	public ModelAndView userNameMenu(@RequestBody String stringEmail, Usuario u, HttpSession session) throws UnsupportedEncodingException {
+		
 		String emailDecode = URLDecoder.decode(stringEmail, "UTF-8");
 		ModelAndView mv = new ModelAndView("user/minha-conta");
 		Usuario user = ur.findByEmail(emailDecode.replaceAll("=", ""));				
@@ -118,7 +122,9 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/info-user-logged")
-	public ModelAndView infoUsuarioLogado(@RequestBody String stringEmail, Model model, Usuario u, RedirectAttributes attrib, HttpSession session) throws UnsupportedEncodingException {
+	public ModelAndView infoUsuarioLogado(
+			@RequestBody String stringEmail, Model model, Usuario u, RedirectAttributes attrib, HttpSession session) 
+					throws UnsupportedEncodingException {		
 		String emailDecode = URLDecoder.decode(stringEmail, "UTF-8");
 		ModelAndView mv = new ModelAndView("user/minha-conta");
 		Usuario user = ur.findByEmail(emailDecode.replaceAll("=", ""));		
