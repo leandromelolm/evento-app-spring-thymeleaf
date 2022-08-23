@@ -189,13 +189,12 @@ public class EventoController {
 		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		//if (auth.getName() != eventoOpt.get().getEmailResponsavelEvento() ) {
 		//	throw new Exception("Acesso Proibido!");
-		//}
+		//}		
 		
-		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		if (userDetails.getUsername() != eventoOpt.get().getEmailResponsavelEvento() ) {
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
+		if (userDetails.getUsername().toString() != eventoOpt.get().getEmailResponsavelEvento() ) {
 			throw new Exception("Acesso Proibido! Apenas o usuario que criou o evento pode realizar esse acesso.");
-		}
+		}	
 			
 		if(!eventoOpt.isPresent()) {
 			throw new IllegalArgumentException("Evento inválido.");
