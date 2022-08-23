@@ -5,7 +5,8 @@ public enum StatusEvento {
 	ABERTO(1, "Aberto"),
 	PAUSADO(2, "Pausado"),
 	ENCERRADO(3, "Encerrado"),
-	FINALIZADO(4, "Finalizado");
+	FINALIZADO(4, "Finalizado"),
+	CANCELADO(5, "Cancelado");
 	
 	private int cod;
 	private String descricao;

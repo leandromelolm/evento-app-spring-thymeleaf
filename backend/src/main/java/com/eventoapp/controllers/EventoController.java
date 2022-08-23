@@ -121,12 +121,16 @@ public class EventoController {
 			throw new Exception("Evento Pausado! O acesso está restrito!");			
 		}
 		
-		if(evento.getStatus().getDescricao().equals("Encerrado")) {
-			throw new IllegalArgumentException("Evento encerrado.");
+		if(evento.getStatus().getDescricao().equals("Encerrado") && auth.getName() != evento.getEmailResponsavelEvento()) {
+			throw new IllegalArgumentException("Evento Encerrado! O acesso está restrito!");
 		}
 		
 		if(evento.getStatus().getDescricao().equals("Finalizado")) {		
-			throw new IllegalArgumentException("Evento finalizado.");
+			throw new IllegalArgumentException("Evento Finalizado.");
+		}
+		
+		if(evento.getStatus().getDescricao().equals("Cancelado")) {		
+			throw new IllegalArgumentException("Evento foi Cancelado.");
 		}
 		
 		mv.addObject("evento", evento);	
