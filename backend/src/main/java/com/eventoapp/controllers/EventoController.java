@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,6 +40,8 @@ import com.eventoapp.repository.EventoRepository;
 import com.eventoapp.repository.ParticipanteRepository;
 import com.eventoapp.repository.TelefoneRepository;
 import com.eventoapp.repository.UsuarioRepository;
+
+
 
 @Controller
 public class EventoController {
@@ -183,8 +184,13 @@ public class EventoController {
 	public String alterarEvento(@PathVariable("id") long id, Model model) throws Exception {	
 		
 		Optional<Evento> eventoOpt = er.findById(id);
-
+		
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		 for (GrantedAuthority authority : userDetails.getAuthorities()) {			
+//			 System.out.println("role...:"+authority.getAuthority());
+//		 }		
+		userDetails.getAuthorities().stream().forEach(authority -> System.out.println("role...........: "+authority.getAuthority()));
+		
 		Usuario u = ur.findByEmail(userDetails.getUsername());
 		if (!u.getEmail().equals(eventoOpt.get().getEmailResponsavelEvento())) {
 			throw new Exception("Acesso Proibido! Apenas o usuario responsável pelo evento pode realizar esse acesso.");
