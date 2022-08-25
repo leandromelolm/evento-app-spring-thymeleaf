@@ -2,6 +2,9 @@ package com.eventoapp.controllers;
 
 import java.util.List;
 
+import com.eventoapp.models.Usuario;
+import com.eventoapp.repository.UsuarioRepository;
+import com.eventoapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,9 @@ public class IndexController {
 	
 	@Autowired
 	private EventoRepository er;
+
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	@RequestMapping("/infodesenvolvimento")
 	public String info() {
@@ -34,6 +40,10 @@ public class IndexController {
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("home");
 		List<Evento> eventos = er.findAllEventos();
+		if(UserService.authenticated() != null){
+			Usuario usuarioLogado = usuarioRepository.findByEmail(UserService.authenticated().getUsername());
+			mv.addObject("usuarioLogadoNome", usuarioLogado.getNome());
+		}
 		mv.addObject("eventos", eventos);
 		return mv;
 	}

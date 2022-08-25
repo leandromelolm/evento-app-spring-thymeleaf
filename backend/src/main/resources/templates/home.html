@@ -16,7 +16,7 @@
 		</div>
 	
 		<div sec:authorize="isAuthenticated()">
-			<h5>Você está Logado!</h5>
+			<h5>Olá [[${usuarioLogadoNome}]]! Você está Logado!</h5>
 		</div>
 		<div sec:authorize="isAuthenticated()">
 			<h5>Cadastre seus eventos e listas de convidados!</h5>
