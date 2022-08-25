@@ -11,11 +11,12 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.eventoapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -56,7 +57,7 @@ public class EventoController {
 	private TelefoneRepository tRepository;
 	
 	@Autowired
-	private UsuarioRepository ur;	
+	private UsuarioRepository ur;
 	
 	@RequestMapping(value="/cadastrarEvento", method=RequestMethod.GET)
 	public String form() {
@@ -181,18 +182,12 @@ public class EventoController {
 	}
 	
 	@GetMapping("/user/meus-eventos/alterar-evento/{id}")
-	public String alterarEvento(@PathVariable("id") long id, Model model) throws Exception {	
+	public String alterarMeuEvento(@PathVariable("id") long id, Model model) throws Exception {
 		
 		Optional<Evento> eventoOpt = er.findById(id);
-		
-		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		 for (GrantedAuthority authority : userDetails.getAuthorities()) {			
-//			 System.out.println("role...:"+authority.getAuthority());
-//		 }		
-		userDetails.getAuthorities().stream().forEach(authority -> System.out.println("role...........: "+authority.getAuthority()));
-		
-		Usuario u = ur.findByEmail(userDetails.getUsername());
-		if (!u.getEmail().equals(eventoOpt.get().getEmailResponsavelEvento())) {
+
+		Usuario usuarioLogado = ur.findByEmail(UserService.authenticated().getUsername());
+		if (!usuarioLogado.getEmail().equals(eventoOpt.get().getEmailResponsavelEvento())) {
 			throw new Exception("Acesso Proibido! Apenas o usuario responsável pelo evento pode realizar esse acesso.");
 		}
 			

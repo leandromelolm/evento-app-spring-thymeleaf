@@ -16,7 +16,7 @@ public interface UsuarioRepository extends CrudRepository<Usuario, String> {
 	
 	@Transactional(readOnly = true)
 	Usuario findByEmail(String email);
-	
+
 	@Transactional(readOnly = true)
 	Usuario findByNome(String nome);
 	
