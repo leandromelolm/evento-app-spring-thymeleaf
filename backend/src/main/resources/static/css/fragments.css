@@ -1,0 +1,28 @@
+.participante {
+	display: block; /* Exibi elemento no layout*/
+}
+
+.minhaconta{
+	display:block
+}
+
+.nav-wrapper{
+	margin:0px 20px 0px 20px;
+}
+
+a{
+    text-decoration: none; /* Tirar o sublinhado que aparece no menu  */
+}
+
+@media screen and (max-width: 1110px) { /* Largura máxima. valor acima do max-width exibe elemento, abaixo remove (aplica o display:none) */
+	.participante {
+		display: none; /* Retira o elemento do layout da página. */
+	}
+}
+
+@media screen and (max-width: 1290px) {
+	.minhaconta{
+		display:none;
+	}
+}
+

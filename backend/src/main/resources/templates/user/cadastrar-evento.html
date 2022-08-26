@@ -1,45 +1,35 @@
 <!DOCTYPE html>
 <html>
 
-	<head th:replace="fragments :: html_head"/>
-
-	<body>
+<head th:replace="fragments :: html_head"/>
+<body>
 	
-		<div th:replace="fragments :: menu"/>
+	<div th:replace="fragments :: menu"/>
 	
-		<div class="container">
+	<div class="container">
 			
-			<h3>Cadastrar Evento</h3>
-			<form method="post">
+		<h3>Cadastrar Evento</h3>
+		<form method="post">
 			<th:block th:include="mensagemValidacao"></th:block>
-				<div class="hide">
+			<div class="hide">
 					Cadastrado Por:<input  name="emailResponsavelEvento" th:value="${#authentication.name}" readonly=true/>
-				</div >
-				Nome do evento: <input type="text" value="" name="nome" required="true" />
-				Local: <input type="text" value="" name="local" required="true" />
-				Data: <input type="date" value="" name="data" required="true" />
-				Horario: <input type="time" value="" name="horario" id="hora" onkeypress="$(this).mask('00:00');"
-					pattern="[0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1}" required="true" title="00:00 até 23:59"/>				
-				<button class="waves-effect waves-light btn input-field" type="submit">Salvar</button>
-			</form>
-			<a href="/home" class="waves-effect waves-light btn"><i class="material-icons left">home</i>Voltar Página Inicial</a>
-		<div>
-		
-	<!--JavaScript at end of body for optimized loading-->
+			</div>
+			Nome do evento: <input type="text" value="" name="nome" required="true" />
+			Local: <input type="text" value="" name="local" required="true" />
+			Data: <input type="date" value="" name="data" required="true" />
+			Horario: <input type="time" value="" name="horario" id="hora" onkeypress="$(this).mask('00:00');"
+			pattern="[0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1}" required="true" title="00:00 até 23:59"/>
+			<button class="waves-effect waves-light btn input-field" type="submit">Salvar</button>
+		</form>
+		<a href="/home" class="waves-effect waves-light btn"><i class="material-icons left">home</i>Voltar Página Inicial</a>
+	</div>
+
   	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
-	<script type="text/javascript" src="/js/main.js"></script>	
-	<script src="/js/init.js"></script>
+	<script type="text/javascript" src="/js/main.js"></script>
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-	
-<!--      	
-    <script type="text/javascript">
-		$(document).ready(function () {
-			$('#hora').mask('00:00');			
-		});
-	</script>
-      	-->
-	</body>
+
+</body>
 </html>

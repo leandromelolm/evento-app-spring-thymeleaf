@@ -10,3 +10,52 @@
 p{
 	margin:1px
 }
+
+/*
+@media screen and (max-width: 600px) { // Largura máxima. Abaixo do max-width usa o css do bloco
+	.row {
+		position:relative;
+		width: 500px;
+		height: 0px;
+}
+	.card-panel{
+	    position:relative;
+		//white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden !important;
+		width: 250px;
+		height: 150px;
+	}
+}
+
+@media screen and (max-width: 993px) { // Abaixo do valor de min-width usa o css desse bloco
+	.row{
+		position:relative;
+		width: 800px;
+		height: 600px;
+	}
+	.card-panel{
+		position:relative;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden !important;
+		width: 320px;
+		height: 180px;
+	}
+}
+@media screen and (min-width: 993px) { // Acima do valor de min-width usa o css desse bloco
+    .row{
+		position:relative;
+		width: 900px;
+	}
+	.card-panel{
+		position:relative;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden !important;
+		width: 280px;
+		height: 180px;
+	}
+}
+
+*/

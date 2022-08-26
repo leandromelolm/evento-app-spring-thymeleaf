@@ -1,85 +1,84 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://thymeleaf.org">
 <head>
-	<title>EventosApp</title>	
-	<head th:replace="fragments :: html_head" />	
+	<head th:replace="fragments :: html_head" />
+	<link rel="stylesheet" th:href="@{/bootstrap-5.2.0-dist/css/bootstrap.min.css}">
 	<link th:href="@{/css/home.css}" rel="stylesheet" />
+
+	<script th:src="@{/jquery-3.6.0-dist/jquery-3.6.0.min.js}"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="/js/main.js"></script>
+
 </head>
 
 <body>
 		
-<div th:replace="fragments :: menu"/>	
-	<div class="container">
-		<div sec:authorize="!isAuthenticated()">
-			<h5>Faça seu Login e cadastre seus eventos!</h5>
+<div th:replace="fragments :: menu"/>
+
+<p/>
+<div class="container">
+	<div sec:authorize="!isAuthenticated()">
+		<h5>Faça seu Login e cadastre seus eventos!</h5>
+	</div>
+
+	<div sec:authorize="isAuthenticated()">
+		<h5>Olá [[${usuarioLogadoNome}]]! Você está Logado!</h5>
+	</div>
+	<div sec:authorize="isAuthenticated()">
+		<h5>Cadastre seus eventos e listas de convidados!</h5>
+		<div>
+			<a href="/cadastrarEvento" class="btn btn-primary">Cadastrar Evento</a>
 		</div>
-	
-		<div sec:authorize="isAuthenticated()">
-			<h5>Olá [[${usuarioLogadoNome}]]! Você está Logado!</h5>
-		</div>
-		<div sec:authorize="isAuthenticated()">
-			<h5>Cadastre seus eventos e listas de convidados!</h5>
-			<a id="btncadastrar" href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>
-		</div>
-		<div class="row">
-			<div th:each="evento : ${eventos}">
-				<div class="col s12 m6 l4">
-				
-					<div th:if="${evento.status.descricao} eq 'Aberto'">					
-						<div class="card-panel z-depth-5">
-							<a class="cardEvento" th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}">
-								<b th:text="${evento.nome}"></b>
-								<p />
-								<span th:text="${evento.local}"></span>
-								<p />
-								<span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span>
-								<span th:text="${evento.horario}"></span>
-								<p />
-					
-								<div th:switch="${evento.participantes.size()}">
-									<span th:case="'0'">Sem participante cadastrado!</span>
-									<span th:case="'1'"><span th:text="|${evento.quantParticip} participante|"></span></span>
-									<span th:case="*"><span th:text="${evento.quantParticip} + ' participantes'"></span></span>
-								</div>
-					
-								<span th:text="${evento.status}"></span>
-					
-								<div class="div-button">
-									<div id="acessar">Acessar</div>
-								</div>
-							</a>
-						</div>
-					</div>				
-					
-					<div th:unless="${evento.status.descricao} eq 'Aberto'">					
-						<div class="card-panel z-depth-5 grey lighten-3">						
-							<b th:text="${evento.nome}"></b>
-							<p />
-							<span th:text="${evento.local}"></span>
-							<p />
+	</div>
+</div>
+<!-- PAGINA HOME UTILIZA O BOOTSTRAP 5.2 NOS CARDS-->
+<div class="container">
+	<div class="row">
+		<div th:each="evento : ${eventos}" class="col-xl-4 col-lg-6">
+			<div th:if="${evento.status.descricao} eq 'Aberto'">
+				<div class="card">
+					<div id="cardBody" class="card-body" style="height:200px">
+						<h5 class="card-title"><b th:text="${evento.nome}"></b></h5>
+						<p class="card-text" th:text="${evento.local}" maxlength="10"></p>
+						<p class="card-text">
 							<span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span>
 							<span th:text="${evento.horario}"></span>
-							<p />
-							<!--<div th:switch="${evento.quantParticip}">-->
-							<div th:switch="${evento.participantes.size()}">
-								<span th:case="'0'">Sem participante cadastrado!</span>
-								<span th:case="'1'"><span th:text="|${evento.quantParticip} participante|"></span></span>
-								<span th:case="*"><span th:text="${evento.quantParticip} + ' participantes'"></span></span>
-							</div>						
-							<span th:text="${evento.status}"></span>						
+						</p>
+						<div class="card-text" th:switch="${evento.participantes.size()}">
+							<span th:case="'0'">Sem participante cadastrado!</span>
+							<span th:case="'1'"><span th:text="|${evento.quantParticip} participante|"></span></span>
+							<span th:case="*"><span th:text="${evento.quantParticip} + ' participantes'"></span></span>
 						</div>
+						<div class="buttonEntrar">
+							<a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}" class="btn btn-primary">Entrar</a>
+						</div>
+						</a>
 					</div>
-					
+				</div>
+			</div>
+
+			<div th:unless="${evento.status.descricao} eq 'Aberto'">
+				<div class="card"  style="background:#C7C6C1">
+					<div class="card-body" style="height:200px">
+						<h5 class="card-title"><b th:text="${evento.nome}"></b></h5>
+						<p id="local" class="card-text" th:text="${evento.local}"></p>
+						<p class="card-text">
+							<span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span>
+							<span th:text="${evento.horario}"></span>
+						</p>
+						<div th:switch="${evento.participantes.size()}">
+							<span th:case="'0'">Sem participante cadastrado!</span>
+							<span th:case="'1'"><span th:text="|${evento.quantParticip} participante|"></span></span>
+							<span th:case="*"><span th:text="${evento.quantParticip} + ' participantes'"></span></span>
+						</div>
+						<span>Evento</span>
+						<span th:text="${evento.status}"></span>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<!--<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
-  	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
-	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
-	<script type="text/javascript" src="/js/main.js"></script>
-	<script src="/js/init.js"></script>
+</div>
 </body>
 </html>

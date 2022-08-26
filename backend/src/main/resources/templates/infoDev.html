@@ -5,7 +5,7 @@
 <title>EventoAdd</title>
 
     <head th:replace="fragments :: html_head"/>
-
+	<script type="text/javascript" src="/js/infoDev.js"></script>
 </head>
 
 <body>
@@ -20,14 +20,46 @@
 			<p>Mas a base para construção foram as aulas no youtube e o projeto no github da professora Michelli.</p>
 			<a href="https://github.com/leandromelolm/evento-app-spring-thymeleaf">Aqui meu Projeto no github.</a>				
 		</div>
-	</div>
-  
-  <!--JavaScript at end of body for optimized loading-->
-  	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
-	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
-	<script type="text/javascript" src="/js/main.js"></script>
-	<script src="/js/init.js"></script>
 
+		<div class="container">
+			<ul class="collapsible">
+				<li>
+					<div class="collapsible-header"><i class="material-icons">new_releases</i>Novidades</div>
+					<div class="collapsible-body">
+						<ul>
+							<li>Página Home (/home) usa bootstrap 5.2 nos cards.</li>
+							<li>Página Index (/) usa Materialize.</li>
+							<li>Menu com uso do Materialize.</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">settings</i>Detalhes</div>
+					<div class="collapsible-body">
+						<ul>
+							<li>O App permite que o usuario cadastre, edite e exclua seus eventos.</li>
+							<li>O evento permite que qualquer pessoa faça cadastro</li>
+							<li>Caso o evento esteja com o status Pausado ou Encerrado o acesso para ver detalhes do evento fica restrito ao usuario que realizou seu cadastro.</li>
+							<li>O usuario Administrador pode excluir os eventos.</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">build</i>Implementacões Futuras</div>
+					<div class="collapsible-body">
+						<ul>
+							<li>Permitir ao usuário editar informações de sua conta.</li>
+							<li>Remover o Materialize e adicionar o Bootstrap em toda aplicação.</li>
+							<li>Criar campo para usuario pesquisar evento.</li>
+							<li>Adicionar paginação na lista de eventos.</li>
+							<li>Adicionar paginação na lista participantes cadastrados nos eventos.</li>
+							<li>Entre outros ajustes.</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+	</div>
 </body>
 </html>

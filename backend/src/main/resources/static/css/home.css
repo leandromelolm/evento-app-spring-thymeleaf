@@ -1,78 +1,27 @@
+a{
+    text-decoration: none; /* tirar o sublinhado que aparece nos textos do menu  */
+}
 
-#btncadastrar{
-	margin: 10px 0px 15px 10px;
-}
-.card-panel{			
-	position:relative;
-	white-space: nowrap;
-	text-overflow: ellipsis; /* text-overflow especifica como conteúdo estourado que não é exibido e é sinalizado ao usuário com reticências (...) */
-	overflow: hidden !important;
-}
 p{
-	margin:1px
+	margin-top:0px;
+	margin-bottom:5px;
 }
-.div-button{
-	border: 3px solid rgb(52, 101, 164);
-	background-color:rgb(52, 101, 164) ;
+
+.card-text{ /* class="card-text" */
+    background:transparent;
+    margin:0px;
+}
+
+#cardBody{ /* id="cardBody" */
+ /* background:red; */
+}
+
+.buttonEntrar{
 	position:absolute;
-	right: 5px;			
+	right: 5px;
 	bottom:5px;
-	width: 70px; 
-	height: 30px;
-	text-align: center;					
+	width: 95px;
+	height: 45px;
+	text-align: center;
 	margin: auto;
 }
-.cardEvento{			
-	background: transparent;
-	/*font-weight: bold;*/
-	color: black;
-}
-#acessar{
-	color: white;
-}
-/*		
-		@media screen and (max-width: 600px) { // Largura máxima. Abaixo do max-width usa o css do bloco
-			.row {
-				position:relative;
-				width: 500px;
-				height: 0px;					
-			}
-			.card-panel{
-				position:relative;
-				//white-space: nowrap;
-				text-overflow: ellipsis;
-				overflow: hidden !important;	
-				width: 250px; 
-				height: 150px;
-			}			
-		}
-		@media screen and (max-width: 993px) { // Abaixo do valor de min-width usa o css desse bloco
-			.row{
-				position:relative;				
-				width: 800px; 
-				height: 600px;
-			}
-			.card-panel{			
-				position:relative;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-				overflow: hidden !important;	
-				width: 320px; 
-				height: 180px;
-			}
-		}
-		@media screen and (min-width: 993px) { // Acima do valor de min-width usa o css desse bloco
-			.row{
-				position:relative;				
-				width: 900px; 				
-			}
-			.card-panel{			
-				position:relative;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-				overflow: hidden !important;	
-				width: 280px; 
-				height: 180px;
-			}
-		}
-*/	
