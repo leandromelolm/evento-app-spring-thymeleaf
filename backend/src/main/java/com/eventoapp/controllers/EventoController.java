@@ -182,7 +182,7 @@ public class EventoController {
 	}
 	
 	@GetMapping("/user/meus-eventos/alterar-evento/{id}")
-	public String alterarMeuEvento(@PathVariable("id") long id, Model model) throws Exception {
+	public String alterarEvento(@PathVariable("id") long id, Model model) throws Exception {
 		
 		Optional<Evento> eventoOpt = er.findById(id);
 
