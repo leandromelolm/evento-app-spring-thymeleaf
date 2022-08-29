@@ -181,8 +181,12 @@
 			const elementDiv = document.getElementById("acessoUsuario");
 			const acessoAtual = document.getElementById("acessoAtual");
 			acessoAtual.innerHTML += dtAtualAcesso.toLocaleString();
-			const ultAcesso = document.getElementById("ultAcesso");
-			ultAcesso.innerHTML += dtUltAcesso.toLocaleString();
+			const ultAcesso = document.getElementById("ultAcesso");			
+			if(dtUltAcesso != 'Invalid Date'){
+				ultAcesso.innerHTML += dtUltAcesso.toLocaleString();				
+			}else{
+				ultAcesso.innerHTML += '-';				
+			}			
 		}
 	</script>
 </body>
