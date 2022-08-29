@@ -1,0 +1,9 @@
+.row {
+    margin-bottom: 4px;
+}
+.editarConta{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+

@@ -2,8 +2,9 @@
 <html xmlns:th="http://thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
 <head th:replace="fragments :: html_head" />
+<link th:href="@{/css/minha-conta.css}" rel="stylesheet" />
+<script type="text/javascript" src="/js/minha-conta.js" defer></script>
 
 <body>
 
@@ -12,39 +13,100 @@
 	<div class="container">
 	
 	<!-- INFORMAÇÕES DA CONTA -->
-		<div sec:authorize="isAuthenticated()">
-			<h4>Minha Conta</h4>
-			<p>Email: <b>[[${#authentication.name}]]</b></p>
-			<p>Nome: <b>[[${session.mySessionNome}]]</b></p>
-			<p>CPF: <b>[[${session.mySessionCpf}]]</b></p>
-			<p>Data do Cadastro: <b>[[${#dates.format(session.mySessionDataCadastro,'dd-MM-yyyy HH:mm')}]]</b></p>
-			<p>Perfil Usuário: <b>[[${session.mySessionTipoPerfil}]]</b></p>
-			<p class="hide">Conta Ativa: <b>[[${session.mySessionUsuarioAtivo}]]</b></p>						
-			<p class="hide" >Id: <b>[[${session.mySessionId}]]</b></p>
+		<h4>Minha Conta</h4>
+		<div class="card" sec:authorize="isAuthenticated()">
+			<div class="card-header">
+				<div class="row">
+					<div class="col m6 s6">
+						<h5>Detalhes</h5>
+					</div>
+					<div class="editarConta col m6 s6">
+						<a title="Editar" href="/users/minha-conta/edit">
+							Editar conta
+						</a>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="row">
+					<div class="col m6 s12">
+<!--						<label><b>Email</b></label><br/>&nbsp;-->
+						<label><b>Email</b></label><br/>
+						<span>[[${#authentication.name}]]</span>
+					</div>
+					<div class="col m6 s12">
+						<label><b>Nome</b></label><br/>
+						[[${session.mySessionNome}]]
+					</div>
+				</div>
+				<div class="row">
+					<div class="col m6 s12">
+						<label><b>CPF</b></label><br/>
+						[[${session.mySessionCpf}]]
+					</div>
+					<div class="col m6 s12">
+						<label><b>Perfil usuário</b></label><br/>
+						<div th:switch='${session.mySessionTipoPerfil}'>
+							<span th:case="'ROLE_ADMIN'">Administrador</span>
+							<span th:case="'ROLE_POWER_USER'">Usuario Avançado</span>
+							<span th:case="'ROLE_STANDARD_USER'">Usuario Padrão</span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col m6 s12">
+						<label><b>Data do cadastro</b></label><br/>
+						[[${#dates.format(session.mySessionDataCadastro,'dd-MM-yyyy HH:mm')}]]
+					</div>
+					<div class="col m6 s12">
+						<label><b>Conta ativa?</b></label><br/>
+						<td th:text="${session.mySessionUsuarioAtivo == 'true'} ? NÃO : SIM"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col m6 s12">
+						<label><b>Atual acesso</b></label><br/>
+						<div id="acessoAtual"></div>
+					</div>
+					<div class="col m6 s12">
+						<label><b>Último acesso</b><</label><br/>
+						<div id="ultAcesso"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col m6 s12">
+						<label><b>Quantidade de eventos cadastrados</b></label><br/>
+						[[${session.userQuantEventos}]]
+					</div>
+					<div class="col m6 s12">
+						<label><b>Id</b></label><br/>
+						[[${session.mySessionId}]]
+					</div>
+				</div>
+				<div class="row">
+					<div class="col m6 s12">
+						<label><b></b></label><br/>
+					</div>
+					<div class="col m6 s12">
+						<label><b></b></label><br/>
+					</div>
+				</div>
+			</div>
 		</div>
-		
-		<p id="acessoUsuario"></p>
-		
-		<div id="infominhaconta"></div>
-		
-		<p th:if="${session.mySessionNome == null}">
-			Se as informações da conta não aparecerem <a onclick="window.location.reload()"> Clique aqui</a> ou no botão Atualizar Página
-		</p>
-		<span th:if="${session.mySessionNome == null}"> 
-			<button class="waves-effect waves-light btn input-field" type="submit" onClick="window.location.reload()"> Atualizar Página</button>
-		</span>		
+
+		<div id="infoparadeletarconta"></div>
 	
 	<!-- BOTÕES SAIR ENTRAR CADASTRAR -->
 		<div>
 			<div>
 				</p>
-				<a id="btncadastrar" href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>				
+					<a id="btncadastrar" href="/user/meus-eventos" class="waves-effect waves-light btn-primary">Meus Eventos</a>
 				</p>
 				<a onclick="return confirmaDeslogar();" sec:authorize="isAuthenticated()" href="/logout"
-					class="waves-effect waves-light btn">Logout</a>
-				<a id="btncadastrar" href="/login.html" sec:authorize="!isAuthenticated()"
+					class="waves-effect waves-light btn-primary">Logout</a>
+				<a id="btnentrar" href="/login.html" sec:authorize="!isAuthenticated()"
 					class="waves-effect waves-light btn">Entrar</a>
-				<a id="btncadastrar" href="/register" sec:authorize="!isAuthenticated()"
+				<a id="btncadastrarusuario" href="/register" sec:authorize="!isAuthenticated()"
 					class="waves-effect waves-light btn">Cadastre-se</a>
 			</div>				
 		</div>
@@ -61,7 +123,7 @@
 
 	<!-- FORM POST EXCLUIR CONTA -->
 		<div sec:authorize="isAuthenticated()">	
-				
+			<p/>
 			<th:block th:include="mensagemValidacao"></th:block>
 						
 			<form action="#" name="formExcluir" th:action="@{/deletarMinhaContaUsuario}" method="POST">
@@ -70,18 +132,11 @@
 				<p/>
 				<span th:unless="${session.mySessionNome == null}">
 					<button type="submit" class="btn red" onclick="return confirmarExcluir()">
-						<i class="material-icons">delete_forever</i>
 						EXCLUIR CONTA
+						<i class="material-icons right">delete_forever</i>
 					</button>
 				</span>				
 			</form>
-		</div>			
-			
-			
-		<div id="admin" sec:authorize="hasRole('ADMIN')">					
-			<div>
-				<p id="userAdmin"></p>				
-			</div>	
 		</div>
 	</div>
 	
@@ -94,17 +149,17 @@
 	<script type="text/javascript">
 	
 		window.onload = function () {
-			console.log("function called page minha-conta...");	
+			console.log("function called page minha-conta...");
 			let stringEmail = document.getElementById("formEmailUser").value
-			
+
 			var quantEventos =  '[[${session.userQuantEventos}]]';
 			var cpf =  '[[${session.mySessionCpf}]]';
 			var atualAcesso = "[[${#dates.format(session.atualAcesso,'dd-MM-yyyy HH:mm:ss z ZZZ')}]]";
 			var ultimoAcesso = "[[${#dates.format(session.ultimoAcesso,'dd-MM-yyyy HH:mm:ss z ZZZ')}]]";
-			
+
 			var dtAtualAcesso = new Date("[[${#dates.formatISO(session.atualAcesso)}]]");
 			var dtUltAcesso = new Date("[[${#dates.formatISO(session.ultimoAcesso)}]]");
-			
+
 			if(!cpf){
 				console.log("ajax post")
 				$.ajax({
@@ -114,35 +169,21 @@
   					dataType: "text",
   					success: function(){
 						console.log("POST success minhaconta");
-						window.location.reload();						
+						window.location.reload();
         			}
-				});	
+				});
 			}
-			
-			console.log("ok!")							
-			document.getElementById("infominhaconta").innerHTML = "Sua quantidade de eventos: <b> "+quantEventos+"</b>"
-								+"<p/>Para excluir sua conta é necessário deletar todos os seus eventos que estejam cadastrados.";	
-			const elementDiv = document.getElementById("acessoUsuario");						
-			setTimeout(function() {						
-				elementDiv.innerHTML += "Atual Acesso: <b>" + dtAtualAcesso.toLocaleString() + "</b> <p/>"+
-										"Ultimo Acesso: <b>" + dtUltAcesso.toLocaleString() + "</b> <p/>"},1);	
-										
-			const element = document.getElementById("userAdmin");						
-			setTimeout(function() {						
-				element.innerHTML += "Atual Acesso (GMT): <b>" + atualAcesso + "</b> <p/>"+
-									"Ultimo Acesso (GMT): <b>" + ultimoAcesso + "</b> <p/>"},1000);											   	
+			console.log("ok!")
+
+			document.getElementById("infoparadeletarconta").innerHTML =
+				"<p/>Para excluir sua conta é necessário deletar todos os seus eventos que estejam cadastrados.";
+
+			const elementDiv = document.getElementById("acessoUsuario");
+			const acessoAtual = document.getElementById("acessoAtual");
+			acessoAtual.innerHTML += dtAtualAcesso.toLocaleString();
+			const ultAcesso = document.getElementById("ultAcesso");
+			ultAcesso.innerHTML += dtUltAcesso.toLocaleString();
 		}
-		
-		function confirmarExcluir() {
-			var resultado = (confirm('Tem certeza que você quer excluir sua Conta? Sua conta será deslogada e seus dados apagados. Para acessar novamente você precisará fazer um novo cadastro.'))
-			if (resultado == true) {
-				alert("Clique em OK para Excluir sua conta!")
-				return true;				
-			}else {				
-				return false;
-			}
-		}
-				
 	</script>
 </body>
 
