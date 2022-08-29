@@ -43,7 +43,7 @@ public class UsuarioController {
 	
 	@GetMapping("/register")
 	public ModelAndView pageUserRegister() {
-		ModelAndView mv = new ModelAndView("user/register");
+		ModelAndView mv = new ModelAndView("register");
 		mv.addObject("usuarioobj", new Usuario());
 		return mv;
 	}
@@ -51,7 +51,7 @@ public class UsuarioController {
 	@PostMapping("/register")
 	public ModelAndView form(@Valid Usuario u, BindingResult result, RedirectAttributes attributes) {	
 		List<String> msg = new ArrayList<String>();		
-		ModelAndView mv = new ModelAndView("user/register");
+		ModelAndView mv = new ModelAndView("register");
 		if(result.hasErrors()){
 			for (ObjectError objectError : result.getAllErrors()) {
 				msg.add(objectError.getDefaultMessage());
