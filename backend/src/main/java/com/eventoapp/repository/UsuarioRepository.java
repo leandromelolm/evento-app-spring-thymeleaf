@@ -12,19 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.eventoapp.models.Usuario;
 
 @Repository
-public interface UsuarioRepository extends CrudRepository<Usuario, String> {
+public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
 	
 	@Transactional(readOnly = true)
-	Usuario findByEmail(String email);
+	@Query(value="select u from Usuario u Where u.email = :email")
+	Usuario findByEmail(@Param("email")String email);
 
 	@Transactional(readOnly = true)
 	Usuario findByNome(String nome);
 	
 	@Transactional(readOnly = true)
 	Usuario findByCpf(String cpf);
-	
-	@Transactional(readOnly = true)
-	Usuario findById(Long id);
 	
 	@Transactional
 	@Modifying

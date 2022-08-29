@@ -2,11 +2,15 @@ package com.eventoapp.controllers;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.security.InvalidParameterException;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -19,6 +23,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +35,7 @@ import com.eventoapp.models.Evento;
 import com.eventoapp.models.Usuario;
 import com.eventoapp.repository.EventoRepository;
 import com.eventoapp.repository.UsuarioRepository;
+import com.eventoapp.service.UserService;
 
 
 @Controller
@@ -98,9 +104,64 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value="/minha-conta", method=RequestMethod.GET)
-	public String test() {
+	public String paginaMinhaConta() {
 		return "user/minha-conta";
 	}
+
+	@GetMapping("/minha-conta/edit/{id}")
+	public ModelAndView minhaContaEditar(@PathVariable("id") Long id, Model model) throws Exception{
+
+		Optional<Usuario> usuarioEditar = ur.findById(id);
+
+		Usuario usuarioLogado = ur.findByEmail(UserService.authenticated().getUsername());
+		if (!usuarioLogado.getEmail().equals(usuarioEditar.get().getEmail())) {
+			throw new Exception("Acesso Proibido!");
+		}
+		
+		ModelAndView mv = new ModelAndView("user/minha-conta-editar");
+		if (!usuarioEditar.isPresent()) {
+            throw new IllegalArgumentException("Usuário inválido: " + id);
+		}
+		Usuario usuario = usuarioEditar.get();
+	    model.addAttribute("usuario", usuario);
+		return mv;
+	}
+
+	@PostMapping("/minha-conta/edit/{id}")
+	public String minhaContaEditarUsuario(@PathVariable("id") long id, 
+			@Valid Usuario usuarioAlterado, BindingResult result, Model model, 
+			HttpSession session, RedirectAttributes attributes) {
+		ModelAndView mv = new ModelAndView("user/minha-conta-editar");
+		if (result.hasErrors()) {
+	    	usuarioAlterado.setId(id);
+	        return "user/minha-conta-editar";
+	    }
+		Optional<Usuario> usuario = ur.findById(id);
+		usuario.get().setNome(usuarioAlterado.getNome());
+		ur.save(usuario.get());
+		session.setAttribute("mySessionCpf", null);
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		attributes.addFlashAttribute("mensagem", "Conta Alterada! "+ dtf.format(LocalDateTime.now()));		
+	    return "redirect:/minha-conta/edit/"+id;
+	}
+
+
+	@PostMapping("/deletarMinhaContaUsuario")
+	public String deletarMinhaContaUsuario(@ModelAttribute("id")long id, 
+			BindingResult bindingResult, RedirectAttributes attributes) {
+		Usuario usuario = ur.findById(id).orElseThrow(() -> new InvalidParameterException("Usuario não existe!"));	
+		List<Evento> eventos = er.findEventosByEmail(usuario.getEmail());
+		 if(!eventos.isEmpty()) {
+			 attributes.addFlashAttribute("mensagem", "Você precisa deletar seus eventos na pagina Meus Eventos "
+			 		+ "para excluir a conta. Quantidade de Eventos: "+eventos.size());
+			 return "redirect:/minha-conta";
+		 }		
+		ur.deletarUsuarioEvento(usuario.getEmail());		
+		ur.deletarUsuarioRole(usuario.getId());
+		ur.deletarUsuario(usuario.getId());		
+		return "redirect:/logout";		
+	}
+		
 	
 	@PostMapping("/atualizar-nome-menu")
 	public ModelAndView userNameMenu(@RequestBody String stringEmail, Usuario u, HttpSession session) throws UnsupportedEncodingException {
@@ -142,21 +203,7 @@ public class UsuarioController {
 //		return "redirect:/user/minha-conta";
 	}
 	
-	@PostMapping("/deletarMinhaContaUsuario")
-	public String deletarMinhaContaUsuario(@ModelAttribute("id")long id, 
-			BindingResult bindingResult, RedirectAttributes attributes) {
-		Usuario usuario = ur.findById(id);
-		List<Evento> eventos = er.findEventosByEmail(usuario.getEmail());
-		 if(!eventos.isEmpty()) {
-			 attributes.addFlashAttribute("mensagem", "Você precisa deletar seus eventos na pagina Meus Eventos "
-			 		+ "para excluir a conta. Quantidade de Eventos: "+eventos.size());
-			 return "redirect:/minha-conta";
-		 }		
-		ur.deletarUsuarioEvento(usuario.getEmail());		
-		ur.deletarUsuarioRole(usuario.getId());
-		ur.deletarUsuario(usuario.getId());
-		return "redirect:/logout";
-	}	
+	
 
 }
 

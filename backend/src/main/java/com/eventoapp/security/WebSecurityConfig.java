@@ -37,6 +37,7 @@ public class WebSecurityConfig {
 			.antMatchers(HttpMethod.GET, "/user/meus-eventos/delete").hasRole("STANDARD_USER")
 			.antMatchers(HttpMethod.GET, "/deletarParticipante").hasAnyRole("ADMIN","POWER_USER","STANDARD_USER")
 			.antMatchers(HttpMethod.GET, "/deletarParticipantePageParticipantes").hasRole("ADMIN")
+			.antMatchers(HttpMethod.POST, "/user/minha-conta/edit/**").authenticated()
 			.anyRequest().authenticated()
 			.and().formLogin().loginPage("/login.html")
 			.failureUrl("/login-error.html").permitAll()

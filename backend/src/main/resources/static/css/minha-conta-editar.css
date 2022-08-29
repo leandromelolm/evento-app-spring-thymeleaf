@@ -1,0 +1,15 @@
+a{
+    text-decoration: none; /* tirar o sublinhado que aparece nos textos do menu  */
+}
+
+.mensagem {
+    color: red;
+}
+
+.dataCadastroRow{
+    padding: 14px 0px 0px 0px
+}
+
+.dataCadastroCol{
+    padding: 15px 0px 0px 10px
+}

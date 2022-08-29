@@ -20,8 +20,8 @@
 					<div class="col m6 s6">
 						<h5>Detalhes</h5>
 					</div>
-					<div class="editarConta col m6 s6">
-						<a title="Editar" href="/users/minha-conta/edit">
+					<div class="editarConta col m6 s6">						
+						<a title="Editar" th:href="@{/minha-conta/edit/{id}(id=${session.mySessionId})}">
 							Editar conta
 						</a>
 					</div>
@@ -151,6 +151,8 @@
 		window.onload = function () {
 			console.log("function called page minha-conta...");
 			let stringEmail = document.getElementById("formEmailUser").value
+			
+			var nomeUsuario = '[[${session.mySessionNome}]]';		
 
 			var quantEventos =  '[[${session.userQuantEventos}]]';
 			var cpf =  '[[${session.mySessionCpf}]]';

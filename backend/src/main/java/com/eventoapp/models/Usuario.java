@@ -41,7 +41,7 @@ public class Usuario implements UserDetails {
 	
 	private String senha;	
 	
-	//@Size(min=5, max=20, message ="Nome precisa ter de 5 a 20 letras")
+	@Size(min=4, max=20, message ="Nome precisa ter de 4 a 20 letras")
 	@Column(unique=true)
 	private String nome;
 	

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+
+	<head th:replace="fragments :: html_head" />
+
+	<!-- <script th:src="@{/bootstrap-5.2.0-dist/js/bootstrap.min.js}"></script> -->
+
+	<head th:replace="fragments :: html_head" />
+	<link rel="stylesheet" th:href="@{/bootstrap-5.2.0-dist/css/bootstrap.min.css}">
+	<link th:href="@{/css/minha-conta-editar.css}" rel="stylesheet" />
+
+	<script th:src="@{/jquery-3.6.0-dist/jquery-3.6.0.min.js}"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="/js/main.js"></script>
+
+</head>
+
+<body>
+
+	<div th:replace="fragments :: menu" />
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<p>
+					<div>
+						<a th:href="@{/}">Página Inicial</a> > <a href="/minha-conta">Minha conta</a> > <a>Editar conta</a>
+					</div>
+				</p>
+				
+				<h2>Alterar conta</h2>
+				<p>Observação: No momento só está permitido alterar o nome.</p>
+
+				<th:block th:include="mensagemValidacao"></th:block>
+
+				<form th:action="@{/minha-conta/edit/{id}(id=${usuario.id})}" th:object="${usuario}" method="post">
+
+					<div class="row mb-1">
+						<label class="col-sm-1 col-form-label">Email:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="text" th:field="*{email}" readonly>
+						</div>
+						<div class="col-sm-5">
+							<span class="mensagem" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+						</div>
+					</div>
+
+					<div class="row mb-1">
+						<label class="col-sm-1 col-form-label">Nome:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="text" th:field="*{nome}">
+						</div>
+						<div class="col-sm-5">
+							<span class="mensagem" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+						</div>
+					</div>
+
+					<div class="row mb-1">
+						<label class="col-sm-1 col-form-label">CPF:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="text" th:field="*{cpf}" readonly>
+						</div>
+					</div>
+
+					<div class="dataCadastroRow row mb-1">
+						<label class="col-sm-1 col-form-label">Data Cadastro:</label>
+						<div class="dataCadastroCol col-sm-6">
+							<span>[[${#dates.format(session.mySessionDataCadastro,'dd-MM-yyyy HH:mm')}]]</span>
+						</div>
+					</div>
+
+					<div class="invisible row mb-2">
+						<label class="col-sm-2 col-form-label">Senha:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="password" th:field="*{senha}" readonly>
+						</div>
+						<div class="col-sm-5">
+							<span class="mensagem" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></span>
+						</div>
+					</div>
+
+					<input class="btn btn-primary" type="submit" value="Alterar" />
+				</form>
+			</div>
+		</div>
+		<a  type="button"  th:href="@{/minha-conta}">Voltar</a>
+	</div>
+</body>
+
+</html>
