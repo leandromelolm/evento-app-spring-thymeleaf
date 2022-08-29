@@ -45,18 +45,18 @@
 						[[${session.mySessionCpf}]]
 					</div>
 					<div class="col m6 s12">
+						<label><b>código</b></label><br/>
+						[[${session.mySessionId}]]						
+					</div>
+				</div>
+				<div class="row">
+					<div class="col m6 s12">
 						<label><b>Perfil usuário</b></label><br/>
 						<div th:switch='${session.mySessionTipoPerfil}'>
 							<span th:case="'ROLE_ADMIN'">Administrador</span>
 							<span th:case="'ROLE_POWER_USER'">Usuario Avançado</span>
 							<span th:case="'ROLE_STANDARD_USER'">Usuario Padrão</span>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col m6 s12">
-						<label><b>Data do cadastro</b></label><br/>
-						[[${#dates.format(session.mySessionDataCadastro,'dd-MM-yyyy HH:mm')}]]
+						</div>						
 					</div>
 					<div class="col m6 s12">
 						<label><b>Conta ativa?</b></label><br/>
@@ -75,12 +75,12 @@
 				</div>
 				<div class="row">
 					<div class="col m6 s12">
-						<label><b>Quantidade de eventos cadastrados</b></label><br/>
-						[[${session.userQuantEventos}]]
+						<label><b>Data do cadastro</b></label><br/>
+						[[${#dates.format(session.mySessionDataCadastro,'dd-MM-yyyy HH:mm')}]]						
 					</div>
 					<div class="col m6 s12">
-						<label><b>Id</b></label><br/>
-						[[${session.mySessionId}]]
+						<label><b>Quantidade de eventos cadastrados</b></label><br/>
+						[[${session.userQuantEventos}]]
 					</div>
 				</div>
 				<div class="row">
