@@ -16,10 +16,11 @@
 	<description>Demo project for Spring Boot</description>
 	
 	<properties>
-		<!-- <java.version>17</java.version> --> 
-		<!-- Nao foi possivel gerar o jar com a versao 17. apenas foi possivel executar com as IDEs (STS, VSCode e Intellij IDEA). Seguinte erro: Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.10.1:compile (default-compile) on project eventoapp: Fatal error compiling: error: invalid target release: 17 -->
-		<!-- Usar java versao 11 para gerar o jar. Comando para gerar jar na raiz do projeto: mvn clean package spring-boot:repackage -->
-		<java.version>11</java.version> 
+		<java.version>17</java.version> 
+		<!-- Nao foi possivel gerar o jar com a versao 17 do java, Mas executa normalmente com as IDEs (STS, VSCode e Intellij IDEA). Retorna o seguinte erro ao executar comando do maven para gerar o jar com versao 17: Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.10.1:compile (default-compile) on project eventoapp: Fatal error compiling: error: invalid target release: 17 -->
+		<!-- Usar java versao 11 para gerar o jar. -->
+		<!-- Comando para ser executado na raiz do projeto para gerar o jar com maven: mvn clean package spring-boot:repackage -->
+		<!-- <java.version>11</java.version> -->
 	</properties>
 	<dependencies>
 		<dependency>
