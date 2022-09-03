@@ -24,7 +24,8 @@
 						<div class="card-panel z-depth-5">
 							<b th:text="${evento.nome}"></b>
 							<p />
-							<span th:text="${evento.local}"></span>
+							<!-- <span th:text="${evento.local}"></span> -->
+							<span th:utext="${#strings.abbreviate(evento.local,30)}"></span>
 							<p />
 							<span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span>
 							<span th:text="${evento.horario}"></span>
