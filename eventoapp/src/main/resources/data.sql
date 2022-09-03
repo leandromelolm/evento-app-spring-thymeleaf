@@ -43,6 +43,16 @@ INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome
     VALUES (20110,'2023-06-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 3',0,0,1);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
     VALUES (20111,'2025-08-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 4',0,0,1);
+INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
+    VALUES (20112,'2025-08-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 5',0,0,1);
+INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
+    VALUES (20113,'2025-08-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 6',0,0,1);
+INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
+    VALUES (20114,'2025-08-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 7',0,0,1);
+INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
+    VALUES (20115,'2025-08-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 8',0,0,1);
+INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
+    VALUES (20116,'2025-08-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 9',0,0,1);
 
 -- INSERIR RELAÇÃO USUARIO COM EVENTO
 INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('melo@email.com', 20101);
@@ -56,6 +66,11 @@ INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('usuario-avancad
 INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('usuario-avancado@email.com', 20109);
 INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('usuario-avancado@email.com', 20110);
 INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('usuario-avancado@email.com', 20111);
+INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('usuario-avancado@email.com', 20112);
+INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('usuario-avancado@email.com', 20113);
+INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('usuario-avancado@email.com', 20114);
+INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('usuario-avancado@email.com', 20115);
+INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('usuario-avancado@email.com', 20116);
 
 -- INSERIR PARTICIPANTE EM EVENTOS
 INSERT INTO participante (id_participante, cpf, data_cadastro, data_nascimento, email, nome_participante, evento_codigo) 

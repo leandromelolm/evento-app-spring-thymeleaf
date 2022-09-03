@@ -114,7 +114,7 @@ public class EventoController {
 
 	@RequestMapping(value="/eventos-paginado")
 	public ModelAndView listaEventosWithPagination (
-			@RequestParam(value="nome", defaultValue="") String nome, 
+			@RequestParam(value="nomepesquisa", defaultValue="") String nome, 
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="5") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="data") String orderBy, 
@@ -123,9 +123,21 @@ public class EventoController {
 		Page<Evento> listaEvento = eventoService.searchEventoPaginated(nome, page, linesPerPage, orderBy, direction); 
 		Page<EventoListPagDTO> listDto = listaEvento.map(obj -> new EventoListPagDTO(obj));
 		mv.addObject("eventosPaginado", listDto);
+		mv.addObject("nomepesquisa", nome);
 		return mv;
 	}
 
+	@PostMapping("pesquisarevento")
+	public ModelAndView pesquisar(@RequestParam("nomepesquisa") String nomepesquisa) {		
+		Page<Evento> listaEvento = null;
+		listaEvento = eventoService.searchEventoPaginated(nomepesquisa, 0, 5, "data", "ASC"); 
+		Page<EventoListPagDTO> listDto = listaEvento.map(obj -> new EventoListPagDTO(obj));
+
+		ModelAndView modelAndView = new ModelAndView("listaEventos-paginated");
+		modelAndView.addObject("eventosPaginado", listDto);
+		modelAndView.addObject("nomepesquisa", nomepesquisa);		
+		return modelAndView;
+	}
 	
 	@GetMapping("/user/meus-eventos")
 	public ModelAndView meusEventos() {	

@@ -2,89 +2,120 @@
 <html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head th:replace="fragments :: html_head" />
+<style>  
+	#btnBuscar{ color:white !important }	
+</style>
 
 <body>
-	
-	<div th:replace="fragments :: menu"/>
-	
+
+	<div th:replace="fragments :: menu" />
+
 	<div class="container">
 		<div id="listaEVentos" class="table-responsive">
-		<p>
-		<h5>Lista de Eventos</h5>
-		<table class="table">
-			<thead>
-				<tr>
-					<th sec:authorize="hasRole('ADMIN')" >Código</th>
-					<th>Nome</th>
-					<th sec:authorize="hasRole('ADMIN')" >Responsavel</th>
-					<th>Local</th>
-					<!--<th>Nº particip</th>-->
-					<th>Status</th>
-					<th>Nº de participantes</th>
-					<th>Data</th>
-					<th>Horario</th>
-					<th>Deletar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="evento : ${eventosPaginado.content}">
-					<td sec:authorize="hasRole('ADMIN')" ><span th:text="${evento.codigo}"></span></td>					
-					<td> 
-						<div th:if="${evento.status.descricao} eq 'Aberto'">
-							<!--<a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.nome}"></span></a>-->							
-							<a th:href="@{/evento/{codigo}(codigo = ${evento.codigo})}"><span th:text="${evento.nome}"></span></a>
-						</div>
-						<div th:unless="${evento.status.descricao} eq 'Aberto'">
-							<span th:text="${evento.nome}"></span>
-						</div>						
-					</td>
-					<td sec:authorize="hasRole('ADMIN')" ><span th:text="${evento.emailResponsavelEvento}"></span></td>
-					<td><span th:text="${evento.local}"></span></td>
-					<td><span th:text="${evento.status}"></span></td>
-					<td><span th:text="${evento.quantParticip}"></span></td>
-					<!-- <td class="center" ><span th:text="${evento.participantes.size()}"></span></td> -->
-										
-					<td><span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span></td>
-					<td><span th:text="${evento.horario}"></span></td>
-					<td> <a class="waves-effect waves-light btn-small" 
-							th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}" onclick="return confirmarExcluirEvento()"> 
-							<i class="material-icons">delete_forever</i> 
-						</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
 
-		<div class="row" style="margin-top: 30px;">
-			<center>
-			
-				<span th:if="${eventosPaginado.hasPrevious()}">
-					<a th:href="@{/eventos-paginado(page=${eventosPaginado.number-1}, size=${eventosPaginado.size})}">Anterior</a>
-				</span>
-			
-			   <th:block th:each="i: ${#numbers.sequence(0, eventosPaginado.totalPages - 1)}"> 
-				<span th:if="${eventosPaginado.number eq i}">
-					<span th:href="@{/eventos-paginado(page=${i}, size=${eventosPaginado.size})}">[[ ${i} + 1 ]]</span>
-				</span>
-				<span th:unless="${eventosPaginado.number eq i}">
-					<a th:href="@{/eventos-paginado(page=${i}, size=${eventosPaginado.size})}">[[ ${i} + 1 ]]</a>
-				</span>
-			   </th:block>
-			   
-			   <span th:if="${eventosPaginado.hasNext()}">
-					<a th:href="@{/eventos-paginado(page=${eventosPaginado.number+1}, size=${eventosPaginado.size})}">Próximo</a>
-				</span>
-			   
-			</center>
-		   </div>
+			<fieldset>
+				<legend>Campos de pesquisa</legend>
+				<div class="row">
+					<form action="pesquisarevento" method="post" class="col s12" id="pesquisarevento">
+						<div class="row">
+							<div class="input-field col s6">
+								<label for="nomepesquisa" class="active">Pesquisar evento por nome:</label>
+								<input name="nomepesquisa" id="nomepesquisa" class="validate"
+									th:value="${nomepesquisa}">
+							</div>
+
+							<div class="input-field col s12">																
+								<input id="btnBuscar" class="waves-effect waves-light btn blue darken-3" type="submit" value="Buscar">
+								<a class="waves-effect waves-light btn" href="/eventos-paginado">Listar todos</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</fieldset>
+
+			<p>
+			<h5>Lista de Eventos</h5>
+			<table class="table">
+				<thead>
+					<tr>
+						<th sec:authorize="hasRole('ADMIN')">Código</th>
+						<th>Nome</th>
+						<th sec:authorize="hasRole('ADMIN')">Responsavel</th>
+						<th>Local</th>
+						<!--<th>Nº particip</th>-->
+						<th>Status</th>
+						<th>Nº de participantes</th>
+						<th>Data</th>
+						<th>Horario</th>
+						<th>Deletar</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="evento : ${eventosPaginado.content}">
+						<td sec:authorize="hasRole('ADMIN')"><span th:text="${evento.codigo}"></span></td>
+						<td>
+							<div th:if="${evento.status.descricao} eq 'Aberto'">
+								<!--<a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.nome}"></span></a>-->
+								<a th:href="@{/evento/{codigo}(codigo = ${evento.codigo})}"><span
+										th:text="${evento.nome}"></span></a>
+							</div>
+							<div th:unless="${evento.status.descricao} eq 'Aberto'">
+								<span th:text="${evento.nome}"></span>
+							</div>
+						</td>
+						<td sec:authorize="hasRole('ADMIN')"><span th:text="${evento.emailResponsavelEvento}"></span>
+						</td>
+						<td><span th:text="${evento.local}"></span></td>
+						<td><span th:text="${evento.status}"></span></td>
+						<td><span th:text="${evento.quantParticip}"></span></td>
+						<!-- <td class="center" ><span th:text="${evento.participantes.size()}"></span></td> -->
+
+						<td><span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span></td>
+						<td><span th:text="${evento.horario}"></span></td>
+						<td> <a class="waves-effect waves-light btn-small"
+								th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"
+								onclick="return confirmarExcluirEvento()">
+								<i class="material-icons">delete_forever</i>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="row" style="margin-top: 30px;">
+				<center>
+
+					<span th:if="${eventosPaginado.hasPrevious()}">
+						<a	th:href="@{/eventos-paginado(page=${eventosPaginado.number-1}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa})}">Anterior</a>
+					</span>
+
+					<th:block th:each="i: ${#numbers.sequence(0, eventosPaginado.totalPages - 1)}">
+						<span th:if="${eventosPaginado.number eq i}">
+							<span th:href="@{/eventos-paginado(page=${i}, size=${eventosPaginado.size})}">[[ ${i} + 1]]</span>
+						</span>
+						<span th:unless="${eventosPaginado.number eq i}">
+							<a th:href="@{/eventos-paginado(page=${i}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa})}">
+								<span th:unless="${i + 1  eq 0}">
+									[[	${i} + 1 ]]
+								</span>									
+							</a>
+						</span>
+					</th:block>
+
+					<span th:if="${eventosPaginado.hasNext()}">
+						<a	th:href="@{/eventos-paginado(page=${eventosPaginado.number+1}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa})}">Próximo</a>
+					</span>
+
+				</center>
+			</div>
 		</div>
 	</div>
-	
-  	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
 	<script type="text/javascript" src="/js/main.js"></script>
-	
+
 </body>
 
 </html>
