@@ -11,9 +11,12 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.eventoapp.service.EventoService;
 import com.eventoapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -27,11 +30,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eventoapp.models.Evento;
 import com.eventoapp.models.EventoDTO;
+import com.eventoapp.models.EventoListPagDTO;
 import com.eventoapp.models.Participante;
 import com.eventoapp.models.ParticipanteDTO;
 import com.eventoapp.models.Telefone;
@@ -58,6 +63,9 @@ public class EventoController {
 	
 	@Autowired
 	private UsuarioRepository ur;
+
+	@Autowired
+	private EventoService eventoService;
 	
 	@RequestMapping(value="/cadastrarEvento", method=RequestMethod.GET)
 	public String form() {
@@ -90,6 +98,34 @@ public class EventoController {
 		mv.addObject("eventos", eventos);
 		return mv;
 	}
+
+	@RequestMapping(value="/eventos-json")
+	public ResponseEntity<Page<EventoListPagDTO>> listaEventosJson (
+			@RequestParam(value="nome", defaultValue="") String nome, 
+			@RequestParam(value="page", defaultValue="0") Integer page, 
+			@RequestParam(value="linesPerPage", defaultValue="4") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue="data") String orderBy, 
+			@RequestParam(value="direction", defaultValue="DESC") String direction) {		
+		Page<Evento> listaEvento = eventoService.searchEventoPaginated(nome, page, linesPerPage, orderBy, direction); 
+		Page<EventoListPagDTO> listDto = listaEvento.map(obj -> new EventoListPagDTO(obj));
+		return ResponseEntity.ok().body(listDto);
+		// [GET] http://localhost:8081/eventos-json/?nome={String}&page={page}
+	}
+
+	@RequestMapping(value="/eventos-paginado")
+	public ModelAndView listaEventosWithPagination (
+			@RequestParam(value="nome", defaultValue="") String nome, 
+			@RequestParam(value="page", defaultValue="0") Integer page, 
+			@RequestParam(value="linesPerPage", defaultValue="5") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue="data") String orderBy, 
+			@RequestParam(value="direction", defaultValue="ASC") String direction) {				
+		ModelAndView mv = new ModelAndView("listaEventos-paginated");
+		Page<Evento> listaEvento = eventoService.searchEventoPaginated(nome, page, linesPerPage, orderBy, direction); 
+		Page<EventoListPagDTO> listDto = listaEvento.map(obj -> new EventoListPagDTO(obj));
+		mv.addObject("eventosPaginado", listDto);
+		return mv;
+	}
+
 	
 	@GetMapping("/user/meus-eventos")
 	public ModelAndView meusEventos() {	

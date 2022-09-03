@@ -13,6 +13,10 @@ public class EventoappApplication {
 }
 
 
+
+
+
+
 /*
 
 --- COMANDOS SQL
@@ -55,6 +59,13 @@ UPDATE participante SET evento_codigo=NULL WHERE evento_codigo=80;
 UPDATE participante SET evento_codigo=NULL WHERE evento_codigo=80;
 UPDATE participante SET evento_codigo=81 WHERE id_participante=89;
 
+
+select e.nome from evento e where e.nome Like '%Fe%'
+
+SELECT u.email, e.nome, e.codigo
+FROM evento e
+INNER JOIN usuario u 
+ON e.email_responsavel_evento  = u.email 
 
 */
 

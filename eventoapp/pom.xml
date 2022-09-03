@@ -105,6 +105,7 @@
     		<groupId>org.thymeleaf.extras</groupId>
     		<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 		</dependency>
+		
 		<!-- Bootstrap -->
 		<!-- <dependency>
             <groupId>org.webjars</groupId>

@@ -39,7 +39,7 @@
 					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down">
 						<li><a href="/home"><i class="material-icons left">home</i>Página Inicial</a></li>
-						<li><a href="/eventos"><i class="material-icons left">list</i>Eventos</a></li>
+						<li><a href="/eventos-paginado"><i class="material-icons left">list</i>Eventos</a></li>
 						<li sec:authorize="isAuthenticated()"><a href="/user/meus-eventos"><i class="material-icons left">playlist_add_check</i>Meus Eventos</a></li>
 						<li class="participante"><a href="/participantes"><i class="material-icons left">view_comfy</i>Participantes</a></li>
 						<li sec:authorize="!isAuthenticated()" ><a href="/infodesenvolvimento"><i class="material-icons left">code</i>Sobre</a></li>						
@@ -68,7 +68,7 @@
 			</li>			
 			<li><a href="/home"><i class="material-icons left">home</i>Página Inicial</a></li>
 			<li><a href="/cadastrarEvento"><i class="material-icons left">add_box</i>Cadastrar Evento</a></li>
-			<li><a href="/eventos"><i class="material-icons left">view_list</i>Lista de Eventos</a></li>
+			<li><a href="/eventos-paginado"><i class="material-icons left">view_list</i>Lista de Eventos</a></li>
 			<li sec:authorize="isAuthenticated()"><a href="/user/meus-eventos"><i class="material-icons left">playlist_add_check</i>Meus Eventos</a></li>					
 			<li><a href="/participantes"><i class="material-icons left">view_comfy</i>Todos Participantes</a></li>
 			<li><a href="/infodesenvolvimento"><i class="material-icons left">code</i>Sobre</a></li>
