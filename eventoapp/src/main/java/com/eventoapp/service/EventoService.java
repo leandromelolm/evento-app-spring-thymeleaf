@@ -15,8 +15,13 @@ public class EventoService {
     @Autowired
     private EventoRepository eventoRepository;
 
-    public Page<Evento> searchEventoPaginated(String nome, Integer page, Integer linesPerPage, String orderBy, String direction){
+    public Page<Evento> searchEventoPaginated2(String nome, Integer page, Integer linesPerPage, String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
         return eventoRepository.searchEventoPaginated(nome.toLowerCase(), pageRequest);
-    }    
+    }
+    
+    public Page<Evento> searchEventoPaginated(String nome, Integer page, Integer linesPerPage, String orderBy, String direction){
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+        return eventoRepository.findByNomeContainingIgnoreCase(nome, pageRequest);
+    }
 }

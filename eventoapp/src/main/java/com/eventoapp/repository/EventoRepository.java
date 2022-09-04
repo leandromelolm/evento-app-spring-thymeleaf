@@ -31,4 +31,11 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 	@Transactional(readOnly = true)
 	@Query ("SELECT e FROM Evento e WHERE lower(e.nome) LIKE %:nomeEvento%")
 	Page<Evento> searchEventoPaginated(@Param ("nomeEvento") String nomeEvento, Pageable pageRequest);
+
+	@Transactional(readOnly = true)
+	Page<Evento> findByNomeContainingIgnoreCase(String name, Pageable pageRequest);
 }
+
+
+// https://docs.spring.io/spring-data/jpa/docs/current/reference/html/ 
+// Example 57. Query creation from method names
