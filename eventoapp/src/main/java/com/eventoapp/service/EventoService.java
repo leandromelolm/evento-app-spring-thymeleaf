@@ -17,6 +17,6 @@ public class EventoService {
 
     public Page<Evento> searchEventoPaginated(String nome, Integer page, Integer linesPerPage, String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-        return eventoRepository.searchEventoPaginated(nome, pageRequest);
+        return eventoRepository.searchEventoPaginated(nome.toLowerCase(), pageRequest);
     }    
 }

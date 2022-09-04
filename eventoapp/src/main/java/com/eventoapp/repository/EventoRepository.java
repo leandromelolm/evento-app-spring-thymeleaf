@@ -26,5 +26,9 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 
 	@Transactional(readOnly = true)
 	@Query ("SELECT e FROM Evento e WHERE e.nome LIKE %:nomeEvento%")
+	Page<Evento> searchEventoPaginated2(@Param ("nomeEvento") String nomeEvento, Pageable pageRequest);
+
+	@Transactional(readOnly = true)
+	@Query ("SELECT e FROM Evento e WHERE lower(e.nome) LIKE %:nomeEvento%")
 	Page<Evento> searchEventoPaginated(@Param ("nomeEvento") String nomeEvento, Pageable pageRequest);
 }
