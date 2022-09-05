@@ -37,6 +37,18 @@ public class EventoListPagDTO implements Serializable {
 		this.emailResponsavelEvento = e.getEmailResponsavelEvento();
 		this.status = e.getStatus().getCod();
 	}
+
+	public EventoListPagDTO(Evento e, String hideResponsavel) {		
+		this.codigo = e.getCodigo();
+		this.nome = e.getNome();
+		this.local = e.getLocal();
+		this.data = e.getData();
+		this.horario = e.getHorario();		
+		this.quantParticip = e.getQuantParticip();
+		this.quantMaxParticip = e.getQuantMaxParticip();		
+		this.emailResponsavelEvento = e.getEmailResponsavelEvento().substring(0,3)+"*";
+		this.status = e.getStatus().getCod();
+	}
 	
 	public Long getCodigo() {
 		return codigo;

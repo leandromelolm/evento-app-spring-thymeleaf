@@ -1,5 +1,6 @@
--- Antes de adicionar um usuário é necessario adicionar esses perfis na tabela role.
--- Inserido usuario para test.
+-- Obs. Antes de executar o projeto é necessario adicionar os perfis na tabela role. 
+-- A Inserção é necessária ao executar o projeto nos perfis dev ou prod (spring.profiles.active do application.properties).
+-- No perfil test não é necessario fazer essa inserção, pois o data.sql ja realizará essa adição em memória no H2.
 
 -- INSERIR PERFIL DE USUARIOS
 INSERT INTO role (id, name_role) VALUES (1, 'ROLE_ADMIN');

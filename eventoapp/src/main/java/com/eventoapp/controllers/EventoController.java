@@ -103,11 +103,11 @@ public class EventoController {
 	public ResponseEntity<Page<EventoListPagDTO>> listaEventosJson (
 			@RequestParam(value="nome", defaultValue="") String nome, 
 			@RequestParam(value="page", defaultValue="0") Integer page, 
-			@RequestParam(value="linesPerPage", defaultValue="4") Integer linesPerPage, 
+			@RequestParam(value="linesPerPage", defaultValue="5") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="data") String orderBy, 
 			@RequestParam(value="direction", defaultValue="DESC") String direction) {		
 		Page<Evento> listaEvento = eventoService.searchEventoPaginated(nome, page, linesPerPage, orderBy, direction); 
-		Page<EventoListPagDTO> listDto = listaEvento.map(obj -> new EventoListPagDTO(obj));
+		Page<EventoListPagDTO> listDto = listaEvento.map(obj -> new EventoListPagDTO(obj, "parteNomeResponsavelEscondido"));
 		return ResponseEntity.ok().body(listDto);
 		// [GET] http://localhost:8081/eventos-json/?nome={String}&page={page}
 	}
