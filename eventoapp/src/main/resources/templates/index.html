@@ -11,12 +11,12 @@
 			<div sec:authorize="!isAuthenticated()">
 				<h2>Bem vindo!</h2>
 				<h5>Faça login para cadastrar seus eventos e deixá-los disponíveis para o cadastro de participantes!</h5>
-				<p><a id="btncadastrar" href="/login.html" class="waves-effect waves-light btn">Entrar</a>
-				<a id="btncadastrar" href="/register" class="waves-effect waves-light btn">Criar conta</a>
+				<p><a id="btncadastrar" href="/login.html" class="waves-effect waves-light btn blue">Entrar</a>
+				<a id="btncadastrar" href="/register" class="waves-effect waves-light btn blue accent-4">Criar conta</a>
 			</div>
 			<div sec:authorize="isAuthenticated()">
 				<h5>Cadastre seus eventos e listas de convidados!</h5>
-				<a id="btncadastrar" href="/cadastrarEvento" class="waves-effect waves-light btn">Cadastrar Evento</a>
+				<a id="btncadastrar" href="/cadastrarEvento" class="waves-effect waves-light btn blue accent-2">Cadastrar Evento</a>
 			</div>
 			<div class="row">
 				<div th:each="evento : ${eventos}">
