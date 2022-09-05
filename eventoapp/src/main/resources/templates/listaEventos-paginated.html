@@ -2,8 +2,15 @@
 <html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head th:replace="fragments :: html_head" />
-<style>  
-	#btnBuscar{ color:white !important }	
+<link rel="stylesheet" th:href="@{/bootstrap-5.2.0-dist/css/bootstrap.min.css}">
+<style>
+	#btnBuscar {
+		color: white !important
+	}
+
+	a {
+		text-decoration: none;
+	}
 </style>
 
 <body>
@@ -11,31 +18,28 @@
 	<div th:replace="fragments :: menu" />
 
 	<div class="container">
-		<div id="listaEVentos" class="table-responsive">
-
-			<fieldset>
-				<legend>Campos de pesquisa</legend>
-				<div class="row">
+		<p>
+			<div id="pesquisaEvento">
+				<div class="row" >
 					<form action="pesquisarevento" method="post" class="col s12" id="pesquisarevento">
 						<div class="row">
-							<div class="input-field col s6">
-								<label for="nomepesquisa" class="active">Pesquisar evento por nome:</label>
-								<input name="nomepesquisa" id="nomepesquisa" class="validate"
-									th:value="${nomepesquisa}">
-							</div>
-
-							<div class="input-field col s12">																
-								<input id="btnBuscar" class="waves-effect waves-light btn blue darken-3" type="submit" value="Buscar">
+							<label for="nomepesquisa">Pesquisar evento por nome:</label>
+							<div class="input-field col-9">								
+								<input name="nomepesquisa" id="nomepesquisa" th:value="${nomepesquisa}">								
+	
+								<input id="btnBuscar" class="waves-effect waves-light btn blue darken-3" type="submit"
+									value="Buscar">
 								<a class="waves-effect waves-light btn" href="/eventos-paginado">Listar todos</a>
 							</div>
 						</div>
 					</form>
 				</div>
-			</fieldset>
-
-			<p>
+			</div>
+		</p>
+		
+		<div id="listaEVentos" class="table-responsive">
 			<h5>Lista de Eventos</h5>
-			<table class="table">
+			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
 						<th sec:authorize="hasRole('ADMIN')">Código</th>
@@ -72,7 +76,7 @@
 
 						<td><span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span></td>
 						<td><span th:text="${evento.horario}"></span></td>
-						<td> <a class="waves-effect waves-light btn-small"
+						<td> <a class="waves-effect waves-light btn-small red"
 								th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"
 								onclick="return confirmarExcluirEvento()">
 								<i class="material-icons">delete_forever</i>
@@ -81,34 +85,38 @@
 					</tr>
 				</tbody>
 			</table>
-
-			<div class="row" style="margin-top: 30px;">
-				<center>
-
-					<span th:if="${eventosPaginado.hasPrevious()}">
-						<a	th:href="@{/eventos-paginado(page=${eventosPaginado.number-1}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa})}">Anterior</a>
-					</span>
-
-					<th:block th:each="i: ${#numbers.sequence(0, eventosPaginado.totalPages - 1)}">
-						<span th:if="${eventosPaginado.number eq i}">
-							<span th:href="@{/eventos-paginado(page=${i}, size=${eventosPaginado.size})}">[[ ${i} + 1]]</span>
-						</span>
-						<span th:unless="${eventosPaginado.number eq i}">
-							<a th:href="@{/eventos-paginado(page=${i}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa})}">
-								<span th:unless="${i + 1  eq 0}">
-									[[	${i} + 1 ]]
-								</span>									
-							</a>
-						</span>
-					</th:block>
-
-					<span th:if="${eventosPaginado.hasNext()}">
-						<a	th:href="@{/eventos-paginado(page=${eventosPaginado.number+1}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa})}">Próximo</a>
-					</span>
-
-				</center>
-			</div>
 		</div>
+		<div class="row" style="margin-top: 30px;">
+			<center>
+
+				<span th:if="${eventosPaginado.hasPrevious()}">
+					<a
+						th:href="@{/eventos-paginado(page=${eventosPaginado.number-1}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa})}">Anterior</a>
+				</span>
+
+				<th:block th:each="i: ${#numbers.sequence(0, eventosPaginado.totalPages - 1)}">
+					<span th:if="${eventosPaginado.number eq i}">
+						<span th:href="@{/eventos-paginado(page=${i}, size=${eventosPaginado.size})}">[[ ${i} +
+							1]]</span>
+					</span>
+					<span th:unless="${eventosPaginado.number eq i}">
+						<a
+							th:href="@{/eventos-paginado(page=${i}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa})}">
+							<span th:unless="${i + 1  eq 0}">
+								[[ ${i} + 1 ]]
+							</span>
+						</a>
+					</span>
+				</th:block>
+
+				<span th:if="${eventosPaginado.hasNext()}">
+					<a
+						th:href="@{/eventos-paginado(page=${eventosPaginado.number+1}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa})}">Próximo</a>
+				</span>
+
+			</center>
+		</div>
+
 	</div>
 
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

@@ -2,6 +2,12 @@
 <html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head th:replace="fragments :: html_head" />
+<link rel="stylesheet" th:href="@{/bootstrap-5.2.0-dist/css/bootstrap.min.css}">
+<style>
+	a{
+		text-decoration: none;
+	}
+</style>
 
 <body>
 	<div>	
@@ -30,7 +36,7 @@
 							<td> <a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, participante.evento.codigo)).build()}">
 								<span th:text="${participante.evento.nome}"></span></a>
 							</td>
-							<td> <a class="waves-effect waves-light btn-small"
+							<td> <a class="waves-effect waves-light btn-small red"
 									th:href="${(#mvc.url('EC#deletarParticipantePageParticipantes').arg(0, participante.idParticipante)).build()}"
 									onclick="return confirmarExcluirParticipante()">
 									<i class="material-icons">delete_forever</i></a>
@@ -47,8 +53,8 @@
 	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
 	<script type="text/javascript" src="/js/main.js"></script>
 	
-	<!-- Bootstrap -->
-	<!-- <link href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" /> -->
+	<!-- Bootstrap via pom-->
+	<!-- <link href="/webjars/bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet" /> -->
 	
 </body>
 
