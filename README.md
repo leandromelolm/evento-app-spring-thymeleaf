@@ -1,8 +1,8 @@
-# EventoApp
+# EventOpen App
 
 App in Heroku
 
-[https://eventoadd.herokuapp.com](https://eventoadd.herokuapp.com)
+[https://eventopen.herokuapp.com/](https://eventopen.herokuapp.com/)
 
 O projeto é uma aplicação web para cadastro de eventos que permite qualquer pessoa possa se cadastrar no evento criado por um usuario logado no sistema.
 O projeto foi desenvolvido acompanhado as aulas da professora Michelli Brito no youtube. Foi feito algumas adições ao projeto desenvolvido pela professora no Curso `Spring Boot criando uma aplicação Java Web`.

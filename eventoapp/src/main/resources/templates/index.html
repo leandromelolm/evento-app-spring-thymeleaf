@@ -36,11 +36,12 @@
 								<span th:case="'1'"><span th:text="${evento.quantParticip}"></span> participante</span>
 								<span th:case="*"><span th:text="${evento.quantParticip}"></span> participantes</span>								
 							</div>
-							<span th:text="${evento.status}"></span>
+							<!-- <span th:text="${evento.status}"></span> -->
 	
-							<div class="div-button">
-								<a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}">
-									Acessar
+							<div>
+								<a class="waves-effect waves-light btn blue accent-4" 
+									th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}">
+									Mais
 								</a>
 							</div>
 						</div>
