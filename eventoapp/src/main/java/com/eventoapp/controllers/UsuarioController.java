@@ -99,7 +99,6 @@ public class UsuarioController {
 		mv.addObject("msg", u.getNome()+", Seu cadastro foi realizado com sucesso!");
 		mv.addObject("sucessoCadastro", "sucess");
 		mv.addObject("usuarioobj", u);
-		//ModelAndView mv1 = new ModelAndView("login.html");
 		return mv;
 	}
 	

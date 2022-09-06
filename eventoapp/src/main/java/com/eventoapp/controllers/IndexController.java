@@ -49,7 +49,7 @@ public class IndexController {
 	}
 	
 	// SignIn form
-	@RequestMapping("/login.html")
+	@RequestMapping("/login")
 	public String login() {
 		return "login.html";
 	}
