@@ -15,13 +15,41 @@ public class EventoService {
     @Autowired
     private EventoRepository eventoRepository;
 
-    public Page<Evento> searchEventoPaginated2(String nome, Integer page, Integer linesPerPage, String orderBy, String direction){
+    public Page<Evento> searchEventoPaginated2(String nome, Integer page, Integer linesPerPage, String orderBy,
+            String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
         return eventoRepository.searchEventoPaginated(nome.toLowerCase(), pageRequest);
     }
-    
-    public Page<Evento> searchEventoPaginated(String nome, Integer page, Integer linesPerPage, String orderBy, String direction){
+
+    public Page<Evento> searchEventoPaginated(String nome, Integer page, Integer linesPerPage, String orderBy,
+            String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
         return eventoRepository.findByNomeContainingIgnoreCase(nome, pageRequest);
     }
+
+    public Page<Evento> searchEventoAndStatusPaginated(String nome, Integer status, Integer page, Integer linesPerPage,
+            String orderBy, String direction) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+        return eventoRepository.findByStatusAndNomeContainingIgnoreCase(status, nome, pageRequest);
+    }
+
+    public Integer retornaStatusEventoInt(String eventoStatus) {
+        Integer intStatus = null;
+        switch (eventoStatus.toLowerCase()) {
+            case "aberto":
+                intStatus = 1;
+                break;
+            case "pausado":
+                intStatus = 2;
+                break;
+            case "encerrado":
+                intStatus = 3;
+                break;
+            case "finalizado":
+                intStatus = 4;
+                break;
+        }
+        return intStatus;
+    }
+
 }

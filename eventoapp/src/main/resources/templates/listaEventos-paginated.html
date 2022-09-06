@@ -24,14 +24,24 @@
 					<form action="pesquisarevento" method="post" class="col s12" id="pesquisarevento">
 						<div class="row">
 							<label for="nomepesquisa">Pesquisar evento por nome:</label>
-							<div class="input-field col-9">								
-								<input name="nomepesquisa" id="nomepesquisa" th:value="${nomepesquisa}">								
-	
-								<input id="btnBuscar" class="waves-effect waves-light btn blue darken-3" type="submit"
+							<div class="input-field col-8">								
+								<input name="nomepesquisa" id="nomepesquisa" th:value="${nomepesquisa}" minlength="3">
+							</div>
+							<div class="input-field col col-4">
+								<label for="filtroStatus" class="active">Filtrar Status</label>
+								<select class="browser-default" name="filtroStatus" id="filtroStatus">
+									<option th:text="${filtroStatus}">Todos</option>
+									<option value="" th:text="Todos"/>
+									<option value="Aberto" th:text="Aberto"/>
+									<option value="Pausado" th:text="Pausado"/>
+									<option value="Encerrado" th:text="Encerrado"/>
+									<option value="Finalizado" th:text="Finalizado"/>
+								</select>
+							</div>							
+						</div>
+						<input id="btnBuscar" class="waves-effect waves-light btn blue darken-3" type="submit"
 									value="Buscar">
 								<a class="waves-effect waves-light btn" href="/eventos-paginado">Listar todos</a>
-							</div>
-						</div>
 					</form>
 				</div>
 			</div>
@@ -93,7 +103,7 @@
 
 				<span th:if="${eventosPaginado.hasPrevious()}">
 					<a
-						th:href="@{/eventos-paginado(page=${eventosPaginado.number-1}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa})}">Anterior</a>
+						th:href="@{/eventos-paginado(page=${eventosPaginado.number-1}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa}, filtroStatus=${filtroStatus})}">Anterior</a>
 				</span>
 
 				<th:block th:each="i: ${#numbers.sequence(0, eventosPaginado.totalPages - 1)}">
@@ -103,7 +113,7 @@
 					</span>
 					<span th:unless="${eventosPaginado.number eq i}">
 						<a
-							th:href="@{/eventos-paginado(page=${i}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa})}">
+							th:href="@{/eventos-paginado(page=${i}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa}, filtroStatus=${filtroStatus})}">
 							<span th:unless="${i + 1  eq 0}">
 								[[ ${i} + 1 ]]
 							</span>
@@ -113,7 +123,7 @@
 
 				<span th:if="${eventosPaginado.hasNext()}">
 					<a
-						th:href="@{/eventos-paginado(page=${eventosPaginado.number+1}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa})}">Próximo</a>
+						th:href="@{/eventos-paginado(page=${eventosPaginado.number+1}, size=${eventosPaginado.size}, nomepesquisa=${nomepesquisa}, filtroStatus=${filtroStatus})}">Próximo</a>
 				</span>
 
 			</center>

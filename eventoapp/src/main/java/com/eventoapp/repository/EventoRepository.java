@@ -12,11 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.eventoapp.models.Evento;
 
 public interface EventoRepository extends JpaRepository<Evento, Long> {
+	
+	@Transactional(readOnly = true)
 	Evento findByCodigo(long codigo);
 	
+	@Transactional(readOnly = true)
 	@Query(value = "SELECT p FROM Evento p ORDER BY status ASC, data ASC")		
 	List<Evento> findAllEventos(); //home
 	
+	@Transactional(readOnly = true)
 	@Query(value = "SELECT e FROM Evento e WHERE e.status = :status ORDER BY data ASC")		
 	List<Evento> findAllEventosStatus(Integer status); //index
 	
@@ -34,6 +38,9 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 
 	@Transactional(readOnly = true)
 	Page<Evento> findByNomeContainingIgnoreCase(String name, Pageable pageRequest);
+
+	@Transactional(readOnly = true)
+	Page<Evento> findByStatusAndNomeContainingIgnoreCase(Integer status, String nome, Pageable pageRequest);
 }
 
 
