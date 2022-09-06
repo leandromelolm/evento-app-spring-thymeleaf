@@ -205,7 +205,7 @@ public class EventoController {
 		return "redirect:/eventos-paginado";
 	}
 
-	@RequestMapping("/user/meus-eventos/deletar")
+	@RequestMapping("/user/meus-eventos/deletarEvento")
 	public String deletarMeuEvento(long codigo) {
 		Evento evento = er.findByCodigo(codigo);
 		er.delete(evento);

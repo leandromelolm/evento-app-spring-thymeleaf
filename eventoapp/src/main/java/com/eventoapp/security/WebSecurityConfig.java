@@ -33,7 +33,7 @@ public class WebSecurityConfig {
 			.antMatchers(HttpMethod.POST, "/register").permitAll()
 			.antMatchers(HttpMethod.GET, "/deletar").authenticated()
 			.antMatchers(HttpMethod.POST, "/deletarMinhaContaUsuario").hasAnyRole("ADMIN","POWER_USER","STANDARD_USER")
-			.antMatchers(HttpMethod.GET, "/user/meus-eventos/delete2").hasRole("ADMIN")
+			.antMatchers(HttpMethod.GET, "/user/meus-eventos/deletarEvento").hasRole("ADMIN")
 			.antMatchers(HttpMethod.GET, "/user/meus-eventos/delete").authenticated()
 			.antMatchers(HttpMethod.GET, "/deletarParticipante").hasAnyRole("ADMIN","POWER_USER","STANDARD_USER")
 			.antMatchers(HttpMethod.GET, "/deletarParticipantePageParticipantes").authenticated()
