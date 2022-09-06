@@ -6,9 +6,11 @@
 
 </head>	
 <body>	
-<div class="alert alert-success alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
-	
+<div class="alert alert-success alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}">	
 	<span th:text="${mensagem}"></span>
+</div>
+<div class="alert alert-danger alert-dismissible" th:if="${not #strings.isEmpty(mensagemErro)}">
+	<span th:text="${mensagemErro}"></span>
 </div>
 </body>						
 </html>
