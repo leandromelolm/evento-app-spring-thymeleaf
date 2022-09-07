@@ -28,9 +28,10 @@
 								<input name="nomepesquisa" id="nomepesquisa" th:value="${nomepesquisa}" minlength="3">
 							</div>
 							<div class="input-field col col-4">
-								<label for="filtroStatus" class="active">Filtrar Status</label>
+								<label for="filtroStatus" class="active">Filtrar status:</label>
 								<select class="browser-default" name="filtroStatus" id="filtroStatus">
-									<option th:text="${filtroStatus}">Todos</option>
+									<option th:text="${filtroStatus} == '' ? 'Todos' : |${filtroStatus}|"></option>
+									<option th:text="---" disabled />
 									<option value="" th:text="Todos"/>
 									<option value="Aberto" th:text="Aberto"/>
 									<option value="Pausado" th:text="Pausado"/>

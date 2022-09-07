@@ -128,11 +128,12 @@ public class EventoController {
 		ModelAndView mv = new ModelAndView("listaEventos-paginated");
 
 		Page<Evento> listaEvento = null;
-		if(!eventoStatus.isEmpty()){
+		if(!eventoStatus.isEmpty() || !eventoStatus.equals("Todos")){
 			listaEvento = eventoService.searchEventoAndStatusPaginated(nome, eventoService.retornaStatusEventoInt(eventoStatus), page, 5, "data", "ASC");
 		}
-		if(eventoStatus.isEmpty()){
+		if(eventoStatus.isEmpty() || eventoStatus.equals("Todos")){
 			listaEvento = eventoService.searchEventoPaginated(nome, page, 5, "data", "ASC");
+			//eventoStatus = "Todos";
 		}	
 		Page<EventoListPagDTO> listDto = listaEvento.map(obj -> new EventoListPagDTO(obj));
 		mv.addObject("eventosPaginado", listDto);
@@ -146,16 +147,17 @@ public class EventoController {
 			@RequestParam("filtroStatus") String eventoStatus) {
 
 		Page<Evento> listaEvento = null;
-		if(!eventoStatus.isEmpty()){
+		if(!eventoStatus.isEmpty() || !eventoStatus.equals("Todos")){
 			listaEvento = eventoService.searchEventoAndStatusPaginated(nomepesquisa, eventoService.retornaStatusEventoInt(eventoStatus), 0, 5, "data", "ASC");
 		}
-		if(eventoStatus.isEmpty()){
+		if(eventoStatus.isEmpty() || eventoStatus.equals("Todos")){
 			listaEvento = eventoService.searchEventoPaginated(nomepesquisa, 0, 5, "data", "ASC");
+			//eventoStatus = "Todos";
 		}		
 		
 		Page<EventoListPagDTO> listDto = listaEvento.map(obj -> new EventoListPagDTO(obj));
 
-		ModelAndView modelAndView = new ModelAndView("listaEventos-paginated");
+		ModelAndView modelAndView = new ModelAndView("listaEventos-paginated");		
 		modelAndView.addObject("eventosPaginado", listDto);
 		modelAndView.addObject("nomepesquisa", nomepesquisa);
 		modelAndView.addObject("filtroStatus", eventoStatus);		
