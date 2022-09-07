@@ -117,9 +117,9 @@ public class EventoController {
 		// [GET] http://localhost:8081/eventos-json/?nome={String}&page={page}
 	}
 
-	@RequestMapping(value = "/eventos-paginado")
+	@GetMapping(value = "/eventos-paginado")
 	public ModelAndView listaEventosWithPagination(
-			@RequestParam(value = "nomepesquisa", defaultValue = "") String nome,
+			@RequestParam(value = "nomepesquisa", defaultValue = "") String nomePesquisado,
 			@RequestParam(value = "filtroStatus", defaultValue = "") String eventoStatus,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "5") Integer linesPerPage,
@@ -129,15 +129,14 @@ public class EventoController {
 
 		Page<Evento> listaEvento = null;
 		if(!eventoStatus.isEmpty() || !eventoStatus.equals("Todos")){
-			listaEvento = eventoService.searchEventoAndStatusPaginated(nome, eventoService.retornaStatusEventoInt(eventoStatus), page, 5, "data", "ASC");
+			listaEvento = eventoService.searchEventoAndStatusPaginated(nomePesquisado, eventoService.retornaStatusEventoInt(eventoStatus), page, linesPerPage, orderBy, direction);
 		}
 		if(eventoStatus.isEmpty() || eventoStatus.equals("Todos")){
-			listaEvento = eventoService.searchEventoPaginated(nome, page, 5, "data", "ASC");
-			//eventoStatus = "Todos";
+			listaEvento = eventoService.searchEventoPaginated(nomePesquisado, page, linesPerPage, orderBy, direction);
 		}	
 		Page<EventoListPagDTO> listDto = listaEvento.map(obj -> new EventoListPagDTO(obj));
 		mv.addObject("eventosPaginado", listDto);
-		mv.addObject("nomepesquisa", nome);
+		mv.addObject("nomepesquisa", nomePesquisado);
 		mv.addObject("filtroStatus", eventoStatus);
 		return mv;
 	}
@@ -154,9 +153,7 @@ public class EventoController {
 			listaEvento = eventoService.searchEventoPaginated(nomepesquisa, 0, 5, "data", "ASC");
 			//eventoStatus = "Todos";
 		}		
-		
 		Page<EventoListPagDTO> listDto = listaEvento.map(obj -> new EventoListPagDTO(obj));
-
 		ModelAndView modelAndView = new ModelAndView("listaEventos-paginated");		
 		modelAndView.addObject("eventosPaginado", listDto);
 		modelAndView.addObject("nomepesquisa", nomepesquisa);
