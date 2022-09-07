@@ -3,6 +3,8 @@ package com.eventoapp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,12 @@ public class EventoService {
             String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
         return eventoRepository.findByStatusAndNomeContainingIgnoreCase(status, nome, pageRequest);
+    }
+
+    public Page<Evento> getAllEventos(int page, int size ){
+        Sort sort = Sort.by("status").ascending().and(Sort.by("data").ascending());
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return this.eventoRepository.findAll(pageable);
     }
 
     public Integer retornaStatusEventoInt(String eventoStatus) {

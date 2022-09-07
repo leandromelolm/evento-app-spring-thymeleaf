@@ -41,6 +41,9 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 
 	@Transactional(readOnly = true)
 	Page<Evento> findByStatusAndNomeContainingIgnoreCase(Integer status, String nome, Pageable pageRequest);
+
+	@Transactional(readOnly = true)
+	Page<Evento> findAll(Pageable pageable);
 }
 
 
