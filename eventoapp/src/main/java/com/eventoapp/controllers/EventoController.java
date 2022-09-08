@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import com.eventoapp.service.EventoService;
-import com.eventoapp.service.UserService;
 import com.eventoapp.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;

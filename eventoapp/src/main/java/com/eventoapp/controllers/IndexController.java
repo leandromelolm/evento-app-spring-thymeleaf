@@ -1,7 +1,5 @@
 package com.eventoapp.controllers;
 
-import java.util.List;
-
 import com.eventoapp.models.Usuario;
 import com.eventoapp.repository.UsuarioRepository;
 import com.eventoapp.service.EventoService;
@@ -17,13 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.eventoapp.models.Evento;
-import com.eventoapp.repository.EventoRepository;
 
 @Controller
 public class IndexController {
-	
-	@Autowired
-	private EventoRepository er;
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -74,7 +68,5 @@ public class IndexController {
 	public String loginError(Model model) {
 		model.addAttribute("loginError", true);
 		return "login.html";
-	}
-	
-	
+	}	
 }
