@@ -53,53 +53,59 @@
 
 		<div id="listaEVentos" class="table-responsive">
 			<h5>Lista de Eventos</h5>
-			<table class="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th sec:authorize="hasRole('ADMIN')">Código</th>
-						<th>Nome</th>
-						<th sec:authorize="hasRole('ADMIN')">Responsavel</th>
-						<th>Local</th>
-						<!--<th>Nº particip</th>-->
-						<th>Status</th>
-						<th>Nº de participantes</th>
-						<th>Data</th>
-						<th>Horario</th>
-						<th>Deletar</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="evento : ${eventosPaginado.content}">
-						<td sec:authorize="hasRole('ADMIN')"><span th:text="${evento.codigo}"></span></td>
-						<td>
-							<div th:if="${evento.status.descricao} eq 'Aberto'">
-								<!--<a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.nome}"></span></a>-->
-								<a th:href="@{/evento/{codigo}(codigo = ${evento.codigo})}"><span
-										th:text="${evento.nome}"></span></a>
-							</div>
-							<div th:unless="${evento.status.descricao} eq 'Aberto'">
-								<span th:text="${evento.nome}"></span>
-							</div>
-						</td>
-						<td sec:authorize="hasRole('ADMIN')"><span th:text="${evento.emailResponsavelEvento}"></span>
-						</td>
-						<td><span th:text="${evento.local}"></span></td>
-						<td><span th:text="${evento.status}"></span></td>
-						<td><span th:text="${evento.quantParticip}"></span></td>
-						<!-- <td class="center" ><span th:text="${evento.participantes.size()}"></span></td> -->
-
-						<td><span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span></td>
-						<td><span th:text="${evento.horario}"></span></td>
-						<td> <a class="waves-effect waves-light btn-small red"
-								th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"
-								onclick="return confirmarExcluirEvento()">
-								<i class="material-icons">delete_forever</i>
-							</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<div th:if="${eventosPaginado.totalElements} eq 0">
+				<span>Nenhum Evento Encontrado</span>
+			</div>
+			<div th:unless="${eventosPaginado.totalElements} eq 0">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th sec:authorize="hasRole('ADMIN')">Código</th>
+							<th>Nome</th>
+							<th sec:authorize="hasRole('ADMIN')">Responsavel</th>
+							<th>Local</th>
+							<!--<th>Nº particip</th>-->
+							<th>Status</th>
+							<th>Nº de participantes</th>
+							<th>Data</th>
+							<th>Horario</th>
+							<th>Deletar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="evento : ${eventosPaginado.content}">
+							<td sec:authorize="hasRole('ADMIN')"><span th:text="${evento.codigo}"></span></td>
+							<td>
+								<div th:if="${evento.status.descricao} eq 'Aberto'">
+									<!--<a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.nome}"></span></a>-->
+									<a th:href="@{/evento/{codigo}(codigo = ${evento.codigo})}"><span
+											th:text="${evento.nome}"></span></a>
+								</div>
+								<div th:unless="${evento.status.descricao} eq 'Aberto'">
+									<span th:text="${evento.nome}"></span>
+								</div>
+							</td>
+							<td sec:authorize="hasRole('ADMIN')"><span th:text="${evento.emailResponsavelEvento}"></span>
+							</td>
+							<td><span th:text="${evento.local}"></span></td>
+							<td><span th:text="${evento.status}"></span></td>
+							<td><span th:text="${evento.quantParticip}"></span></td>
+							<!-- <td class="center" ><span th:text="${evento.participantes.size()}"></span></td> -->
+	
+							<td><span th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}"></span></td>
+							<td><span th:text="${evento.horario}"></span></td>
+							<td> <a class="waves-effect waves-light btn-small red"
+									th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"
+									onclick="return confirmarExcluirEvento()">
+									<i class="material-icons">delete_forever</i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>				
+			</div>			
 		</div>
+
 		<div class="row" style="margin-top: 30px;">
 			<center>
 				<span th:if="${eventosPaginado.hasPrevious()}">
