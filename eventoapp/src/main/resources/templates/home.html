@@ -95,8 +95,9 @@
 			</span>
 			<th:block th:each="i: ${#numbers.sequence(0, eventos.totalPages - 1)}">
 				<span th:if="${eventos.number eq i}">
-					<span th:href="@{/home(page=${i}, size=${eventos.size})}">[[ ${i} +
-						1]]</span>
+					<span th:href="@{/home(page=${i}, size=${eventos.size})}">
+						[[ ${i} + 1]]
+					</span>
 				</span>
 				<span th:unless="${eventos.number eq i}">
 					<a th:href="@{/home(page=${i}, size=${eventos.size})}">

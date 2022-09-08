@@ -48,4 +48,5 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 
 
 // https://docs.spring.io/spring-data/jpa/docs/current/reference/html/ 
+// 5.1.3. Query Methods
 // Example 57. Query creation from method names

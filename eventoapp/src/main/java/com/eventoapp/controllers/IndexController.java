@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,11 +36,16 @@ public class IndexController {
 		return "infoDev";
 	}
 	
-	@RequestMapping("/")
-	public ModelAndView index() {
+	@RequestMapping(value="/", method = RequestMethod.GET)
+	public ModelAndView index(
+			@RequestParam(value = "status", defaultValue = "1") Integer status, // 1 = Aberto
+			@RequestParam(value = "nome", defaultValue = "") String nome,
+			@RequestParam(value = "page", defaultValue = "0")Integer page,
+			@RequestParam(value = "pageSize", defaultValue = "12") Integer size) {
 		ModelAndView mv = new ModelAndView("index");
-		List<Evento> listaEventosAberto = er.findAllEventosStatus(1); // 1 = status Aberto		
-		mv.addObject("eventos", listaEventosAberto);
+		Page<Evento> listaEventosPorStatus = eventoService.getAllEventosByStatus(status, nome, page, size);
+		mv.addObject("eventos", listaEventosPorStatus);
+		//http://localhost:8081/?page=0&pageSize=6
 		return mv;
 	}
 	

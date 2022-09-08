@@ -41,6 +41,12 @@ public class EventoService {
         return this.eventoRepository.findAll(pageable);
     }
 
+    public Page<Evento> getAllEventosByStatus(Integer status, String nome,  int page, int size){
+        Sort sort = Sort.by("data").ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return this.eventoRepository.findByStatusAndNomeContainingIgnoreCase(status, nome, pageable);
+    }
+
     public Integer retornaStatusEventoInt(String eventoStatus) {
         Integer intStatus = null;
         switch (eventoStatus.toLowerCase()) {
