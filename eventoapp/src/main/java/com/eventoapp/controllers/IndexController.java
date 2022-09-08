@@ -46,7 +46,7 @@ public class IndexController {
 	@RequestMapping("/home")
 	public ModelAndView home( 
 			@RequestParam(value = "page", defaultValue = "0")Integer page,
-			@RequestParam(value = "size", defaultValue = "6") Integer size) {
+			@RequestParam(value = "pageSize", defaultValue = "6") Integer size) {
 		ModelAndView mv = new ModelAndView("home");	
 		if(UserService.authenticated() != null){
 			Usuario usuarioLogado = usuarioRepository.findByEmail(UserService.authenticated().getUsername());

@@ -113,7 +113,7 @@ public class EventoController {
 		Page<EventoListPagDTO> listDto = listaEvento
 				.map(obj -> new EventoListPagDTO(obj, "parteNomeResponsavelEscondido"));
 		return ResponseEntity.ok().body(listDto);
-		// [GET] http://localhost:8081/eventos-json/?nome={String}&page={page}
+		// [GET] http://localhost:8081/eventos-json/?nome={String}&page=0&linesPerPage=2
 	}
 
 	@GetMapping(value = "/eventos-paginado")
@@ -121,17 +121,17 @@ public class EventoController {
 			@RequestParam(value = "nomepesquisa", defaultValue = "") String nomePesquisado,
 			@RequestParam(value = "filtroStatus", defaultValue = "") String eventoStatus,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
-			@RequestParam(value = "linesPerPage", defaultValue = "5") Integer linesPerPage,
+			@RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
 			@RequestParam(value = "orderBy", defaultValue = "data") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		ModelAndView mv = new ModelAndView("listaEventos-paginated");
 
 		Page<Evento> listaEvento = null;
 		if(!eventoStatus.isEmpty() || !eventoStatus.equals("Todos")){
-			listaEvento = eventoService.searchEventoAndStatusPaginated(nomePesquisado, eventoService.retornaStatusEventoInt(eventoStatus), page, linesPerPage, orderBy, direction);
+			listaEvento = eventoService.searchEventoAndStatusPaginated(nomePesquisado, eventoService.retornaStatusEventoInt(eventoStatus), page, pageSize, orderBy, direction);
 		}
 		if(eventoStatus.isEmpty() || eventoStatus.equals("Todos")){
-			listaEvento = eventoService.searchEventoPaginated(nomePesquisado, page, linesPerPage, orderBy, direction);
+			listaEvento = eventoService.searchEventoPaginated(nomePesquisado, page, pageSize, orderBy, direction);
 		}	
 		Page<EventoListPagDTO> listDto = listaEvento.map(obj -> new EventoListPagDTO(obj));
 		mv.addObject("eventosPaginado", listDto);
