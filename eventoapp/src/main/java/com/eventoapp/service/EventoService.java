@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.eventoapp.controllers.utils.URL;
 import com.eventoapp.models.Evento;
 import com.eventoapp.repository.EventoRepository;
 
@@ -25,14 +26,16 @@ public class EventoService {
 
     public Page<Evento> searchEventoPaginated(String nome, Integer page, Integer linesPerPage, String orderBy,
             String direction) {
+        String nomeDecoded = URL.decodeParam(nome);
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-        return eventoRepository.findByNomeContainingIgnoreCase(nome, pageRequest);
+        return eventoRepository.findByNomeContainingIgnoreCase(nomeDecoded, pageRequest);
     }
 
     public Page<Evento> searchEventoAndStatusPaginated(String nome, Integer status, Integer page, Integer linesPerPage,
             String orderBy, String direction) {
+        String nomeDecoded = URL.decodeParam(nome);
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-        return eventoRepository.findByStatusAndNomeContainingIgnoreCase(status, nome, pageRequest);
+        return eventoRepository.findByStatusAndNomeContainingIgnoreCase(status, nomeDecoded, pageRequest);
     }
 
     public Page<Evento> getAllEventos(int page, int size ){
@@ -42,9 +45,10 @@ public class EventoService {
     }
 
     public Page<Evento> getAllEventosByStatus(Integer status, String nome,  int page, int size){
+        String nomeDecoded = URL.decodeParam(nome);
         Sort sort = Sort.by("data").ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
-        return this.eventoRepository.findByStatusAndNomeContainingIgnoreCase(status, nome, pageable);
+        return this.eventoRepository.findByStatusAndNomeContainingIgnoreCase(status, nomeDecoded, pageable);
     }
 
     public Integer retornaStatusEventoInt(String eventoStatus) {
