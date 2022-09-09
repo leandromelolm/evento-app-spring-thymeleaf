@@ -55,7 +55,7 @@
 			</div>
 		</div>
 
-		<center>
+		<div style="text-align:center">
 			<span th:if="${eventos.hasPrevious()}">
 				<a th:href="@{/(page=${eventos.number-1}, pageSize=${eventos.size})}">
 					<i class="bi bi-arrow-left-circle-fill"></i>
@@ -64,17 +64,21 @@
 			</span>
 			<th:block th:each="i: ${#numbers.sequence(0, eventos.totalPages - 1)}">
 				<span th:if="${eventos.totalPages} &gt; 1">
-					<span th:if="${eventos.number eq i}">
-						<span style="font-weight: bold" th:href="@{/(page=${i}, pageSize=${eventos.size})}">
-							[[${i} + 1]]
+					<span th:unless="${eventos.number > i+10}">
+						<span th:unless="${eventos.number &lt; i-10}">
+							<span th:if="${eventos.number eq i}">
+								<span style="font-weight: bold" th:href="@{/(page=${i}, pageSize=${eventos.size})}">
+									[[${i} + 1]]
+								</span>
+							</span>				
+							<span th:unless="${eventos.number eq i}">
+								<a th:href="@{/(page=${i}, pageSize=${eventos.size})}">
+									<span th:unless="${i + 1  eq 0}">
+										[[${i} + 1]]
+									</span>
+								</a>
+							</span>						
 						</span>
-					</span>				
-					<span th:unless="${eventos.number eq i}">
-						<a th:href="@{/(page=${i}, pageSize=${eventos.size})}">
-							<span th:unless="${i + 1  eq 0}">
-								[[${i} + 1]]
-							</span>
-						</a>
 					</span>
 				</span>				
 			</th:block>
@@ -84,7 +88,7 @@
 					<i class="bi bi-arrow-right-circle-fill"></i>
 				</a>
 			</span>
-		</center>
+		</div>
 
 	</div>
 
