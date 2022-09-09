@@ -123,7 +123,7 @@
 				</span>
 			</div>
 			<div class="show" style="display: flex; justify-content: center;">
-				<div th:if="${eventos.totalPages > 0}" class="pagination"
+				<div th:if="${eventos.totalPages > 0}"
 					th:each="i: ${#numbers.sequence(0, eventos.totalPages - 1)}">
 					<span th:if="${eventos.number eq i}">
 						<span style="margin: 0px 5px 0px 5px">
