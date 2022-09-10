@@ -7,10 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.eventoapp.models.Evento;
 
+@Repository
 public interface EventoRepository extends JpaRepository<Evento, Long> {
 	
 	@Transactional(readOnly = true)
@@ -18,11 +20,11 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 	
 	@Transactional(readOnly = true)
 	@Query(value = "SELECT p FROM Evento p ORDER BY status ASC, data ASC")		
-	List<Evento> findAllEventos(); //home
+	List<Evento> findAllEventos();
 	
 	@Transactional(readOnly = true)
 	@Query(value = "SELECT e FROM Evento e WHERE e.status = :status ORDER BY data ASC")		
-	List<Evento> findAllEventosStatus(Integer status); //index
+	List<Evento> findAllEventosStatus(@Param("status")Integer status);
 	
 	@Transactional(readOnly = true)
 	@Query(value = "SELECT e FROM Evento e WHERE e.emailResponsavelEvento = :email")
