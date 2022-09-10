@@ -38,18 +38,18 @@ public class EventoService {
         return eventoRepository.findByStatusAndNomeContainingIgnoreCase(status, nomeDecoded, pageRequest);
     }
 
-    public Page<Evento> getAllEventos(int page, int size ){
-        Sort sort = Sort.by("status").ascending().and(Sort.by("data").ascending());
-        Pageable pageable = PageRequest.of(page, size, sort);
-        return this.eventoRepository.findAll(pageable);
-    }
-
     public Page<Evento> getAllEventosByStatus(Integer status, String nome,  int page, int size){
         String nomeDecoded = URL.decodeParam(nome);
         Sort sort = Sort.by("data").ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
         return this.eventoRepository.findByStatusAndNomeContainingIgnoreCase(status, nomeDecoded, pageable);
     }
+
+    public Page<Evento> getAllEventos(int page, int size ){
+        Sort sort = Sort.by("status").ascending().and(Sort.by("data").ascending());
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return this.eventoRepository.findAll(pageable);
+    }    
 
     public Integer retornaStatusEventoInt(String eventoStatus) {
         Integer intStatus = null;

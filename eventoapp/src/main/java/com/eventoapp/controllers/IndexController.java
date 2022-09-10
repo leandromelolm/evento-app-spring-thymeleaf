@@ -35,11 +35,14 @@ public class IndexController {
 			@RequestParam(value = "status", defaultValue = "1") Integer status, // 1 = Aberto
 			@RequestParam(value = "nome", defaultValue = "") String nome,
 			@RequestParam(value = "page", defaultValue = "0")Integer page,
-			@RequestParam(value = "pageSize", defaultValue = "12") Integer size) {
+			@RequestParam(value = "pageSize", defaultValue = "9") Integer size,
+			@RequestParam(value = "orderBy", defaultValue = "data") String orderBy,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		ModelAndView mv = new ModelAndView("index");
-		Page<Evento> listaEventosPorStatus = eventoService.getAllEventosByStatus(status, nome, page, size);
+		//Page<Evento> listaEventosPorStatus = eventoService.getAllEventosByStatus(status, nome, page, size);
+		Page<Evento> listaEventosPorStatus = eventoService.searchEventoAndStatusPaginated(nome, status, page, size, orderBy, direction);
 		mv.addObject("eventos", listaEventosPorStatus);
-		//http://localhost:8081/?page=0&pageSize=6
+		// http://localhost:8081/?status=2&nome=ev&page=0&pageSize=4&orderBy=nome&direction=DESC
 		return mv;
 	}
 	
