@@ -63,7 +63,7 @@ public class IndexController {
 	// SignIn form
 	@RequestMapping("/login")
 	public String login() {
-		return "login.html";
+		return "login";
 	}
 
 	// Login form with error
