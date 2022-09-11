@@ -18,12 +18,6 @@ public class EventoService {
     @Autowired
     private EventoRepository eventoRepository;
 
-    public Page<Evento> searchEventoPaginated2(String nome, Integer page, Integer linesPerPage, String orderBy,
-            String direction) {
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-        return eventoRepository.searchEventoPaginated(nome.toLowerCase(), pageRequest);
-    }
-
     public Page<Evento> searchEventoPaginated(String nome, Integer page, Integer linesPerPage, String orderBy,
             String direction) {
         String nomeDecoded = URL.decodeParam(nome);
@@ -49,7 +43,24 @@ public class EventoService {
         Sort sort = Sort.by("status").ascending().and(Sort.by("data").ascending());
         Pageable pageable = PageRequest.of(page, size, sort);
         return this.eventoRepository.findAll(pageable);
-    }    
+    }
+    
+    public Page<Evento> searchEventByName(
+            String nome,
+            Integer page,
+            Integer size,
+            String orderBy,
+            String direction,
+            String sort1,
+            String sort2) {
+        String nomeDecoded = URL.decodeParam(nome);
+        Pageable pageable = PageRequest.of(page, size, sortByStatusAndDate(sort1, sort2));
+        return  eventoRepository.findByNomeContainingIgnoreCase(nomeDecoded, pageable);
+    }
+
+    public Sort sortByStatusAndDate(String sort1, String sort2){
+        return Sort.by(sort1).ascending().and(Sort.by(sort2).ascending());
+    }
 
     public Integer retornaStatusEventoInt(String eventoStatus) {
         Integer intStatus = null;

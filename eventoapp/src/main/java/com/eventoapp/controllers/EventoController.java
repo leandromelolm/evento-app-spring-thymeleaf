@@ -123,7 +123,9 @@ public class EventoController {
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
 			@RequestParam(value = "orderBy", defaultValue = "data") String orderBy,
-			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
+			@RequestParam(value = "sort1", defaultValue = "status") String sort1,
+			@RequestParam(value = "sort2", defaultValue = "data") String sort2) {
 		ModelAndView mv = new ModelAndView("listaEventos-paginated");
 
 		Page<Evento> listaEvento = null;
@@ -132,7 +134,8 @@ public class EventoController {
 				nomePesquisado, eventoService.retornaStatusEventoInt(eventoStatus), page, pageSize, orderBy, direction);
 		}
 		if(eventoStatus.isEmpty() || eventoStatus.equals("Todos")){
-			listaEvento = eventoService.searchEventoPaginated(nomePesquisado, page, pageSize, orderBy, direction);
+			listaEvento = eventoService.searchEventByName(
+				nomePesquisado, page, pageSize, orderBy, direction, sort1, sort2);
 		}	
 		Page<EventoListPagDTO> listDto = listaEvento.map(obj -> new EventoListPagDTO(obj));
 		mv.addObject("eventosPaginado", listDto);
