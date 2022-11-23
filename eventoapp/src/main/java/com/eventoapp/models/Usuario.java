@@ -1,13 +1,20 @@
 package com.eventoapp.models;
 
 import java.time.Instant;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -67,6 +74,10 @@ public class Usuario implements UserDetails {
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "usuario")
 	private List<Evento> eventos = new ArrayList<>();
+	
+	@ElementCollection
+	@CollectionTable(name ="ultimos_acessos")
+	private List<String> ultimosLogins = new ArrayList<>();
 	
 	@Transient
 	private String senhaRepetida;
@@ -203,6 +214,12 @@ public class Usuario implements UserDetails {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+	public List<String> getUltimosAcessos() {
+		return ultimosLogins;
+	}
+	public void setUltimosAcessos(List<String> ultimosLogins) {
+		this.ultimosLogins = ultimosLogins;
 	}
 		
 }

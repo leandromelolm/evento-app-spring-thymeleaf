@@ -172,7 +172,14 @@ public class UsuarioController {
 		// Atualizar entrada no sistema
 		user.setUltimoAcesso(user.getAtualAcesso());		  
 		user.setAtualAcesso(new Date());
-		ur.updateAcessoAtualUsuario(user.getId(),user.getAtualAcesso(),user.getUltimoAcesso());		
+		ur.updateAcessoAtualUsuario(user.getId(),user.getAtualAcesso(),user.getUltimoAcesso());
+		System.out.println("remove: " + user.getUltimosAcessos());
+		if(user.getUltimosAcessos().size()>=5) {			
+			System.out.println("remove: " + user.getUltimosAcessos().remove(0));
+			System.out.println("size: " + user.getUltimosAcessos().size());
+		}
+		user.getUltimosAcessos().add(Instant.now().toString());
+		ur.save(user);
 		mv.addObject("usuario", user);
 		return mv;
 	}
