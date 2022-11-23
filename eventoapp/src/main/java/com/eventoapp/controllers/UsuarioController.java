@@ -173,13 +173,13 @@ public class UsuarioController {
 		user.setUltimoAcesso(user.getAtualAcesso());		  
 		user.setAtualAcesso(new Date());
 		ur.updateAcessoAtualUsuario(user.getId(),user.getAtualAcesso(),user.getUltimoAcesso());
-		System.out.println("remove: " + user.getUltimosAcessos());
-		if(user.getUltimosAcessos().size()>=5) {			
-			System.out.println("remove: " + user.getUltimosAcessos().remove(0));
-			System.out.println("size: " + user.getUltimosAcessos().size());
+		
+		if(user.getAccessesLast().size() > 4) {	// Se houve 5 registros, remover o indice 0 (mais antigo)		
+			user.getAccessesLast().remove(0);			
 		}
-		user.getUltimosAcessos().add(Instant.now().toString());
+		user.getAccessesLast().add(Instant.now().toString()); // adiciona novo regitro a lista	
 		ur.save(user);
+		
 		mv.addObject("usuario", user);
 		return mv;
 	}

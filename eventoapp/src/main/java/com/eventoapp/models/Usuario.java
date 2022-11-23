@@ -77,7 +77,7 @@ public class Usuario implements UserDetails {
 	
 	@ElementCollection
 	@CollectionTable(name ="ultimos_acessos")
-	private List<String> ultimosLogins = new ArrayList<>();
+	private List<String> accessesLast = new ArrayList<>();
 	
 	@Transient
 	private String senhaRepetida;
@@ -147,8 +147,14 @@ public class Usuario implements UserDetails {
 	}
 	public void setEnabledUser(boolean enabledUser) {
 		this.enabledUser = enabledUser;
+	}		
+
+	public List<String> getAccessesLast() {
+		return accessesLast;
 	}
-	
+	public void setAccessesLast(List<String> accessesLast) {
+		this.accessesLast = accessesLast;
+	}
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -214,12 +220,7 @@ public class Usuario implements UserDetails {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-	public List<String> getUltimosAcessos() {
-		return ultimosLogins;
-	}
-	public void setUltimosAcessos(List<String> ultimosLogins) {
-		this.ultimosLogins = ultimosLogins;
-	}
+	}	
+	
 		
 }
