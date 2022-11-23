@@ -1,11 +1,16 @@
 <!DOCTYPE HTML>
 <html lang=“pt-br”>
 <head>
-
-    <head th:replace="fragments :: html_head" />
+    <head th:replace="fragments :: html_head" />	
 </head>
 <body>
 	<div th:replace="fragments :: menu"/>
+
+	<script th:src="@{/jquery-3.6.0-dist/jquery-3.6.0.min.js}"></script>
+
+	<!--Aplicar mascara do atributo onkeypress-->
+	<script th:src="@{/jquery.mask/1.14.15/jquery.mask.min.js}"></script>
+
 	<div>	
 		<div class="row">
 			<div class="col s10 push-s1 m4 push-m4">
@@ -42,8 +47,12 @@
 							</div>
 							<div class="input-field col s12">
 								<!-- no navegador do smartphone o type text não funciona a mascara -->
-								<input type="tel" value="" name="cpf" th:field="*{cpf}" onkeypress="$(this).mask('000.000.000-00');"
-									pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" required="true" />
+								<input id="cpf" class="cpf" type="tel" value="" name="cpf" th:field="*{cpf}"									
+									placeholder="000.000.000-00"
+									pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" required="true"/>
+									<!-- onkeypress="$(this).mask('000.000.000-00');"/> -->
+									<!-- Outra alternativa é usar o atributo oninput que chama a função mascaraCPF e não usa o JQuery -->
+									<!--oninput="mascaraCPF(this)"-->									
 								<label>CPF</label>
 							</div>
 							<div class="input-field col s12">
@@ -51,7 +60,7 @@
 								<input type="password" id="password" name="senha" required=true />
 							</div>
 							<div class="input-field col s12">
-								<label for="password">repita a senha</label>
+								<label for="password">repetir senha</label>
 								<input type="password" id="passwordRepeat" name="senhaRepetida" required=true />
 							</div>
 				
@@ -74,13 +83,25 @@
 	</div>
 	
 	<!--JavaScript at end of body for optimized loading-->
-  	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
 	<script type="text/javascript" src="/js/main.js"></script>
 
-	<!--Aplicar mascara do atributo onkeypress-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+	<script type="text/javascript">
 
+		function mascaraCPF(i) {
+			var v = i.value;
+			console.log(v.length)
+			if (isNaN(v[v.length - 1])) { // impede entrar outro caractere que não seja número
+				i.value = v.substring(0, v.length - 1);
+				return;
+			}
+			i.setAttribute("maxlength", "14");
+			if (v.length == 3 || v.length == 7) i.value += ".";
+			if (v.length == 11) i.value += "-";
+		}		
+		
+		 $("#cpf").mask('000.000.000-00'); //aplicar a mascara no input sem precisar usar o atributo onkeypress
+	</script>
 </body>
 </html>
