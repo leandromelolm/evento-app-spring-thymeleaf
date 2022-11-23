@@ -5,6 +5,7 @@ import java.net.URLDecoder;
 import java.security.InvalidParameterException;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -174,10 +175,12 @@ public class UsuarioController {
 		user.setAtualAcesso(new Date());
 		ur.updateAcessoAtualUsuario(user.getId(),user.getAtualAcesso(),user.getUltimoAcesso());
 		
-		if(user.getAccessesLast().size() > 4) {	// Se houve 5 registros, remover o indice 0 (mais antigo)		
+		if(user.getAccessesLast().size() > 2) {	// Se houve 3 registros, remover o indice 0 (mais antigo)		
 			user.getAccessesLast().remove(0);			
 		}
-		user.getAccessesLast().add(Instant.now().toString()); // adiciona novo regitro a lista	
+		ZoneId timezone = ZoneId.of("America/Sao_Paulo");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu HH:mm:ss z");
+		user.getAccessesLast().add(formatter.format(Instant.now().atZone(timezone))); // adiciona novo regitro a lista	
 		ur.save(user);
 		
 		mv.addObject("usuario", user);
@@ -199,6 +202,8 @@ public class UsuarioController {
 		session.setAttribute("mySessionUsuarioAtivo", user.isEnabled());
 		session.setAttribute("mySessionId", user.getId());
 		session.setAttribute("ultimoAcesso", user.getUltimoAcesso());
+		session.setAttribute("accessesLast", user.getAccessesLast().toString().substring(1, user.getAccessesLast().toString().length() -1).replace("BRT", ""));
+		System.out.println("lista de acessos: "+ user.getAccessesLast().toString());
 		session.setAttribute("atualAcesso", user.getAtualAcesso());
 		
 		List<Evento> eventos = er.findEventosByEmail(user.getEmail());		
