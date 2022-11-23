@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import com.eventoapp.service.EventoService;
-import com.eventoapp.service.UserService;
 import com.eventoapp.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,7 +113,7 @@ public class EventoController {
 		Page<EventoListPagDTO> listDto = listaEvento
 				.map(obj -> new EventoListPagDTO(obj, "parteNomeResponsavelEscondido"));
 		return ResponseEntity.ok().body(listDto);
-		// [GET] http://localhost:8081/eventos-json/?nome={String}&page={page}
+		// [GET] http://localhost:8081/eventos-json/?nome={String}&page=0&linesPerPage=2
 	}
 
 	@GetMapping(value = "/eventos-paginado")
@@ -122,17 +121,21 @@ public class EventoController {
 			@RequestParam(value = "nomepesquisa", defaultValue = "") String nomePesquisado,
 			@RequestParam(value = "filtroStatus", defaultValue = "") String eventoStatus,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
-			@RequestParam(value = "linesPerPage", defaultValue = "5") Integer linesPerPage,
+			@RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
 			@RequestParam(value = "orderBy", defaultValue = "data") String orderBy,
-			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
+			@RequestParam(value = "sort1", defaultValue = "status") String sort1,
+			@RequestParam(value = "sort2", defaultValue = "data") String sort2) {
 		ModelAndView mv = new ModelAndView("listaEventos-paginated");
 
 		Page<Evento> listaEvento = null;
 		if(!eventoStatus.isEmpty() || !eventoStatus.equals("Todos")){
-			listaEvento = eventoService.searchEventoAndStatusPaginated(nomePesquisado, eventoService.retornaStatusEventoInt(eventoStatus), page, linesPerPage, orderBy, direction);
+			listaEvento = eventoService.searchEventoAndStatusPaginated(
+				nomePesquisado, eventoService.retornaStatusEventoInt(eventoStatus), page, pageSize, orderBy, direction);
 		}
 		if(eventoStatus.isEmpty() || eventoStatus.equals("Todos")){
-			listaEvento = eventoService.searchEventoPaginated(nomePesquisado, page, linesPerPage, orderBy, direction);
+			listaEvento = eventoService.searchEventByName(
+				nomePesquisado, page, pageSize, orderBy, direction, sort1, sort2);
 		}	
 		Page<EventoListPagDTO> listDto = listaEvento.map(obj -> new EventoListPagDTO(obj));
 		mv.addObject("eventosPaginado", listDto);
@@ -147,11 +150,11 @@ public class EventoController {
 
 		Page<Evento> listaEvento = null;
 		if(!eventoStatus.isEmpty() || !eventoStatus.equals("Todos")){
-			listaEvento = eventoService.searchEventoAndStatusPaginated(nomepesquisa, eventoService.retornaStatusEventoInt(eventoStatus), 0, 5, "data", "ASC");
+			listaEvento = eventoService.searchEventoAndStatusPaginated(
+				nomepesquisa, eventoService.retornaStatusEventoInt(eventoStatus), 0, 5, "data", "ASC");
 		}
 		if(eventoStatus.isEmpty() || eventoStatus.equals("Todos")){
 			listaEvento = eventoService.searchEventoPaginated(nomepesquisa, 0, 5, "data", "ASC");
-			//eventoStatus = "Todos";
 		}		
 		Page<EventoListPagDTO> listDto = listaEvento.map(obj -> new EventoListPagDTO(obj));
 		ModelAndView modelAndView = new ModelAndView("listaEventos-paginated");		
@@ -213,7 +216,8 @@ public class EventoController {
 		Evento evento = er.findByCodigo(codigo);
 		if (!usuarioService.usuarioLogado().getEmail().equals(evento.getEmailResponsavelEvento())) {
 			attributes.addFlashAttribute("mensagemErro",
-					"Não foi possível excluir o evento! Evento pertence a outro usuário!" + " Nome do evento: " + evento.getNome());
+					"Não foi possível excluir o evento! Evento pertence a outro usuário!" +
+					 " Nome do evento: " + evento.getNome());
 			return "redirect:/eventos-paginado";
 		}
 		attributes.addFlashAttribute("mensagem",
@@ -306,10 +310,8 @@ public class EventoController {
 	@GetMapping("/participantes")
 	public ModelAndView listarTodosParticipantes() {
 		ModelAndView mv = new ModelAndView("listaParticipantes");
-		// List<Participante> participantes =
-		// pr.findAllParticipantes(Sort.by("nomeParticipante"));
-		// List<Participante> participantes =
-		// pr.findAllParticipantes(Sort.by("idParticipante").descending());
+		// List<Participante> participantes = pr.findAllParticipantes(Sort.by("nomeParticipante"));
+		// List<Participante> participantes = pr.findAllParticipantes(Sort.by("idParticipante").descending());
 		List<Participante> participantes = pr.findAll();
 		List<ParticipanteDTO> listParticipantesDto = participantes.stream()
 				.map(obj -> new ParticipanteDTO(obj, 1)).collect(Collectors.toList());
@@ -335,9 +337,7 @@ public class EventoController {
 
 		participante.setEvento(evento);
 		LocalDateTime localDateTime = LocalDateTime.now();
-		participante.setDataCadastro(Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant())); // Conversão
-																											// LocalDateTime
-																											// para Date
+		participante.setDataCadastro(Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant())); // Conversão LocalDateTime para Date
 		pr.save(participante);
 
 		evento.setQuantParticip(evento.getQuantParticip() + 1);
@@ -362,7 +362,8 @@ public class EventoController {
 		er.save(evento);
 		pr.delete(participante);
 		attributes.addFlashAttribute("mensagem",
-				"Participante excluído com sucesso!" + " Id: " + participante.getIdParticipante() +", Nome: "+ participante.getNomeParticipante().substring(0, 3)+"***.");
+				"Participante excluído com sucesso!" + " Id: " + participante.getIdParticipante() +
+				", Nome: "+ participante.getNomeParticipante().substring(0, 3)+"***.");
 		return "redirect:/evento/" + Long.toString(evento.getCodigo());
 	}
 
@@ -372,7 +373,8 @@ public class EventoController {
 		Evento evento = participante.getEvento();
 		if (!usuarioService.usuarioLogado().getEmail().equals(evento.getEmailResponsavelEvento())) {
 			attributes.addFlashAttribute("mensagemErro",
-				"Erro! Não é permitido excluir um participante de um evento cadastrado por outro usuario! Id: " + participante.getIdParticipante()+".");
+				"Erro! Não é permitido excluir um participante de um evento cadastrado por outro usuario! Id: " +
+				 participante.getIdParticipante()+".");
 			return "redirect:/participantes";
 		}
 			

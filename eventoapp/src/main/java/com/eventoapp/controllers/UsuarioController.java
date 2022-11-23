@@ -130,7 +130,7 @@ public class UsuarioController {
 	public String minhaContaEditarUsuario(@PathVariable("id") long id, 
 			@Valid Usuario usuarioAlterado, BindingResult result, Model model, 
 			HttpSession session, RedirectAttributes attributes) {
-		ModelAndView mv = new ModelAndView("user/minha-conta-editar");
+		// ModelAndView mv = new ModelAndView("user/minha-conta-editar");
 		if (result.hasErrors()) {
 	    	usuarioAlterado.setId(id);
 	        return "user/minha-conta-editar";

@@ -13,22 +13,17 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>		
 	<name>eventoapp</name>	
-	<description>Demo project for Spring Boot</description>
+	<description>Projeto eventoapp</description>
 	
 	<properties>
-		<java.version>17</java.version> 
-		<!-- Nao foi possivel gerar o jar com a versao 17 do java, Mas executa normalmente com as IDEs (STS, VSCode e Intellij IDEA). Retorna o seguinte erro ao executar comando do maven para gerar o jar com versao 17: Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.10.1:compile (default-compile) on project eventoapp: Fatal error compiling: error: invalid target release: 17 -->
-		<!-- Usar java versao 11 para gerar o jar. -->
-		<!-- Comando para ser executado na raiz do projeto para gerar o jar com maven: mvn clean package spring-boot:repackage -->
-		<!-- <java.version>11</java.version> -->
+		<!-- <java.version>11</java.version>  -->
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -55,41 +50,31 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		
+		</dependency>		
 		<dependency>
-  			<groupId>org.springframework.boot</groupId>
-  			<artifactId>spring-boot-starter-validation</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>		
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.1.7.Final</version>
+			<!-- <version>7.0.4.Final</version> --> 
+			<!-- Versão 7.0.4.Final não retorna os erros no BindingResult usado nos controllers -->
 		</dependency>
-		
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
-    		<groupId>org.hibernate</groupId>
-    		<artifactId>hibernate-core</artifactId>
-    		<version>6.1.1.Final</version>
-    		<type>pom</type>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>6.1.1.Final</version>
+			<type>pom</type>
 		</dependency>		
-		
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
-<!-- 		Versão 7.0.4.Final não retorna erro com o BindingResult -->
-<!-- 		<dependency> --> 
-<!-- 			<groupId>org.hibernate</groupId> -->
-<!-- 			<artifactId>hibernate-validator</artifactId> -->
-<!-- 			<version>7.0.4.Final</version> -->
-<!-- 		</dependency> -->
-		
-		<dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>6.1.7.Final</version>
-        </dependency>	
-
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>1.1.0.Final</version>
-		</dependency>	
-				
+		</dependency>				
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -112,17 +97,15 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-    		<groupId>org.thymeleaf.extras</groupId>
-    		<artifactId>thymeleaf-extras-springsecurity5</artifactId>
-		</dependency>
-		
-		<!-- Bootstrap -->
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>		
+		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
 		<dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>5.2.0</version>
-    	</dependency>
-				
+		<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>5.2.0</version>
+		</dependency>				
 	</dependencies>
 
 	<build>

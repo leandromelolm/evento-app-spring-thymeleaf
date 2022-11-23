@@ -63,7 +63,7 @@
 				</div>
 
 				<div th:unless="${evento.status.descricao} eq 'Aberto'">
-					<div class="card" style="background:#C7C6C1">
+					<div class="card" style="background:#f0f0f0">
 						<div class="card-body" style="height:200px">
 							<h5 class="card-title"><b th:text="${evento.nome}"></b></h5>
 							<p id="local" class="card-text" th:text="${evento.local}"></p>
@@ -86,33 +86,91 @@
 			</div>
 		</div>
 
-		<center>
+		<div th:if="${eventos.totalPages} &gt; 1">
+			<div style="text-align:center">
+				<span th:if="${eventos.hasPrevious()}">
+					<a th:href="@{/home(page=${eventos.number-1}, pageSize=${eventos.size})}">
+						<i class="bi bi-arrow-left-circle-fill"></i>
+						Anterior
+					</a>
+				</span>
+				<span th:unless="${eventos.hasPrevious()}">
+					<a style="color: rgb(158, 159, 160);">
+						<i class="bi bi-arrow-left-circle-fill"></i>
+						Anterior
+					</a>
+				</span>
+				<th:block th:each="i: ${#numbers.sequence(0, eventos.totalPages - 1)}">
+					<span th:if="${eventos.number eq i}">
+						<a>
+							<span>
+								[[${i} + 1]] de [[${eventos.totalPages}]]
+							</span>
+						</a>
+					</span>
+				</th:block>
+				<span th:if="${eventos.hasNext()}">
+					<a th:href="@{/home(page=${eventos.number+1}, pageSize=${eventos.size})}">
+						Próximo
+						<i class="bi bi-arrow-right-circle-fill"></i>
+					</a>
+				</span>
+				<span th:unless="${eventos.hasNext()}">
+					<a style="color: rgb(158, 159, 160);">
+						Próximo
+						<i class="bi bi-arrow-right-circle-fill"></i>
+					</a>
+				</span>
+			</div>
+			<div class="show" style="display: flex; justify-content: center;">
+				<div th:if="${eventos.totalPages > 0}"
+					th:each="i: ${#numbers.sequence(0, eventos.totalPages - 1)}">
+					<span th:if="${eventos.number eq i}">
+						<span style="margin: 0px 5px 0px 5px">
+							[[${i} + 1]]
+						</span>
+					</span>
+					<span th:unless="${eventos.number eq i}">
+						<a style="margin: 0px 5px 0px 5px" th:href="@{/home(pageSize=${eventos.size}, page=${i})}"
+							th:text=${i+1}>
+						</a>
+					</span>
+		
+				</div>
+			</div>
+		</div>
+	</div>
+	
+<!--
+		<div style="text-align:center">
 			<span th:if="${eventos.hasPrevious()}">
-				<a th:href="@{/home(page=${eventos.number-1}, size=${eventos.size})}">
+				<a th:href="@{/home(page=${eventos.number-1}, pageSize=${eventos.size})}">
 					<i class="bi bi-arrow-left-circle-fill"></i>
 					Anterior
 				</a>
 			</span>
 			<th:block th:each="i: ${#numbers.sequence(0, eventos.totalPages - 1)}">
 				<span th:if="${eventos.number eq i}">
-					<span th:href="@{/home(page=${i}, size=${eventos.size})}">
-						[[ ${i} + 1]]
+					<span th:href="@{/home(page=${i}, pageSize=${eventos.size})}">
+						[[${i} + 1]]
 					</span>
 				</span>
 				<span th:unless="${eventos.number eq i}">
-					<a th:href="@{/home(page=${i}, size=${eventos.size})}">
-						<span th:unless="${i + 1  eq 0}">
-							[[ ${i} + 1 ]]
+					<a th:href="@{/home(page=${i}, pageSize=${eventos.size})}">						
+						<span>
+							[[${i} + 1]]
 						</span>
 					</a>
 				</span>
 			</th:block>
 			<span th:if="${eventos.hasNext()}">
-				<a th:href="@{/home(page=${eventos.number+1}, size=${eventos.size})}">Próximo
+				<a th:href="@{/home(page=${eventos.number+1}, pageSize=${eventos.size})}">
+					Próximo
 					<i class="bi bi-arrow-right-circle-fill"></i>
 				</a>
 			</span>
-		</center>
+		</div>
+-->
 
 	</div>
 </body>

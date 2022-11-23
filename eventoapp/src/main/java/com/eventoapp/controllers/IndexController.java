@@ -1,7 +1,5 @@
 package com.eventoapp.controllers;
 
-import java.util.List;
-
 import com.eventoapp.models.Usuario;
 import com.eventoapp.repository.UsuarioRepository;
 import com.eventoapp.service.EventoService;
@@ -17,13 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.eventoapp.models.Evento;
-import com.eventoapp.repository.EventoRepository;
 
 @Controller
 public class IndexController {
-	
-	@Autowired
-	private EventoRepository er;
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -41,18 +35,21 @@ public class IndexController {
 			@RequestParam(value = "status", defaultValue = "1") Integer status, // 1 = Aberto
 			@RequestParam(value = "nome", defaultValue = "") String nome,
 			@RequestParam(value = "page", defaultValue = "0")Integer page,
-			@RequestParam(value = "pageSize", defaultValue = "12") Integer size) {
+			@RequestParam(value = "pageSize", defaultValue = "9") Integer size,
+			@RequestParam(value = "orderBy", defaultValue = "data") String orderBy,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		ModelAndView mv = new ModelAndView("index");
-		Page<Evento> listaEventosPorStatus = eventoService.getAllEventosByStatus(status, nome, page, size);
+		//Page<Evento> listaEventosPorStatus = eventoService.getAllEventosByStatus(status, nome, page, size);
+		Page<Evento> listaEventosPorStatus = eventoService.searchEventoAndStatusPaginated(nome, status, page, size, orderBy, direction);
 		mv.addObject("eventos", listaEventosPorStatus);
-		//http://localhost:8081/?page=0&pageSize=6
+		// http://localhost:8081/?status=2&nome=ev&page=0&pageSize=4&orderBy=nome&direction=DESC
 		return mv;
 	}
 	
 	@RequestMapping("/home")
 	public ModelAndView home( 
 			@RequestParam(value = "page", defaultValue = "0")Integer page,
-			@RequestParam(value = "size", defaultValue = "6") Integer size) {
+			@RequestParam(value = "pageSize", defaultValue = "6") Integer size) {
 		ModelAndView mv = new ModelAndView("home");	
 		if(UserService.authenticated() != null){
 			Usuario usuarioLogado = usuarioRepository.findByEmail(UserService.authenticated().getUsername());
@@ -66,15 +63,13 @@ public class IndexController {
 	// SignIn form
 	@RequestMapping("/login")
 	public String login() {
-		return "login.html";
+		return "login";
 	}
 
 	// Login form with error
 	@RequestMapping("/login-error.html")
 	public String loginError(Model model) {
 		model.addAttribute("loginError", true);
-		return "login.html";
-	}
-	
-	
+		return "login";
+	}	
 }
