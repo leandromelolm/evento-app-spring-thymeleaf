@@ -41,19 +41,19 @@ INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
     VALUES (20109,'2023-05-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 2',3,0,1);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
-    VALUES (20110,'2023-06-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 3',0,0,1);
+    VALUES (20110,'2023-06-02T05:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 3',0,0,1);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
-    VALUES (20111,'2025-08-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 4',0,0,1);
+    VALUES (20111,'2025-08-02 07:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 4',0,0,1);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
-    VALUES (20112,'2025-08-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 5',0,0,2);
+    VALUES (20112,'2025-08-02 08:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 5',0,0,2);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
-    VALUES (20113,'2025-08-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 6',0,0,2);
+    VALUES (20113,'2025-08-02 09:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 6',0,0,2);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
-    VALUES (20114,'2025-08-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 7',0,0,2);
+    VALUES (20114,'2025-08-02 10:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 7',0,0,2);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
-    VALUES (20115,'2025-08-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 8',0,0,2);
+    VALUES (20115,'2025-08-02 13:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 8',0,0,2);
 INSERT INTO evento (codigo, data, email_responsavel_evento, horario, local, nome, quant_part, max_part, status) 
-    VALUES (20116,'2025-08-02 12:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 9',0,0,2);
+    VALUES (20116,'2025-08-02 00:00:00','usuario-avancado@email.com','12:18','Avenida com nome muito grande, bairro grande','Evento Teste 9',0,0,2);
 
 -- INSERIR RELAÇÃO USUARIO COM EVENTO
 INSERT INTO usuarios_eventos (usuario_email, evento_id) VALUES ('melo@email.com', 20101);
